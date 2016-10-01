@@ -19,7 +19,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = -1, antigoNumero= 0, val ;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao;
+    boolean verificarRepetidos = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,33 +50,64 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
     public void addValor(View view) {
-        String valTag = (String)view.getTag();
+        String valTag = (String) view.getTag();
         String edtString = edtResultado.getText().toString();
 
-        if(!"-1".equals(valTag))
+        // caso a tag da view seja -1, então tem que apagar um numero do edittext.
+        if (!"-1".equals(valTag))
             edtResultado.setText(edtResultado.getText().append(valTag));
-         else if(edtString.length() > 0)
-            edtResultado.setText(edtString.substring(0, edtString.length()-1));
+        else if (edtString.length() > 0) // se for um numero maior ou igual a zero, insira este numero no edittext.
+            edtResultado.setText(edtString.substring(0, edtString.length() - 1));
 
-        if(edtResultado.getText().toString().length() > 0)
+        // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
+        // calcular.
+        if (edtResultado.getText().toString().length() > 0)
             calcular();
     }
 
     public void calcular() {
+
+        // instanciando textview
         String padrao = (String) txtPadrao.getText();
         String alternar = (String) txtAlternar.getText();
-        val =  Integer.valueOf(padrao) * Integer.valueOf(alternar);
+        // descobrindo a resposta da multiplicacao.
+        resMultiplicacao = Integer.valueOf(padrao) * Integer.valueOf(alternar);
 
-        if (val == Integer.valueOf(edtResultado.getText().toString())){
 
-            while(novoNumero < 0 || novoNumero == antigoNumero)
-                novoNumero = random.nextInt() % 9;
+        verificarRepetidos = true;
+        // gerando um novo valor.
+        // verificando se o valor digitado é igual a resposta.
 
-            antigoNumero = novoNumero;
+        if (resMultiplicacao == Integer.valueOf(edtResultado.getText().toString())) {
+            while (verificarRepetidos || novoNumero < 0) {
+                // gerando novo numero
+                novoNumero = random.nextInt() % 11;
+                // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
+                // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
+                if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
+                    if (novoNumero != antigoNumero[1]) {
+                        if (novoNumero != antigoNumero[2]) {
+                            if (novoNumero != antigoNumero[3]) {
+                                if (novoNumero != antigoNumero[4]) {
+                                    for (int j = 4; j != 0; j--) { // deslocando os valores para esquerda do vetor.
+                                        antigoNumero[j] = antigoNumero[j - 1];
+                                    }
+                                    antigoNumero[0] = novoNumero;
+                                    // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
+                                    verificarRepetidos = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
+            // inserindo novoNumero no textView
             txtAlternar.setText(String.valueOf(novoNumero));
+            // limpando edittext.
             edtResultado.setText("");
-            txtPlacar.setText(String.valueOf( Integer.valueOf(txtPlacar.getText().toString()) + 1 ));
+            // somando um no placar.
+            txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
 
         }
 
