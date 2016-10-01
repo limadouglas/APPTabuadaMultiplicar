@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">AppTabuadaMultiplicar</string>
+    <string name="app_name">Tabuada de Multiplicação</string>
+    <string name="treinamento">Treinamento</string>
+    <string name="desafio">Desafio</string>
+    <string name="tabuada">Tabuada</string>
+    <string name="recordes">Recordes</string>
 </resources>

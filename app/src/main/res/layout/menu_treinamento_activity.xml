@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:tag="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="1" />
+
+    <Button
+        android:tag="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="2" />
+
+    <Button
+        android:tag="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="3" />
+
+    <Button
+        android:tag="4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="4" />
+
+    <Button
+        android:tag="5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="5" />
+
+    <Button
+        android:tag="6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="6" />
+
+    <Button
+        android:tag="7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="7" />
+
+    <Button
+        android:tag="8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="8" />
+
+    <Button
+        android:tag="9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="9" />
+
+    <Button
+        android:tag="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="abrirTreino"
+        android:text="10" />
+
+
+</LinearLayout>
