@@ -47,6 +47,12 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         txtPadrao.setText(valor);
         random = new Random();
 
+        // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
+        int multInicial=-1;
+        while(multInicial < 0)
+            multInicial = random.nextInt() % 11;
+        txtAlternar.setText(String.valueOf(multInicial));
+
     }
 
     public void addValor(View view) {
@@ -108,7 +114,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             edtResultado.setText("");
             // somando um no placar.
             txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
-
         }
 
     }
