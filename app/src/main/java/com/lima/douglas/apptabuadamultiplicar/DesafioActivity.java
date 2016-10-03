@@ -29,7 +29,7 @@ public class DesafioActivity extends AppCompatActivity {
     int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 40;
+    int contador = 5;
     int pontuacao = 0;
     String padrao;
     String alternar;
@@ -55,9 +55,10 @@ public class DesafioActivity extends AppCompatActivity {
         random = new Random();
         repository = new RecordesRepository(this);
 
+
         multInicial = -1;
 
-         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
+        //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         while (multInicial < 0)
             multInicial = random.nextInt() % 11;
         txtPadrao.setText(String.valueOf(multInicial));
@@ -107,7 +108,7 @@ public class DesafioActivity extends AppCompatActivity {
         // gerando um novo valor.
         while (verificarRepetidos || novoNumero < 1) {
             // gerando novo numero
-            novoNumero = random.nextInt(10)+1;
+            novoNumero = random.nextInt(10) + 1;
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
             // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
             if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
@@ -213,16 +214,14 @@ public class DesafioActivity extends AppCompatActivity {
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Jogar Novamente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 finish();
                 startActivity(getIntent());
-
             }
         });
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                finish();
+                retornarMenu();
             }
         });
 
@@ -235,6 +234,12 @@ public class DesafioActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    public void retornarMenu() {
+        i = new Intent(this, PrincipalActivity.class);
+        finish();
+        startActivity(i);
     }
 
 }
