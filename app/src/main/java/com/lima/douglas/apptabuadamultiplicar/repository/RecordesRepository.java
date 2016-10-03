@@ -12,14 +12,11 @@ import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Douglas on 02/10/2016.
- */
 
 public class RecordesRepository extends SQLiteOpenHelper {
 
     public String sql = "CREATE TABLE IF NOT EXISTS RECORDES (" +
-                        "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "PONTUACAO INTEGER NOT NULL);";
 
     public RecordesRepository(Context context) {
@@ -30,9 +27,6 @@ public class RecordesRepository extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL(sql);
 
-//        ContentValues values = new ContentValues();
-//        values.put("PONTUACAO", 50);
-//        bd.insert("RECORDES", null, values);
     }
 
     @Override
@@ -44,15 +38,10 @@ public class RecordesRepository extends SQLiteOpenHelper {
         List<RecordesEstrutura> listRecordes = new ArrayList<RecordesEstrutura>();
         SQLiteDatabase bd = getReadableDatabase();
 
-//        ContentValues values = new ContentValues();
-//        values.put("PONTUACAO", 90);
-//        bd.insert("RECORDES", null, values);
-
-
-        Cursor cursor = bd.query("RECORDES", null, null, null, null, null, null);
+        Cursor cursor = bd.query("RECORDES", null, null, null, null, null, "PONTUACAO DESC");
         while(cursor.moveToNext()) {
             estrutura = new RecordesEstrutura();
-            estrutura.setId(cursor.getInt(cursor.getColumnIndex("ID")));
+            estrutura.setId(cursor.getInt(cursor.getColumnIndex("_ID")));
             estrutura.setPontucacao(cursor.getInt(cursor.getColumnIndex("PONTUACAO")));
             listRecordes.add(estrutura);
         }

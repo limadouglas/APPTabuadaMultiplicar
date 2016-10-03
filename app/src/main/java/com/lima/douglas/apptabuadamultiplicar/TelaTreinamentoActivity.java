@@ -4,10 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -20,6 +26,9 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     Random random;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao;
     boolean verificarRepetidos = true;
+    AlertDialog dialogTabela;
+    ImageView imvTabela;
+    String valor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +41,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
         // recebendo intent com valor da multiplicação a ser feita.
         Intent i = getIntent();
-        String valor = i.getExtras().getString("valor");
+        valor = i.getExtras().getString("valor");
         // convervendo para integer a string recebid no intent.
         // Integer num = Integer.valueOf(valor);
 
@@ -41,14 +50,14 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
-
-
+        imvTabela = new ImageView(this);
+        dialogTabela = new AlertDialog.Builder(this).create();
         txtPadrao.setText(valor);
         random = new Random();
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        int multInicial=-1;
-        while(multInicial < 0)
+        int multInicial = -1;
+        while (multInicial < 0)
             multInicial = random.nextInt() % 11;
         txtAlternar.setText(String.valueOf(multInicial));
 
@@ -117,4 +126,54 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (valor) {
+            case "1":
+                imvTabela.setBackgroundResource(R.drawable.um);
+                break;
+            case "2":
+                imvTabela.setBackgroundResource(R.drawable.dois);
+                break;
+            case "3":
+                imvTabela.setBackgroundResource(R.drawable.tres);
+                break;
+            case "4":
+                imvTabela.setBackgroundResource(R.drawable.quatro);
+                break;
+            case "5":
+                imvTabela.setBackgroundResource(R.drawable.cinco);
+                break;
+            case "6":
+                imvTabela.setBackgroundResource(R.drawable.seis);
+                break;
+            case "7":
+                imvTabela.setBackgroundResource(R.drawable.sete);
+                break;
+            case "8":
+                imvTabela.setBackgroundResource(R.drawable.oito);
+                break;
+            case "9":
+                imvTabela.setBackgroundResource(R.drawable.nove);
+                break;
+            case "10":
+                imvTabela.setBackgroundResource(R.drawable.dez);
+                break;
+
+
+        }
+
+        dialogTabela.setView(imvTabela);
+        dialogTabela.show();
+
+        return true;
+    }
 }

@@ -36,15 +36,22 @@ public class RecordesActivity extends AppCompatActivity {
         lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
 
         List<RecordesEstrutura> recordes = new ArrayList<RecordesEstrutura>();
+        // recebendo valores do banco de dados..
         recordes = repository.getRecordes();
 
+        // criando arraylist.
         ArrayList<Integer> arrayPontuacao = new ArrayList<Integer>();
 
+        // inserindo valores da list<integer> no arraylist.
         for(RecordesEstrutura recordesEstrutura: recordes) {
             arrayPontuacao.add(recordesEstrutura.getPontucacao());
         }
 
+        // criando array adapter.
         ArrayAdapter<Integer> adapterPontuacao = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacao);
+        // inserindo ArrayAdapter no listview
         lstPontuacao.setAdapter(adapterPontuacao);
+        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
+        lstPontuacao.setEnabled(false);
     }
 }

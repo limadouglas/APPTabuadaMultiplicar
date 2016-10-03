@@ -1,12 +1,21 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+
 import java.util.Random;
 
 
@@ -20,9 +29,15 @@ public class DesafioActivity extends AppCompatActivity {
     int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao;
     boolean verificarRepetidos = true;
     int multInicial;
-
+    int contador = 40;
+    int pontuacao = 0;
     String padrao;
     String alternar;
+    AlertDialog dialog;
+    Intent i;
+    RecordesRepository repository;
+    SQLiteDatabase bd;
+    ContentValues values;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,19 +53,22 @@ public class DesafioActivity extends AppCompatActivity {
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
         random = new Random();
+        repository = new RecordesRepository(this);
 
-        multInicial=-1;
+        multInicial = -1;
 
-        // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        while(multInicial < 0)
+         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
+        while (multInicial < 0)
             multInicial = random.nextInt() % 11;
         txtPadrao.setText(String.valueOf(multInicial));
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        multInicial=-1;
-        while(multInicial < 0)
+        multInicial = -1;
+        while (multInicial < 0)
             multInicial = random.nextInt() % 11;
         txtAlternar.setText(String.valueOf(multInicial));
+
+        contagem();
     }
 
     public void addValor(View view) {
@@ -85,11 +103,11 @@ public class DesafioActivity extends AppCompatActivity {
     public void calcularPadrao() {
 
         verificarRepetidos = true;
-        // gerando um novo valor.
 
-        while (verificarRepetidos || novoNumero < 0) {
+        // gerando um novo valor.
+        while (verificarRepetidos || novoNumero < 1) {
             // gerando novo numero
-            novoNumero = random.nextInt() % 11;
+            novoNumero = random.nextInt(10)+1;
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
             // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
             if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
@@ -121,7 +139,7 @@ public class DesafioActivity extends AppCompatActivity {
 
         while (verificarRepetidos || novoNumero < 0) {
             // gerando novo numero
-            novoNumero = random.nextInt() % 11;
+            novoNumero = random.nextInt(11);
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
             // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
             if (novoNumero != antigoNumero2[0] && novoNumero >= 0) {
@@ -149,4 +167,74 @@ public class DesafioActivity extends AppCompatActivity {
         // somando um no placar.
         txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
     }
+
+    public void contagem() {
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                for (int i = contador; i >= 0 && !txtPlacar.getText().equals("25"); i--) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
+                    contador = i;
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        finalizarDesafio();
+                    }
+                });
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    public void finalizarDesafio() {
+        pontuacao = (Integer.valueOf(txtPlacar.getText().toString()) * 4) + (contador * 4);
+
+        bd = repository.getWritableDatabase();
+
+        values = new ContentValues();
+        values.put("PONTUACAO", pontuacao);
+        bd.insert("RECORDES", null, values);
+
+        dialog = new AlertDialog.Builder(this).create();
+        // necessario para que o usuario não clique fora do alert para sair.
+        dialog.setCancelable(false);
+        dialog.setTitle("Pontuação");
+        dialog.setMessage(String.valueOf(pontuacao));
+
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Jogar Novamente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                finish();
+                startActivity(getIntent());
+
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        // necessario para que o usuario não clique fora do alert para sair.
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 }
