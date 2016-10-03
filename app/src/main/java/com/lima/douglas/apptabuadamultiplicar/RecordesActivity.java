@@ -20,6 +20,7 @@ import java.util.List;
 public class RecordesActivity extends AppCompatActivity {
     RecordesRepository repository;
     ListView lstPontuacao;
+    int i=0;
 
 
     @Override

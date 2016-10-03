@@ -38,7 +38,8 @@ public class RecordesRepository extends SQLiteOpenHelper {
         List<RecordesEstrutura> listRecordes = new ArrayList<RecordesEstrutura>();
         SQLiteDatabase bd = getReadableDatabase();
 
-        Cursor cursor = bd.query("RECORDES", null, null, null, null, null, "PONTUACAO DESC");
+        Cursor cursor = bd.query("RECORDES", null, "PONTUACAO > ?", new String[]{"0"}, "PONTUACAO", null, "PONTUACAO DESC", "8");
+
         while(cursor.moveToNext()) {
             estrutura = new RecordesEstrutura();
             estrutura.setId(cursor.getInt(cursor.getColumnIndex("_ID")));
