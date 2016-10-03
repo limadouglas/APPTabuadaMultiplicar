@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,6 +41,8 @@ public class DesafioActivity extends AppCompatActivity {
     RecordesRepository repository;
     SQLiteDatabase bd;
     ContentValues values;
+    Thread thread;
+    boolean sairThread=false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class DesafioActivity extends AppCompatActivity {
         setContentView(R.layout.desafio_activity);
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.desafio);
 
         // instanciando view.
@@ -176,11 +182,15 @@ public class DesafioActivity extends AppCompatActivity {
             public void run() {
 
                 for (int i = contador; i >= 0 && !txtPlacar.getText().equals("25"); i--) {
+                    if(sairThread)
+                        return;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                     contador = i;
+                    if(sairThread)
+                        return;
                 }
 
                 runOnUiThread(new Runnable() {
@@ -192,7 +202,7 @@ public class DesafioActivity extends AppCompatActivity {
             }
         };
 
-        Thread thread = new Thread(runnable);
+        thread = new Thread(runnable);
         thread.start();
     }
 
@@ -240,6 +250,26 @@ public class DesafioActivity extends AppCompatActivity {
         i = new Intent(this, PrincipalActivity.class);
         finish();
         startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Id correspondente ao botão Up/Home da actionbar
+            case android.R.id.home:
+                sairThread = true;
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+        //nada acontece usando este
+        finish();
+        sairThread=true;
+        //nem este, continua saindo de todo o app e não para a tela anterior
+        super.onBackPressed();
     }
 
 }

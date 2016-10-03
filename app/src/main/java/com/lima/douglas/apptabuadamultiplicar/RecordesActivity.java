@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,6 +29,7 @@ public class RecordesActivity extends AppCompatActivity {
         // renomeando action bar.
         ActionBar actionBar =  getSupportActionBar();
         actionBar.setTitle(R.string.recordes);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //instanciando banco de dados.
         repository = new RecordesRepository(this);
@@ -53,5 +55,16 @@ public class RecordesActivity extends AppCompatActivity {
         lstPontuacao.setAdapter(adapterPontuacao);
         // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
         lstPontuacao.setEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Id correspondente ao botão Up/Home da actionbar
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
