@@ -234,7 +234,7 @@ public class DesafioActivity extends AppCompatActivity {
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                retornarMenu();
+                finish();
             }
         });
 

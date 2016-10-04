@@ -264,7 +264,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Sair", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                voltarActivity();
+                finish();
             }
         });
 
