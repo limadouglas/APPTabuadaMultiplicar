@@ -25,11 +25,11 @@ import java.util.Random;
 public class DesafioActivity extends AppCompatActivity {
 
     EditText edtResultado;
-    TextView txtPlacar;
+    TextView txtTime;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao;
+    int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar=0;
     boolean verificarRepetidos = true;
     int multInicial;
     int contador = 50;
@@ -57,7 +57,7 @@ public class DesafioActivity extends AppCompatActivity {
         edtResultado = (EditText) findViewById(R.id.edtResultado);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
+        txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
 
@@ -140,6 +140,8 @@ public class DesafioActivity extends AppCompatActivity {
         txtPadrao.setText(String.valueOf(novoNumero));
     }
 
+
+
     public void calcularAlterar() {
 
         verificarRepetidos = true;
@@ -172,9 +174,11 @@ public class DesafioActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(novoNumero));
         // limpando edittext.
         edtResultado.setText("");
-        // somando um no placar.
-        txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
+        // somando um no placar
+        placar++;
     }
+
+
 
     public void contagem() {
 
@@ -182,7 +186,15 @@ public class DesafioActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                for (int i = contador; i >= 0 && !txtPlacar.getText().equals("25"); i--) {
+                for (int i = contador; i >= 0; i--) {
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            txtTime.setText(String.valueOf(contador));
+                        }
+                    });
+
                     if (sairThread)
                         return;
                     try {
@@ -210,7 +222,7 @@ public class DesafioActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
-        pontuacao = (Integer.valueOf(txtPlacar.getText().toString()) * 4) + (contador * 4);
+        pontuacao = (placar * 4) + (contador * 4);
 
         bd = repository.getWritableDatabase();
 
@@ -255,6 +267,8 @@ public class DesafioActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -271,7 +285,7 @@ public class DesafioActivity extends AppCompatActivity {
         //nada acontece usando este
         finish();
         sairThread = true;
-        //nem este, continua saindo de todo o app e não para a tela anterior
+        //nem este, continua saindo de todoo o app e não para a tela anterior.
         super.onBackPressed();
     }
 

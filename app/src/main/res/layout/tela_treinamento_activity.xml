@@ -64,6 +64,8 @@
         <EditText
             android:id="@+id/edtResultado"
             android:layout_width="270dp"
+            android:textSize="30sp"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:enabled="false" />
 
@@ -71,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="addValor"
+            android:textSize="30sp"
             android:tag="-1"
             android:text=" C " />
 
