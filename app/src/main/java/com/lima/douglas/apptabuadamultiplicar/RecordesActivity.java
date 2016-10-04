@@ -32,7 +32,7 @@ public class RecordesActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.recordes);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //instanciando banco de dados.
+        // instanciando banco de dados.
         repository = new RecordesRepository(this);
 
         // instanciando listview

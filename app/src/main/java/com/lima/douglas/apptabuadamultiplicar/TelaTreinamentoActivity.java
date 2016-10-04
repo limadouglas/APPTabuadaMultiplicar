@@ -1,5 +1,6 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,11 +25,16 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao, contador;
     boolean verificarRepetidos = true;
     AlertDialog dialogTabela;
     ImageView imvTabela;
     String valor;
+    AlertDialog alertDialog;
+    Intent iAtualizar;
+    Intent iVoltar;
+    Thread thread;
+    boolean sairThread = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,14 +60,22 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         dialogTabela = new AlertDialog.Builder(this).create();
         txtPadrao.setText(valor);
         random = new Random();
+        alertDialog = new AlertDialog.Builder(this).create();
+        iAtualizar = new Intent(this, TelaTreinamentoActivity.class);
+        iVoltar = new Intent(this, MenuTreinamentoActivity.class);
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         int multInicial = -1;
         while (multInicial < 0)
             multInicial = random.nextInt() % 11;
+
+        antigoNumero[0]= novoNumero;
         txtAlternar.setText(String.valueOf(multInicial));
 
+        contagem();
     }
+
+
 
     public void addValor(View view) {
         String valTag = (String) view.getTag();
@@ -79,6 +93,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             calcular();
     }
 
+
+
     public void calcular() {
 
         // instanciando textview
@@ -95,7 +111,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         if (resMultiplicacao == Integer.valueOf(edtResultado.getText().toString())) {
             while (verificarRepetidos || novoNumero < 0) {
                 // gerando novo numero
-                novoNumero = random.nextInt() % 11;
+                novoNumero = random.nextInt(11);// gera numeros de 0 a 10
                 // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
                 // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
                 if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
@@ -124,7 +140,13 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
         }
 
+        if (txtPlacar.getText().toString().equals("16")) {
+            mensFimTreinamento();
+        }
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,4 +198,101 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
         return true;
     }
+
+
+
+    public void contagem() {
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                for (contador = 0; contador != 80 && !txtPlacar.getText().toString().equals(16); contador++) {
+                    if(sairThread)
+                        return;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                    }
+                    if(sairThread)
+                        return;
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mensFimTreinamento();
+                    }
+                });
+            }
+
+
+        };
+
+        thread = new Thread(runnable);
+        thread.start();
+    }
+
+
+
+    public void mensFimTreinamento() {
+
+        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setMessage("ok");
+        // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
+        if(contador < 15){
+            alertDialog.setTitle("Excelente");
+        } else if(contador < 20) {
+            alertDialog.setTitle("Ótimo");
+        } else if(contador < 30) {
+            alertDialog.setTitle("Bom");
+        } else if(contador < 50) {
+            alertDialog.setTitle("Nada Mal");
+        } else if(contador < 81) {
+            alertDialog.setTitle("Continue Treinando!");
+        }
+
+        alertDialog.setCancelable(false);
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Sair", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                voltarActivity();
+            }
+        });
+
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+    }
+
+
+
+    public void voltarActivity() {
+        finish();
+        sairThread=true;
+        startActivity(iVoltar);
+    }
+
+    public void onBackPressed() {
+        // finalizando activity e cancelando thread.
+        finish();
+        sairThread=true;
+        super.onBackPressed();
+    }
+
+
 }

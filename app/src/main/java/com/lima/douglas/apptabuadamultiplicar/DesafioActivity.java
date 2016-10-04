@@ -32,7 +32,7 @@ public class DesafioActivity extends AppCompatActivity {
     int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 5;
+    int contador = 50;
     int pontuacao = 0;
     String padrao;
     String alternar;
@@ -42,7 +42,7 @@ public class DesafioActivity extends AppCompatActivity {
     SQLiteDatabase bd;
     ContentValues values;
     Thread thread;
-    boolean sairThread=false;
+    boolean sairThread = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,17 +62,18 @@ public class DesafioActivity extends AppCompatActivity {
         repository = new RecordesRepository(this);
 
 
-        multInicial = -1;
-
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        while (multInicial < 0)
-            multInicial = random.nextInt() % 11;
+        do {
+            multInicial = random.nextInt(11);
+        }while (multInicial < 0);
+        antigoNumero[0] = multInicial;
         txtPadrao.setText(String.valueOf(multInicial));
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        multInicial = -1;
-        while (multInicial < 0)
-            multInicial = random.nextInt() % 11;
+        do {
+            multInicial = random.nextInt(11);
+        }while (multInicial < 0);
+        antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
         contagem();
@@ -182,14 +183,14 @@ public class DesafioActivity extends AppCompatActivity {
             public void run() {
 
                 for (int i = contador; i >= 0 && !txtPlacar.getText().equals("25"); i--) {
-                    if(sairThread)
+                    if (sairThread)
                         return;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                     contador = i;
-                    if(sairThread)
+                    if (sairThread)
                         return;
                 }
 
@@ -206,6 +207,8 @@ public class DesafioActivity extends AppCompatActivity {
         thread.start();
     }
 
+
+
     public void finalizarDesafio() {
         pontuacao = (Integer.valueOf(txtPlacar.getText().toString()) * 4) + (contador * 4);
 
@@ -221,7 +224,7 @@ public class DesafioActivity extends AppCompatActivity {
         dialog.setTitle("Pontuação");
         dialog.setMessage(String.valueOf(pontuacao));
 
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Jogar Novamente", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -267,7 +270,7 @@ public class DesafioActivity extends AppCompatActivity {
     public void onBackPressed() {
         //nada acontece usando este
         finish();
-        sairThread=true;
+        sairThread = true;
         //nem este, continua saindo de todo o app e não para a tela anterior
         super.onBackPressed();
     }
