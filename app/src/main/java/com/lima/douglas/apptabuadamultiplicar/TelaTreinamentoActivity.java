@@ -3,6 +3,7 @@ package com.lima.douglas.apptabuadamultiplicar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -35,6 +36,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     Intent iVoltar;
     Thread thread;
     boolean sairThread = false;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,12 +71,11 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         while (multInicial < 0)
             multInicial = random.nextInt() % 11;
 
-        antigoNumero[0]= novoNumero;
+        antigoNumero[0] = novoNumero;
         txtAlternar.setText(String.valueOf(multInicial));
 
         contagem();
     }
-
 
 
     public void addValor(View view) {
@@ -92,7 +93,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         if (edtResultado.getText().toString().length() > 0)
             calcular();
     }
-
 
 
     public void calcular() {
@@ -147,7 +147,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -200,33 +199,28 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
     public void contagem() {
 
-        final Runnable runnable = new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                for (contador = 0; contador != 80 && !txtPlacar.getText().toString().equals(16); contador++) {
-                    if(sairThread)
-                        return;
+                for (contador = 0; contador != 80 && !txtPlacar.getText().toString().equals("16") && !sairThread; contador++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
-                    if(sairThread)
-                        return;
                 }
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mensFimTreinamento();
-                    }
-                });
+                if (!sairThread)
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mensFimTreinamento();
+                        }
+                    });
+
             }
-
-
         };
 
         thread = new Thread(runnable);
@@ -234,21 +228,20 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
     public void mensFimTreinamento() {
 
         alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setMessage("ok");
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
-        if(contador < 15){
+        if (contador < 15) {
             alertDialog.setTitle("Excelente");
-        } else if(contador < 20) {
+        } else if (contador < 20) {
             alertDialog.setTitle("Ótimo");
-        } else if(contador < 30) {
+        } else if (contador < 30) {
             alertDialog.setTitle("Bom");
-        } else if(contador < 50) {
+        } else if (contador < 50) {
             alertDialog.setTitle("Nada Mal");
-        } else if(contador < 81) {
+        } else if (contador < 81) {
             alertDialog.setTitle("Continue Treinando!");
         }
 
@@ -280,17 +273,10 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
-    public void voltarActivity() {
-        finish();
-        sairThread=true;
-        startActivity(iVoltar);
-    }
-
     public void onBackPressed() {
         // finalizando activity e cancelando thread.
         finish();
-        sairThread=true;
+        sairThread = true;
         super.onBackPressed();
     }
 

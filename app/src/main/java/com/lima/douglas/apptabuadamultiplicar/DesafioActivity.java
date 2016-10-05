@@ -5,9 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 
@@ -29,7 +27,7 @@ public class DesafioActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, getNovoNumero2 = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar=0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
     int contador = 50;
@@ -43,6 +41,7 @@ public class DesafioActivity extends AppCompatActivity {
     ContentValues values;
     Thread thread;
     boolean sairThread = false;
+    Handler handler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,19 +59,20 @@ public class DesafioActivity extends AppCompatActivity {
         txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
+        handler = new Handler();
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
             multInicial = random.nextInt(11);
-        }while (multInicial < 0);
+        } while (multInicial < 0);
         antigoNumero[0] = multInicial;
         txtPadrao.setText(String.valueOf(multInicial));
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
             multInicial = random.nextInt(11);
-        }while (multInicial < 0);
+        } while (multInicial < 0);
         antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
@@ -141,7 +141,6 @@ public class DesafioActivity extends AppCompatActivity {
     }
 
 
-
     public void calcularAlterar() {
 
         verificarRepetidos = true;
@@ -179,14 +178,13 @@ public class DesafioActivity extends AppCompatActivity {
     }
 
 
-
     public void contagem() {
 
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                for (int i = contador; i >= 0; i--) {
+                for (int i = contador; i >= 0 && !sairThread; i--) {
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -195,30 +193,26 @@ public class DesafioActivity extends AppCompatActivity {
                         }
                     });
 
-                    if (sairThread)
-                        return;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                     contador = i;
-                    if (sairThread)
-                        return;
                 }
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        finalizarDesafio();
-                    }
-                });
+                if (!sairThread)
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            finalizarDesafio();
+                        }
+                    });
             }
         };
 
         thread = new Thread(runnable);
         thread.start();
     }
-
 
 
     public void finalizarDesafio() {
@@ -268,7 +262,6 @@ public class DesafioActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -282,9 +275,9 @@ public class DesafioActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        //nada acontece usando este
-        finish();
+        // ativar finalizar thread.
         sairThread = true;
+        finish();
         //nem este, continua saindo de todoo o app e não para a tela anterior.
         super.onBackPressed();
     }
