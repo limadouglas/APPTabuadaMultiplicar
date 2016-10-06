@@ -64,8 +64,8 @@ public class DesafioMedioActivity extends AppCompatActivity {
         handler = new Handler();
         um = (Button) findViewById(R.id.btnUm);
         dois = (Button) findViewById(R.id.btnDois);
-        tres = (Button) findViewById(R.id.btnUm);
-        quatro = (Button) findViewById(R.id.btnDois);
+        tres = (Button) findViewById(R.id.btnTres);
+        quatro = (Button) findViewById(R.id.btnQuatro);
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -90,7 +90,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
     // gerando nova tag.
     public void gerarTagsBotao() {
 
-        arrayTag = random.nextInt(2);
+        arrayTag = random.nextInt(4);
         resultado = (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()));
 
 
@@ -134,9 +134,39 @@ public class DesafioMedioActivity extends AppCompatActivity {
         } else if(arrayTag == 2) {
             tres.setText(String.valueOf(resultado));
             tres.setTag(String.valueOf(resultado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == resultado);
+            um.setText(String.valueOf(resultadoErrado));
+            um.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            dois.setText(String.valueOf(resultadoErrado));
+            dois.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            quatro.setText(String.valueOf(resultadoErrado));
+            quatro.setTag(String.valueOf(resultadoErrado));
         } else if(arrayTag == 3) {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == resultado);
+            um.setText(String.valueOf(resultadoErrado));
+            um.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
+            dois.setText(String.valueOf(resultadoErrado));
+            dois.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
+            tres.setText(String.valueOf(resultadoErrado));
+            tres.setTag(String.valueOf(resultadoErrado));
         }
 
     }
