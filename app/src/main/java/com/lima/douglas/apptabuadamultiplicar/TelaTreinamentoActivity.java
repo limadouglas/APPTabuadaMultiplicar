@@ -35,7 +35,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     Intent iAtualizar;
     Intent iVoltar;
     Thread thread;
-    boolean sairThread = false;
+    boolean sairThread = false, sairPlacar = false;
     Handler handler = new Handler();
 
     @Override
@@ -46,6 +46,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.treinamento);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         // recebendo intent com valor da multiplicação a ser feita.
         Intent i = getIntent();
@@ -139,11 +140,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             // somando um no placar.
             txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
         }
-
-        if (txtPlacar.getText().toString().equals("16")) {
-            mensFimTreinamento();
-        }
-
+        if (txtPlacar.getText().toString().equals("16"))
+            sairPlacar = true;
     }
 
 
@@ -156,6 +154,14 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                sairThread = true;
+                finish();
+                break;
+        }
 
         switch (valor) {
             case "1":
@@ -205,20 +211,21 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                for (contador = 0; contador != 80 && !txtPlacar.getText().toString().equals("16") && !sairThread; contador++) {
+                for (contador = 0; contador != 100 && !sairPlacar && !sairThread; contador++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                 }
 
-                if (!sairThread)
+                if (!sairThread) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             mensFimTreinamento();
                         }
                     });
+                }
 
             }
         };

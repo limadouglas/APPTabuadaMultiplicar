@@ -30,7 +30,7 @@ public class DesafioActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 50;
+    int contador = 60;
     int pontuacao = 0;
     String padrao;
     String alternar;
@@ -140,7 +140,6 @@ public class DesafioActivity extends AppCompatActivity {
         txtPadrao.setText(String.valueOf(novoNumero));
     }
 
-
     public void calcularAlterar() {
 
         verificarRepetidos = true;
@@ -192,7 +191,6 @@ public class DesafioActivity extends AppCompatActivity {
                             txtTime.setText(String.valueOf(contador));
                         }
                     });
-
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
