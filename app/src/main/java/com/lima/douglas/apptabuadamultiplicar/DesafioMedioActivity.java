@@ -12,7 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
@@ -20,20 +20,18 @@ import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import java.util.Random;
 
 
-public class DesafioActivity extends AppCompatActivity {
+public class DesafioMedioActivity extends AppCompatActivity {
 
-    EditText edtResultado;
+    ActionBar actionBar;
     TextView txtTime;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar = 0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
     int contador = 60;
     int pontuacao = 0;
-    String padrao;
-    String alternar;
     AlertDialog dialog;
     Intent i;
     RecordesRepository repository;
@@ -42,29 +40,37 @@ public class DesafioActivity extends AppCompatActivity {
     Thread thread;
     boolean sairThread = false;
     Handler handler;
+    Button um;
+    Button dois;
+    Button tres;
+    Button quatro;
+    int arrayTag, resultado, resultadoErrado;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.desafio_activity);
-        // renomeando action bar.
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.desafio);
+        setContentView(R.layout.desafio_medio_activity);
 
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Desafio Médio");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         // instanciando view.
-        edtResultado = (EditText) findViewById(R.id.edtResultado);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
         txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
         handler = new Handler();
+        um = (Button) findViewById(R.id.btnUm);
+        dois = (Button) findViewById(R.id.btnDois);
+        tres = (Button) findViewById(R.id.btnUm);
+        quatro = (Button) findViewById(R.id.btnDois);
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
-            multInicial = random.nextInt(11);
+            multInicial = random.nextInt(6);
         } while (multInicial < 0);
         antigoNumero[0] = multInicial;
         txtPadrao.setText(String.valueOf(multInicial));
@@ -77,36 +83,75 @@ public class DesafioActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(multInicial));
 
         contagem();
+        gerarTagsBotao();
     }
 
-    public void addValor(View view) {
-        String valTag = (String) view.getTag();
-        String edtString = edtResultado.getText().toString();
 
-        // caso a tag da view seja -1, então tem que apagar um numero do edittext.
-        if (!"-1".equals(valTag))
-            edtResultado.setText(edtResultado.getText().append(valTag));
-        else if (edtString.length() > 0) // se for um numero maior ou igual a zero, insira este numero no edittext.
-            edtResultado.setText(edtString.substring(0, edtString.length() - 1));
+    // gerando nova tag.
+    public void gerarTagsBotao() {
 
-        // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
-        // calcular.
-        if (edtResultado.getText().toString().length() > 0) {
+        arrayTag = random.nextInt(2);
+        resultado = (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()));
 
-            // instanciando textview
-            padrao = (String) txtPadrao.getText();
-            alternar = (String) txtAlternar.getText();
-            // descobrindo a resposta da multiplicacao.
-            resMultiplicacao = Integer.valueOf(padrao) * Integer.valueOf(alternar);
 
-            // verificando se o valor digitado é igual a resposta.
-            if (resMultiplicacao == Integer.valueOf(edtResultado.getText().toString())) {
-                calcularPadrao();
-                calcularAlterar();
-            }
+        if (arrayTag == 0) {
+            um.setText(String.valueOf(resultado));
+            um.setTag(String.valueOf(resultado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == resultado);
+            dois.setText(String.valueOf(resultadoErrado));
+            dois.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
+            tres.setText(String.valueOf(resultadoErrado));
+            tres.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            quatro.setText(String.valueOf(resultadoErrado));
+            quatro.setTag(String.valueOf(resultadoErrado));
+        } else if (arrayTag == 1) {
+            dois.setText(String.valueOf(resultado));
+            dois.setTag(String.valueOf(resultado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == resultado);
+            um.setText(String.valueOf(resultadoErrado));
+            um.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
+            tres.setText(String.valueOf(resultadoErrado));
+            tres.setTag(String.valueOf(resultadoErrado));
+            do {
+                resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            quatro.setText(String.valueOf(resultadoErrado));
+            quatro.setTag(String.valueOf(resultadoErrado));
+
+        } else if(arrayTag == 2) {
+            tres.setText(String.valueOf(resultado));
+            tres.setTag(String.valueOf(resultado));
+        } else if(arrayTag == 3) {
+            quatro.setText(String.valueOf(resultado));
+            quatro.setTag(String.valueOf(resultado));
         }
 
     }
+
+
+    // verificando a tag do botão que o usuario criou.
+    public void respostaUsuario(View view) {
+
+        if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
+            calcularPadrao();
+            calcularAlterar();
+            gerarTagsBotao();
+        }
+    }
+
 
     public void calcularPadrao() {
 
@@ -135,10 +180,10 @@ public class DesafioActivity extends AppCompatActivity {
                 }
             }
         }
-
         // inserindo novoNumero no textView
         txtPadrao.setText(String.valueOf(novoNumero));
     }
+
 
     public void calcularAlterar() {
 
@@ -170,16 +215,15 @@ public class DesafioActivity extends AppCompatActivity {
 
         // inserindo novoNumero no textView
         txtAlternar.setText(String.valueOf(novoNumero));
-        // limpando edittext.
-        edtResultado.setText("");
-        // somando um no placar
+        // somando um ponto no placar.
         placar++;
     }
 
 
+
     public void contagem() {
 
-        final Runnable runnable = new Runnable() {
+        Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
@@ -253,25 +297,23 @@ public class DesafioActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void retornarMenu() {
-        i = new Intent(this, PrincipalActivity.class);
-        finish();
-        startActivity(i);
-    }
 
-
+    // verificando qual item foi selecionado na actionBar.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
-            // Id correspondente ao botão Up/Home da actionbar
             case android.R.id.home:
                 sairThread = true;
                 finish();
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+
+    // metodo sobrescreve o nativo do android.
     public void onBackPressed() {
         // ativar finalizar thread.
         sairThread = true;
@@ -279,5 +321,4 @@ public class DesafioActivity extends AppCompatActivity {
         //nem este, continua saindo de todoo o app e não para a tela anterior.
         super.onBackPressed();
     }
-
 }

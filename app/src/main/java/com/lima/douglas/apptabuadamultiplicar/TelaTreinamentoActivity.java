@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -37,6 +36,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
     Handler handler = new Handler();
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +80,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
+
+
     public void addValor(View view) {
         String valTag = (String) view.getTag();
         String edtString = edtResultado.getText().toString();
@@ -94,6 +97,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         if (edtResultado.getText().toString().length() > 0)
             calcular();
     }
+
 
 
     public void calcular() {
@@ -145,12 +149,15 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -195,7 +202,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
                 imvTabela.setBackgroundResource(R.drawable.dez);
                 break;
 
-
         }
 
         dialogTabela.setView(imvTabela);
@@ -203,6 +209,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
         return true;
     }
+
 
 
     public void contagem() {
@@ -233,6 +240,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         thread = new Thread(runnable);
         thread.start();
     }
+
 
 
     public void mensFimTreinamento() {
@@ -268,6 +276,8 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             }
         });
 
+
+
         alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
@@ -278,6 +288,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
+
 
 
     public void onBackPressed() {

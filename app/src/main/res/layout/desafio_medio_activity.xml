@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="0"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtPadrao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textSize="50sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  X  "
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/txtAlternar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textSize="50sp" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/btnUm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="respostaUsuario"
+                android:tag="1"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/btnDois"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="respostaUsuario"
+                android:tag="2"
+                android:text="2" />
+
+        </TableRow>
+        <TableRow>
+
+            <Button
+                android:id="@+id/btnTres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="respostaUsuario"
+                android:tag="3"
+                android:text="3" />
+
+            <Button
+                android:id="@+id/btnQuatro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="respostaUsuario"
+                android:tag="4"
+                android:text="4" />
+
+        </TableRow>
+
+    </TableLayout>
+</LinearLayout>

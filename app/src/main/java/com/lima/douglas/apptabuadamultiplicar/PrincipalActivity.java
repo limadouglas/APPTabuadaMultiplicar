@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+
 public class PrincipalActivity extends AppCompatActivity {
 
     Intent i;
@@ -24,7 +25,7 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
     public void desafio (View view) {
-        i = new Intent(this, DesafioActivity.class);
+        i = new Intent(this, NivelDesafioActivity.class);
         startActivity(i);
     }
 
