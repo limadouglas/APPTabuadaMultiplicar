@@ -218,7 +218,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                for (contador = 0; contador != 100 && !sairPlacar && !sairThread; contador++) {
+                for (contador = 0; contador != 120 && !sairPlacar && !sairThread; contador++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -246,17 +246,16 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     public void mensFimTreinamento() {
 
         alertDialog = new AlertDialog.Builder(this).create();
-        alertDialog.setMessage("ok");
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
-        if (contador < 15) {
+        if (contador < 25) {
             alertDialog.setTitle("Excelente");
-        } else if (contador < 20) {
+        } else if (contador < 35) {
             alertDialog.setTitle("Ótimo");
-        } else if (contador < 30) {
+        } else if (contador < 70) {
             alertDialog.setTitle("Bom");
-        } else if (contador < 50) {
+        } else if (contador < 90) {
             alertDialog.setTitle("Nada Mal");
-        } else if (contador < 81) {
+        } else if (contador < 121) {
             alertDialog.setTitle("Continue Treinando!");
         }
 
