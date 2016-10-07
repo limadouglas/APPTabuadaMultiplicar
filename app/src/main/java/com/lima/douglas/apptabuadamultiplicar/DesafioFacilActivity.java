@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +24,11 @@ import java.util.Random;
 
 public class DesafioFacilActivity extends AppCompatActivity {
     ActionBar actionBar;
-    TextView txtTime;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
-    boolean verificarRepetidos = true;
+    boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador = 60;
     int pontuacao = 0;
@@ -42,6 +43,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     Button um;
     Button dois;
     int arrayTag, resultado, resultadoErrado;
+    MenuItem menuItem;
 
 
     @Override
@@ -56,7 +58,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // instanciando view.
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
         handler = new Handler();
@@ -78,7 +79,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
-        contagem();
         gerarTagsBotao();
     }
 
@@ -109,10 +109,17 @@ public class DesafioFacilActivity extends AppCompatActivity {
     // verificando a tag do botão que o usuario criou.
     public void respostaUsuario(View view) {
 
+        if(ativarContador) {
+            contagem();
+            ativarContador = false;
+        }
+
         if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
             calcularPadrao();
             calcularAlterar();
             gerarTagsBotao();
+        } else {
+            contador -= 5;
         }
     }
 
@@ -145,6 +152,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // inserindo novoNumero no textView
         txtPadrao.setText(String.valueOf(novoNumero));
     }
+
 
 
     public void calcularAlterar() {
@@ -182,25 +190,25 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
+
     public void contagem() {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                for (int i = contador; i >= 0 && !sairThread; i--) {
+                for (; contador >= 0 && !sairThread; contador--) {
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txtTime.setText(String.valueOf(contador));
+                            menuItem.setTitle(String.valueOf(contador));
                         }
                     });
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
-                    contador = i;
                 }
 
                 if (!sairThread)
@@ -216,6 +224,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         thread = new Thread(runnable);
         thread.start();
     }
+
 
 
     public void finalizarDesafio() {
@@ -259,6 +268,17 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.time_dificil, menu);
+        menuItem = menu.findItem(R.id.itmTime);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     // verificando qual item foi selecionado na actionBar.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -282,5 +302,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         //nem este, continua saindo de todoo o app e não para a tela anterior.
         super.onBackPressed();
     }
+
 
 }

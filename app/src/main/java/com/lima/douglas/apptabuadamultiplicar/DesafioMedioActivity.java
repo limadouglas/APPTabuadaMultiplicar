@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +25,6 @@ import java.util.Random;
 public class DesafioMedioActivity extends AppCompatActivity {
 
     ActionBar actionBar;
-    TextView txtTime;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
@@ -38,13 +39,14 @@ public class DesafioMedioActivity extends AppCompatActivity {
     SQLiteDatabase bd;
     ContentValues values;
     Thread thread;
-    boolean sairThread = false;
+    boolean sairThread = false, ativarContador = true;
     Handler handler;
     Button um;
     Button dois;
     Button tres;
     Button quatro;
     int arrayTag, resultado, resultadoErrado;
+    MenuItem menuItem;
 
 
     @Override
@@ -58,7 +60,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
         // instanciando view.
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
         handler = new Handler();
@@ -82,9 +83,28 @@ public class DesafioMedioActivity extends AppCompatActivity {
         antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
-        contagem();
         gerarTagsBotao();
     }
+
+
+
+    // verificando a tag do botão que o usuario criou.
+    public void respostaUsuario(View view) {
+
+        if (ativarContador) {
+            contagem();
+            ativarContador = false;
+        }
+
+        if ( (Integer.valueOf(view.getTag().toString())) == ((Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString())))) {
+            calcularPadrao();
+            calcularAlterar();
+            gerarTagsBotao();
+        } else {
+            contador -= 5;
+        }
+    }
+
 
 
     // gerando nova tag.
@@ -104,12 +124,14 @@ public class DesafioMedioActivity extends AppCompatActivity {
             dois.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
             tres.setText(String.valueOf(resultadoErrado));
             tres.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
             quatro.setText(String.valueOf(resultadoErrado));
             quatro.setTag(String.valueOf(resultadoErrado));
         } else if (arrayTag == 1) {
@@ -122,16 +144,18 @@ public class DesafioMedioActivity extends AppCompatActivity {
             um.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()));
             tres.setText(String.valueOf(resultadoErrado));
             tres.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
             quatro.setText(String.valueOf(resultadoErrado));
             quatro.setTag(String.valueOf(resultadoErrado));
 
-        } else if(arrayTag == 2) {
+        } else if (arrayTag == 2) {
             tres.setText(String.valueOf(resultado));
             tres.setTag(String.valueOf(resultado));
             do {
@@ -141,15 +165,17 @@ public class DesafioMedioActivity extends AppCompatActivity {
             um.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
             dois.setText(String.valueOf(resultadoErrado));
             dois.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(tres.getText().toString()));
             quatro.setText(String.valueOf(resultadoErrado));
             quatro.setTag(String.valueOf(resultadoErrado));
-        } else if(arrayTag == 3) {
+        } else if (arrayTag == 3) {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
             do {
@@ -159,27 +185,18 @@ public class DesafioMedioActivity extends AppCompatActivity {
             um.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
             dois.setText(String.valueOf(resultadoErrado));
             dois.setTag(String.valueOf(resultadoErrado));
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
-            } while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
+            }
+            while (resultadoErrado < 0 || resultadoErrado == Integer.valueOf(um.getText().toString()) || resultadoErrado == Integer.valueOf(dois.getText().toString()) || resultadoErrado == Integer.valueOf(quatro.getText().toString()));
             tres.setText(String.valueOf(resultadoErrado));
             tres.setTag(String.valueOf(resultadoErrado));
         }
 
-    }
-
-
-    // verificando a tag do botão que o usuario criou.
-    public void respostaUsuario(View view) {
-
-        if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
-            calcularPadrao();
-            calcularAlterar();
-            gerarTagsBotao();
-        }
     }
 
 
@@ -250,26 +267,24 @@ public class DesafioMedioActivity extends AppCompatActivity {
     }
 
 
-
     public void contagem() {
 
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
 
-                for (int i = contador; i >= 0 && !sairThread; i--) {
+                for (; contador >= 0 && !sairThread; contador--) {
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txtTime.setText(String.valueOf(contador));
+                            menuItem.setTitle(String.valueOf(contador));
                         }
                     });
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
-                    contador = i;
                 }
 
                 if (!sairThread)
@@ -288,6 +303,11 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
+
+        // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
+        if(contador < 0)
+            contador=0;
+
         pontuacao = (placar * 4) + (contador * 4);
 
         bd = repository.getWritableDatabase();
@@ -350,5 +370,15 @@ public class DesafioMedioActivity extends AppCompatActivity {
         finish();
         //nem este, continua saindo de todoo o app e não para a tela anterior.
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.time_dificil, menu);
+        menuItem = menu.findItem(R.id.itmTime);
+
+        return super.onCreateOptionsMenu(menu);
     }
 }

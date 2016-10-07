@@ -1,5 +1,6 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
+import android.content.ClipData;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -22,8 +29,8 @@ import java.util.Random;
 
 public class DesafioDificilActivity extends AppCompatActivity {
 
-    EditText edtResultado;
-    TextView txtTime;
+
+    TextView txtResposta;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
@@ -40,8 +47,11 @@ public class DesafioDificilActivity extends AppCompatActivity {
     SQLiteDatabase bd;
     ContentValues values;
     Thread thread;
-    boolean sairThread = false;
+    boolean sairThread = false, ativarContador = true;
     Handler handler;
+    MenuInflater menuInflater;
+    MenuItem MenuItem;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,10 +64,9 @@ public class DesafioDificilActivity extends AppCompatActivity {
         actionBar.setTitle("Desafio Difícil");
 
         // instanciando view.
-        edtResultado = (EditText) findViewById(R.id.edtResultado);
+        txtResposta = (TextView) findViewById(R.id.txtResposta);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtTime = (TextView) findViewById(R.id.txtTime);
         random = new Random();
         repository = new RecordesRepository(this);
         handler = new Handler();
@@ -77,23 +86,32 @@ public class DesafioDificilActivity extends AppCompatActivity {
         antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
-        contagem();
+
     }
 
     // inserindo valor no textview.
     public void addValor(View view) {
+
+        // iniciando contador.
+        if (ativarContador) {
+            contagem();
+            ativarContador = false;
+        }
+
+
         String valTag = (String) view.getTag();
-        String edtString = edtResultado.getText().toString();
+        String edtString = txtResposta.getText().toString();
+
 
         // caso a tag da view seja -1, então tem que apagar um numero do edittext.
-        if (!"-1".equals(valTag))
-            edtResultado.setText(edtResultado.getText().append(valTag));
-        else if (edtString.length() > 0) // se for um numero maior ou igual a zero, insira este numero no edittext.
-            edtResultado.setText(edtString.substring(0, edtString.length() - 1));
+        if (!"-1".equals(valTag) && edtString.length() < 3)
+            txtResposta.setText(txtResposta.getText().toString() + valTag);
+        else if (edtString.length() > 0 && "-1".equals(valTag)) // se for um numero maior ou igual a zero, insira este numero no edittext.
+            txtResposta.setText(edtString.substring(0, edtString.length() - 1));
 
         // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
         // calcular.
-        if (edtResultado.getText().toString().length() > 0) {
+        if (txtResposta.getText().toString().length() > 0) {
 
             // instanciando textview
             padrao = (String) txtPadrao.getText();
@@ -102,7 +120,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
             resMultiplicacao = Integer.valueOf(padrao) * Integer.valueOf(alternar);
 
             // verificando se o valor digitado é igual a resposta.
-            if (resMultiplicacao == Integer.valueOf(edtResultado.getText().toString())) {
+            if (resMultiplicacao == Integer.valueOf(txtResposta.getText().toString())) {
                 calcularPadrao();
                 calcularAlterar();
             }
@@ -174,7 +192,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(novoNumero));
 
         // limpando edittext.
-        edtResultado.setText("");
+        txtResposta.setText("");
 
         // somando um no placar
         placar++;
@@ -192,7 +210,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            txtTime.setText(String.valueOf(contador));
+                            MenuItem.setTitle(String.valueOf(contador));
                         }
                     });
                     try {
@@ -284,4 +302,16 @@ public class DesafioDificilActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.time_dificil, menu);
+        // desabilitando o click.
+        menu.setGroupEnabled(0, false);
+        // pegando instancia do menu para poder alterar.
+        MenuItem = menu.findItem(R.id.itmTime);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 }

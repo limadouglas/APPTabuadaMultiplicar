@@ -20,13 +20,14 @@ import java.util.Random;
 
 public class TelaTreinamentoActivity extends AppCompatActivity {
 
-    EditText edtResultado;
+
+    TextView txtResposta;
     TextView txtPlacar;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao, contador;
-    boolean verificarRepetidos = true;
+    boolean verificarRepetidos = true, ativarContador = true;
     AlertDialog dialogTabela;
     ImageView imvTabela;
     String valor;
@@ -56,7 +57,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         // Integer num = Integer.valueOf(valor);
 
         // instanciando view.
-        edtResultado = (EditText) findViewById(R.id.edtResultado);
+        txtResposta = (TextView) findViewById(R.id.txtResposta);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
@@ -76,25 +77,30 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         antigoNumero[0] = novoNumero;
         txtAlternar.setText(String.valueOf(multInicial));
 
-        contagem();
     }
 
 
 
 
     public void addValor(View view) {
+
+        if(ativarContador) {
+            contagem();
+            ativarContador = false;
+        }
+
         String valTag = (String) view.getTag();
-        String edtString = edtResultado.getText().toString();
+        String edtString = txtResposta.getText().toString();
 
         // caso a tag da view seja -1, então tem que apagar um numero do edittext.
         if (!"-1".equals(valTag))
-            edtResultado.setText(edtResultado.getText().append(valTag));
-        else if (edtString.length() > 0) // se for um numero maior ou igual a zero, insira este numero no edittext.
-            edtResultado.setText(edtString.substring(0, edtString.length() - 1));
+            txtResposta.setText(txtResposta.getText().toString() + valTag);
+        else if (edtString.length() > 0 && "-1".equals(valTag)) // se for um numero maior ou igual a zero, insira este numero no edittext.
+            txtResposta.setText(edtString.substring(0, edtString.length() - 1));
 
         // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
         // calcular.
-        if (edtResultado.getText().toString().length() > 0)
+        if (txtResposta.getText().toString().length() > 0)
             calcular();
     }
 
@@ -113,7 +119,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         // gerando um novo valor.
         // verificando se o valor digitado é igual a resposta.
 
-        if (resMultiplicacao == Integer.valueOf(edtResultado.getText().toString())) {
+        if (resMultiplicacao == Integer.valueOf(txtResposta.getText().toString())) {
             while (verificarRepetidos || novoNumero < 0) {
                 // gerando novo numero
                 novoNumero = random.nextInt(11);// gera numeros de 0 a 10
@@ -140,7 +146,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             // inserindo novoNumero no textView
             txtAlternar.setText(String.valueOf(novoNumero));
             // limpando edittext.
-            edtResultado.setText("");
+            txtResposta.setText("");
             // somando um no placar.
             txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
         }
