@@ -19,7 +19,10 @@ import java.util.List;
 
 public class RecordesActivity extends AppCompatActivity {
     RecordesRepository repository;
-    ListView lstPontuacao;
+    ListView lstPontuacaoFacil;
+    ListView lstPontuacaoMedio;
+    ListView lstPontuacaoDificil;
+
     int i=0;
 
 
@@ -32,30 +35,75 @@ public class RecordesActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.recordes);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // instanciando listview
+        lstPontuacaoFacil = (ListView) findViewById(R.id.lstPontuacaoFacil);
+        lstPontuacaoMedio = (ListView) findViewById(R.id.lstPontuacaoMedio);
+        lstPontuacaoDificil = (ListView) findViewById(R.id.lstPontuacaoDificil);
+
+
+////////////////////////////////////////////////////////
+
         // instanciando banco de dados.
         repository = new RecordesRepository(this);
 
-        // instanciando listview
-        lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
-
         List<RecordesEstrutura> recordes = new ArrayList<RecordesEstrutura>();
         // recebendo valores do banco de dados..
-        recordes = repository.getRecordes();
+        recordes = repository.getRecordes("FACIL");
 
         // criando arraylist.
-        ArrayList<Integer> arrayPontuacao = new ArrayList<Integer>();
+        ArrayList<Integer> arrayPontuacaoFacil = new ArrayList<Integer>();
 
         // inserindo valores da list<integer> no arraylist.
         for(RecordesEstrutura recordesEstrutura: recordes) {
-            arrayPontuacao.add(recordesEstrutura.getPontucacao());
+            arrayPontuacaoFacil.add(recordesEstrutura.getPontucacao());
         }
 
         // criando array adapter.
-        ArrayAdapter<Integer> adapterPontuacao = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacao);
+        ArrayAdapter<Integer> adapterPontuacaoFacil = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoFacil);
         // inserindo ArrayAdapter no listview
-        lstPontuacao.setAdapter(adapterPontuacao);
+        lstPontuacaoFacil.setAdapter(adapterPontuacaoFacil);
         // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
-        lstPontuacao.setEnabled(false);
+        lstPontuacaoFacil.setEnabled(false);
+
+//////////////////////////////////////////////////////////////////
+
+        // recebendo valores do banco de dados..
+        recordes = repository.getRecordes("MEDIO");
+
+        // criando arraylist.
+        ArrayList<Integer> arrayPontuacaoMedio = new ArrayList<Integer>();
+
+        // inserindo valores da list<integer> no arraylist.
+        for(RecordesEstrutura recordesEstrutura: recordes) {
+            arrayPontuacaoMedio.add(recordesEstrutura.getPontucacao());
+        }
+
+        // criando array adapter.
+        ArrayAdapter<Integer> adapterPontuacaoMedio = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoMedio);
+        // inserindo ArrayAdapter no listview
+        lstPontuacaoMedio.setAdapter(adapterPontuacaoMedio);
+        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
+        lstPontuacaoMedio.setEnabled(false);
+
+/////////////////////////////////////////////////////////
+
+        // recebendo valores do banco de dados..
+        recordes = repository.getRecordes("DIFICIL");
+
+        // criando arraylist.
+        ArrayList<Integer> arrayPontuacaoDificil = new ArrayList<Integer>();
+
+        // inserindo valores da list<integer> no arraylist.
+        for(RecordesEstrutura recordesEstrutura: recordes) {
+            arrayPontuacaoDificil.add(recordesEstrutura.getPontucacao());
+        }
+
+        // criando array adapter.
+        ArrayAdapter<Integer> adapterPontuacaoDificil = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoDificil);
+        // inserindo ArrayAdapter no listview
+        lstPontuacaoDificil.setAdapter(adapterPontuacaoDificil);
+        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
+        lstPontuacaoDificil.setEnabled(false);
     }
 
     @Override

@@ -314,6 +314,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
         values = new ContentValues();
         values.put("PONTUACAO", pontuacao);
+        values.put("TIPORECORDE", "MEDIO");
         bd.insert("RECORDES", null, values);
 
         dialog = new AlertDialog.Builder(this).create();

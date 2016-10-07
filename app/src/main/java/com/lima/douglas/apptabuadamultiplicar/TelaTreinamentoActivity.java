@@ -93,7 +93,7 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         String edtString = txtResposta.getText().toString();
 
         // caso a tag da view seja -1, então tem que apagar um numero do edittext.
-        if (!"-1".equals(valTag))
+        if (!"-1".equals(valTag) && edtString.length() < 3)
             txtResposta.setText(txtResposta.getText().toString() + valTag);
         else if (edtString.length() > 0 && "-1".equals(valTag)) // se for um numero maior ou igual a zero, insira este numero no edittext.
             txtResposta.setText(edtString.substring(0, edtString.length() - 1));

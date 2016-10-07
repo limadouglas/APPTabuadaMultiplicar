@@ -17,7 +17,8 @@ public class RecordesRepository extends SQLiteOpenHelper {
 
     public String sql = "CREATE TABLE IF NOT EXISTS RECORDES (" +
                         "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "PONTUACAO INTEGER NOT NULL);";
+                        "PONTUACAO INTEGER NOT NULL," +
+                        "TIPORECORDE TEXT NOT NULL);";
 
     public RecordesRepository(Context context) {
         super(context, Constantes.BD_NOME, null, Constantes.BD_VERSION);
@@ -33,12 +34,12 @@ public class RecordesRepository extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase bd, int i, int i1) {
     }
 
-    public List<RecordesEstrutura> getRecordes() {
+    public List<RecordesEstrutura> getRecordes(String tipo) {
         RecordesEstrutura estrutura;
         List<RecordesEstrutura> listRecordes = new ArrayList<RecordesEstrutura>();
         SQLiteDatabase bd = getReadableDatabase();
 
-        Cursor cursor = bd.query("RECORDES", null, "PONTUACAO > ?", new String[]{"0"}, "PONTUACAO", null, "PONTUACAO DESC", "8");
+        Cursor cursor = bd.query("RECORDES", null, "PONTUACAO > ? and TIPORECORDE = ?", new String[]{"0", tipo}, "PONTUACAO", null, "PONTUACAO DESC", "3");
 
         while(cursor.moveToNext()) {
             estrutura = new RecordesEstrutura();

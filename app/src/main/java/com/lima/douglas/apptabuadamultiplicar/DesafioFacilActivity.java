@@ -109,7 +109,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     // verificando a tag do botão que o usuario criou.
     public void respostaUsuario(View view) {
 
-        if(ativarContador) {
+        if (ativarContador) {
             contagem();
             ativarContador = false;
         }
@@ -154,7 +154,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
-
     public void calcularAlterar() {
 
         verificarRepetidos = true;
@@ -188,7 +187,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // somando um ponto no placar.
         placar++;
     }
-
 
 
     public void contagem() {
@@ -226,7 +224,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
-
     public void finalizarDesafio() {
         pontuacao = (placar * 4) + (contador * 4);
 
@@ -234,6 +231,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
 
         values = new ContentValues();
         values.put("PONTUACAO", pontuacao);
+        values.put("TIPORECORDE", "FACIL");
         bd.insert("RECORDES", null, values);
 
         dialog = new AlertDialog.Builder(this).create();
@@ -268,12 +266,14 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.time_dificil, menu);
+        // desabilitando o click.
+        menu.setGroupEnabled(0, false);
+        // pegando instancia do menu para poder alterar.
         menuItem = menu.findItem(R.id.itmTime);
         return super.onCreateOptionsMenu(menu);
     }

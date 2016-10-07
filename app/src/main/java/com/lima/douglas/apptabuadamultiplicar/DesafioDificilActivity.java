@@ -242,6 +242,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
 
         values = new ContentValues();
         values.put("PONTUACAO", pontuacao);
+        values.put("TIPORECORDE", "DIFICIL");
         bd.insert("RECORDES", null, values);
 
         dialog = new AlertDialog.Builder(this).create();
