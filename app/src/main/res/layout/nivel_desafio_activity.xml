@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="60dp">
+
     <Button
         android:text="Fácil"
+        android:layout_marginTop="70dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="facil"/>
+        android:layout_height="70dp"
+        android:onClick="facil"
+        android:theme="@style/BotaoActivity"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"/>
     <Button
         android:text="Médio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="medio"/>
+        android:layout_height="70dp"
+        android:onClick="medio"
+        android:theme="@style/BotaoActivity"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"/>
     <Button
         android:text="Difícil"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="dificil"/>
+        android:layout_height="70dp"
+        android:onClick="dificil"
+        android:theme="@style/BotaoActivity"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"/>
 </LinearLayout>

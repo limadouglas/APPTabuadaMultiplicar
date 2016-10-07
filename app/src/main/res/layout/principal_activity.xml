@@ -1,27 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"
+        android:onClick="treinamento"
         android:text="@string/treinamento"
-        android:onClick="treinamento"/>
+        android:theme="@style/BotaoActivity" />
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"
+        android:onClick="desafio"
         android:text="@string/desafio"
-        android:onClick="desafio"/>
+        android:theme="@style/BotaoActivity" />
+
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"
+        android:onClick="tabuada"
         android:text="@string/tabuada"
-        android:onClick="tabuada"/>
+        android:theme="@style/BotaoActivity" />
+
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"
+        android:onClick="recordes"
         android:text="@string/recordes"
-        android:onClick="recordes"/>
+        android:theme="@style/BotaoActivity" />
 
 </LinearLayout>
