@@ -40,7 +40,14 @@
 
     <style name="TituloRecordesTextView" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:background">#c8cbdad9</item>
         <item name="android:textSize">25sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RecordesTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:gravity">center</item>
     </style>
 

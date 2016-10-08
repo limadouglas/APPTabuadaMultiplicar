@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
@@ -19,9 +20,19 @@ import java.util.List;
 
 public class RecordesActivity extends AppCompatActivity {
     RecordesRepository repository;
-    ListView lstPontuacaoFacil;
-    ListView lstPontuacaoMedio;
-    ListView lstPontuacaoDificil;
+    TextView txtPontuacaoFacil1;
+    TextView txtPontuacaoFacil2;
+    TextView txtPontuacaoFacil3;
+
+    TextView txtPontuacaoMedio1;
+    TextView txtPontuacaoMedio2;
+    TextView txtPontuacaoMedio3;
+
+    TextView txtPontuacaoDificil1;
+    TextView txtPontuacaoDificil2;
+    TextView txtPontuacaoDificil3;
+
+
 
     int i=0;
 
@@ -36,9 +47,17 @@ public class RecordesActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // instanciando listview
-        lstPontuacaoFacil = (ListView) findViewById(R.id.lstPontuacaoFacil);
-        lstPontuacaoMedio = (ListView) findViewById(R.id.lstPontuacaoMedio);
-        lstPontuacaoDificil = (ListView) findViewById(R.id.lstPontuacaoDificil);
+        txtPontuacaoFacil1 = (TextView) findViewById(R.id.txtPontuacaoFacil1);
+        txtPontuacaoFacil2 = (TextView) findViewById(R.id.txtPontuacaoFacil2);
+        txtPontuacaoFacil3 = (TextView) findViewById(R.id.txtPontuacaoFacil3);
+
+        txtPontuacaoMedio1 = (TextView) findViewById(R.id.txtPontuacaoMedio1);
+        txtPontuacaoMedio2 = (TextView) findViewById(R.id.txtPontuacaoMedio2);
+        txtPontuacaoMedio3 = (TextView) findViewById(R.id.txtPontuacaoMedio3);
+
+        txtPontuacaoDificil1 = (TextView) findViewById(R.id.txtPontuacaoDificil1);
+        txtPontuacaoDificil2 = (TextView) findViewById(R.id.txtPontuacaoDificil2);
+        txtPontuacaoDificil3 = (TextView) findViewById(R.id.txtPontuacaoDificil3);
 
 
 ////////////////////////////////////////////////////////
@@ -58,12 +77,9 @@ public class RecordesActivity extends AppCompatActivity {
             arrayPontuacaoFacil.add(recordesEstrutura.getPontucacao());
         }
 
-        // criando array adapter.
-        ArrayAdapter<Integer> adapterPontuacaoFacil = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoFacil);
-        // inserindo ArrayAdapter no listview
-        lstPontuacaoFacil.setAdapter(adapterPontuacaoFacil);
-        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
-        lstPontuacaoFacil.setEnabled(false);
+        txtPontuacaoFacil1.setText(String.valueOf(arrayPontuacaoFacil.get(0)));
+        txtPontuacaoFacil2.setText(String.valueOf(arrayPontuacaoFacil.get(1)));
+        txtPontuacaoFacil3.setText(String.valueOf(arrayPontuacaoFacil.get(2)));
 
 //////////////////////////////////////////////////////////////////
 
@@ -78,12 +94,10 @@ public class RecordesActivity extends AppCompatActivity {
             arrayPontuacaoMedio.add(recordesEstrutura.getPontucacao());
         }
 
-        // criando array adapter.
-        ArrayAdapter<Integer> adapterPontuacaoMedio = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoMedio);
-        // inserindo ArrayAdapter no listview
-        lstPontuacaoMedio.setAdapter(adapterPontuacaoMedio);
-        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
-        lstPontuacaoMedio.setEnabled(false);
+        txtPontuacaoMedio1.setText(String.valueOf(arrayPontuacaoMedio.get(0)));
+        txtPontuacaoMedio2.setText(String.valueOf(arrayPontuacaoMedio.get(1)));
+        txtPontuacaoMedio3.setText(String.valueOf(arrayPontuacaoMedio.get(2)));
+
 
 /////////////////////////////////////////////////////////
 
@@ -98,12 +112,10 @@ public class RecordesActivity extends AppCompatActivity {
             arrayPontuacaoDificil.add(recordesEstrutura.getPontucacao());
         }
 
-        // criando array adapter.
-        ArrayAdapter<Integer> adapterPontuacaoDificil = new ArrayAdapter<Integer>(this, android.R.layout.simple_list_item_1, arrayPontuacaoDificil);
-        // inserindo ArrayAdapter no listview
-        lstPontuacaoDificil.setAdapter(adapterPontuacaoDificil);
-        // desabilitando listview, não da para desabilitar direto no xml(não sei pq).
-        lstPontuacaoDificil.setEnabled(false);
+        txtPontuacaoDificil1.setText(String.valueOf(arrayPontuacaoDificil.get(0)));
+        txtPontuacaoDificil2.setText(String.valueOf(arrayPontuacaoDificil.get(1)));
+        txtPontuacaoDificil3.setText(String.valueOf(arrayPontuacaoDificil.get(2)));
+
     }
 
     @Override
