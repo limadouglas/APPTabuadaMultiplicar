@@ -14,13 +14,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".MenuTreinamentoActivity"></activity>
-        <activity android:name=".TelaTreinamentoActivity"></activity>
+        <activity android:name=".TelaTreinamentoInicianteActivity"></activity>
+        <activity android:name=".TelaTreinamentoIntermediarioActivity"></activity>
+        <activity android:name=".TelaTreinamentoExperienteActivity"></activity>
         <activity android:name=".DesafioDificilActivity"></activity>
         <activity android:name=".DesafioMedioActivity"></activity>
         <activity android:name=".DesafioFacilActivity"></activity>
         <activity android:name=".TabuadaActivity"></activity>
         <activity android:name=".RecordesActivity"></activity>
         <activity android:name=".NivelDesafioActivity"></activity>
+        <activity android:name=".MenuNivelTreinamentoActivity"></activity>
 
     </application>
 

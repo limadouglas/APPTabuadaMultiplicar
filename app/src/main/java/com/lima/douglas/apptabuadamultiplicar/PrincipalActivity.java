@@ -20,7 +20,7 @@ public class PrincipalActivity extends AppCompatActivity {
     // chamando activity.
 
     public void treinamento (View view) {
-        i = new Intent(this, MenuTreinamentoActivity.class);
+        i = new Intent(this, MenuNivelTreinamentoActivity.class);
         startActivity(i);
     }
 

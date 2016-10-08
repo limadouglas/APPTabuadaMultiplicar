@@ -32,8 +32,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:theme="@style/MultiplicacaoTextView"
->
+        android:theme="@style/MultiplicacaoTextView">
 
         <TextView
             android:id="@+id/txtPadrao"
@@ -55,11 +54,11 @@
 
     <TextView
         android:id="@+id/txtResposta"
-        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:gravity="center"
-        android:theme="@style/RespostaTextView"/>
+        android:theme="@style/RespostaTextView" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -174,7 +173,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-                    android:background="#64cbdad9"
+                    android:background="#d2cbdad9"
                     android:onClick="addValor"
                     android:tag="-1"
                     android:text=" C "

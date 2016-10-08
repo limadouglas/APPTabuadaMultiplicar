@@ -159,8 +159,9 @@
                     android:onClick="addValor"
                     android:tag="-1"
                     android:text=" C "
+                    android:textStyle="bold"
                     android:theme="@style/BotaoDesafioDificil"
-                    android:background="#64cbdad9"/>
+                    android:background="#d2cbdad9"/>
             </TableRow>
         </TableLayout>
     </TableLayout>

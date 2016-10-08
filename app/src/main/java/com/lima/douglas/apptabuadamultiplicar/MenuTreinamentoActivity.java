@@ -11,6 +11,7 @@ import android.view.View;
 
 public class MenuTreinamentoActivity extends AppCompatActivity {
     Intent i;
+    String tipo;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,14 +23,34 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.treinamento);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // pegando argumento passado pela intent.
+        i = getIntent();
+        tipo = i.getStringExtra("tipo");
 
     }
 
     public void abrirTreino(View view) {
-        i = new Intent(this, TelaTreinamentoActivity.class);
-        String valor = (String) view.getTag();
-        i.putExtra("valor", valor);
-        startActivity(i);
+        if(tipo.equals("iniciante")) {
+            i = new Intent(this, TelaTreinamentoInicianteActivity.class);
+            String valor = (String) view.getTag();
+            i.putExtra("valor", valor);
+            startActivity(i);
+        }
+
+        if(tipo.equals("intermediario")) {
+            i = new Intent(this, TelaTreinamentoIntermediarioActivity.class);
+            String valor = (String) view.getTag();
+            i.putExtra("valor", valor);
+            startActivity(i);
+        }
+
+
+        if(tipo.equals("experiente")) {
+            i = new Intent(this, TelaTreinamentoExperienteActivity.class);
+            String valor = (String) view.getTag();
+            i.putExtra("valor", valor);
+            startActivity(i);
+        }
     }
 
     @Override

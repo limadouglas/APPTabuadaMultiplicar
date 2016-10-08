@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Desafio Difícil"
-        android:textSize="30sp"
         android:theme="@style/TituloRecordesTextView"/>
 
     <ListView
@@ -21,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Desafio Médio"
-        android:textSize="30sp"
         android:theme="@style/TituloRecordesTextView"/>
 
     <ListView
@@ -33,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Desafio Fácil"
-        android:textSize="30sp"
         android:theme="@style/TituloRecordesTextView"/>
 
     <ListView

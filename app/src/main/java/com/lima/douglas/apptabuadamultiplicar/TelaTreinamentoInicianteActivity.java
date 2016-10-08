@@ -1,7 +1,9 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,148 +14,158 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+
 import java.util.Random;
 
-public class TelaTreinamentoActivity extends AppCompatActivity {
 
+public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
-    TextView txtResposta;
-    TextView txtPlacar;
+    ActionBar actionBar;
     TextView txtPadrao;
+    TextView txtPlacar;
     TextView txtAlternar;
-    Random random;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao, contador;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
+    int multInicial;
+    int contador;
+    int pontuacao = 0, resMultiplicacao;
     AlertDialog dialogTabela;
-    ImageView imvTabela;
-    String valor;
     AlertDialog alertDialog;
-    Intent iAtualizar;
-    Intent iVoltar;
+    Intent i;
+    RecordesRepository repository;
+    SQLiteDatabase bd;
+    ContentValues values;
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
-    Handler handler = new Handler();
-
+    Handler handler;
+    Button um;
+    Button dois;
+    int arrayTag, resultado, resultadoErrado;
+    MenuItem menuItem;
+    Random random;
+    ImageView imvTabela;
+    String valor;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tela_treinamento_activity);
+        setContentView(R.layout.tela_treinamento_iniciante_activity);
 
-        // renomeando action bar.
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.treinamento);
+        valor = getIntent().getStringExtra("valor");
+        actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-
-        // recebendo intent com valor da multiplicação a ser feita.
-        Intent i = getIntent();
-        valor = i.getExtras().getString("valor");
-        // convervendo para integer a string recebid no intent.
-        // Integer num = Integer.valueOf(valor);
+        actionBar.setTitle("Iniciante");
 
         // instanciando view.
-        txtResposta = (TextView) findViewById(R.id.txtResposta);
+        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
-        imvTabela = new ImageView(this);
-        dialogTabela = new AlertDialog.Builder(this).create();
-        txtPadrao.setText(valor);
+        repository = new RecordesRepository(this);
+        handler = new Handler();
+        um = (Button) findViewById(R.id.btnUm);
+        dois = (Button) findViewById(R.id.btnDois);
         random = new Random();
+        imvTabela = new ImageView(this);
         alertDialog = new AlertDialog.Builder(this).create();
-        iAtualizar = new Intent(this, TelaTreinamentoActivity.class);
-        iVoltar = new Intent(this, MenuTreinamentoActivity.class);
+        dialogTabela = new AlertDialog.Builder(this).create();
+
+
+        //inserindo um valor no txtPadrao para ele começar com o numero escolhido pelo usuario.
+        txtPadrao.setText(valor);
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        int multInicial = -1;
-        while (multInicial < 0)
-            multInicial = random.nextInt() % 11;
-
-        antigoNumero[0] = novoNumero;
+        do {
+            multInicial = random.nextInt(11);
+        } while (multInicial < 0);
+        antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
+
+        gerarTagsBotao();
 
     }
 
 
+    // gerando nova tag.
+    public void gerarTagsBotao() {
+
+        arrayTag = random.nextInt(2);
+        resultado = (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()));
+        do {
+            resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
+        } while (resultadoErrado < 0 || resultadoErrado == resultado);
+
+        if (arrayTag == 0) {
+            um.setText(String.valueOf(resultado));
+            um.setTag(String.valueOf(resultado));
+            dois.setText(String.valueOf(resultadoErrado));
+            dois.setTag(String.valueOf(resultadoErrado));
+        } else {
+            dois.setText(String.valueOf(resultado));
+            dois.setTag(String.valueOf(resultado));
+            um.setText(String.valueOf(resultadoErrado));
+            um.setTag(String.valueOf(resultadoErrado));
+        }
+    }
 
 
-    public void addValor(View view) {
+    // verificando a tag do botão que o usuario criou.
+    public void respostaUsuario(View view) {
 
-        if(ativarContador) {
+        if (ativarContador) {
             contagem();
             ativarContador = false;
         }
 
-        String valTag = (String) view.getTag();
-        String edtString = txtResposta.getText().toString();
-
-        // caso a tag da view seja -1, então tem que apagar um numero do edittext.
-        if (!"-1".equals(valTag) && edtString.length() < 3)
-            txtResposta.setText(txtResposta.getText().toString() + valTag);
-        else if (edtString.length() > 0 && "-1".equals(valTag)) // se for um numero maior ou igual a zero, insira este numero no edittext.
-            txtResposta.setText(edtString.substring(0, edtString.length() - 1));
-
-        // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
-        // calcular.
-        if (txtResposta.getText().toString().length() > 0)
+        if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
             calcular();
+            gerarTagsBotao();
+        } else if (Integer.valueOf(txtPlacar.getText().toString()) > 0) {
+            txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) - 1));
+            if(contador < 120)
+                contador+=10;
+        }
     }
-
-
 
     public void calcular() {
 
-        // instanciando textview
-        String padrao = (String) txtPadrao.getText();
-        String alternar = (String) txtAlternar.getText();
-        // descobrindo a resposta da multiplicacao.
-        resMultiplicacao = Integer.valueOf(padrao) * Integer.valueOf(alternar);
-
-
         verificarRepetidos = true;
-        // gerando um novo valor.
-        // verificando se o valor digitado é igual a resposta.
 
-        if (resMultiplicacao == Integer.valueOf(txtResposta.getText().toString())) {
-            while (verificarRepetidos || novoNumero < 0) {
-                // gerando novo numero
-                novoNumero = random.nextInt(11);// gera numeros de 0 a 10
-                // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
-                // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
-                if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
-                    if (novoNumero != antigoNumero[1]) {
-                        if (novoNumero != antigoNumero[2]) {
-                            if (novoNumero != antigoNumero[3]) {
-                                if (novoNumero != antigoNumero[4]) {
-                                    for (int j = 4; j != 0; j--) { // deslocando os valores para esquerda do vetor.
-                                        antigoNumero[j] = antigoNumero[j - 1];
-                                    }
-                                    antigoNumero[0] = novoNumero;
-                                    // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
-                                    verificarRepetidos = false;
-                                }
+        // gerando um novo valor.
+        while (verificarRepetidos || novoNumero < 1) {
+            // gerando novo numero
+            novoNumero = random.nextInt(5) + 1;
+            // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
+            // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
+            if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
+                if (novoNumero != antigoNumero[1]) {
+                    if (novoNumero != antigoNumero[2]) {
+                        if (novoNumero != antigoNumero[3]) {
+                            for (int j = 3; j != 0; j--) { // deslocando os valores para esquerda do vetor.
+                                antigoNumero[j] = antigoNumero[j - 1];
                             }
+                            antigoNumero[0] = novoNumero;
+                            // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
+                            verificarRepetidos = false;
                         }
                     }
                 }
             }
-
-            // inserindo novoNumero no textView
-            txtAlternar.setText(String.valueOf(novoNumero));
-            // limpando edittext.
-            txtResposta.setText("");
-            // somando um no placar.
-            txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
         }
+        // inserindo novoNumero no textView
+        txtAlternar.setText(String.valueOf(novoNumero));
+
+        // somando um no placar.
+        txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) + 1));
+
         if (txtPlacar.getText().toString().equals("16"))
             sairPlacar = true;
     }
-
 
 
     @Override
@@ -162,7 +174,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
 
 
     @Override
@@ -217,7 +228,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
     public void contagem() {
 
         Runnable runnable = new Runnable() {
@@ -246,7 +256,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
         thread = new Thread(runnable);
         thread.start();
     }
-
 
 
     public void mensFimTreinamento() {
@@ -281,8 +290,6 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
             }
         });
 
-
-
         alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
@@ -295,13 +302,11 @@ public class TelaTreinamentoActivity extends AppCompatActivity {
     }
 
 
-
     public void onBackPressed() {
         // finalizando activity e cancelando thread.
         finish();
         sairThread = true;
         super.onBackPressed();
     }
-
 
 }
