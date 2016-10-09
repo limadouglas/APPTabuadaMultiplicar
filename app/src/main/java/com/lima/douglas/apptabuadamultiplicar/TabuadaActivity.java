@@ -23,8 +23,16 @@ public class TabuadaActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+        super.onBackPressed();
     }
 }

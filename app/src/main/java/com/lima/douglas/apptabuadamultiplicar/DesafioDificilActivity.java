@@ -15,6 +15,7 @@ import android.support.v7.view.menu.MenuView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,7 +38,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, resMultiplicacao, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 60;
+    int contador = 59;
     int pontuacao = 0;
     String padrao;
     String alternar;
@@ -227,6 +228,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                             finalizarDesafio();
                         }
                     });
+
             }
         };
 
@@ -256,12 +258,14 @@ public class DesafioDificilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 startActivity(getIntent());
+                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
             }
         });
 
@@ -290,6 +294,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
             case android.R.id.home:
                 sairThread = true;
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -299,7 +304,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         // ativar finalizar thread.
         sairThread = true;
         finish();
-        //nem este, continua saindo de todoo o app e não para a tela anterior.
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
 

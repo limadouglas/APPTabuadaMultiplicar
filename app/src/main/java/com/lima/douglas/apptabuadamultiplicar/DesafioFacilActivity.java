@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,7 +31,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
-    int contador = 60;
+    int contador = 59;
     int pontuacao = 0;
     AlertDialog dialog;
     Intent i;
@@ -245,12 +246,14 @@ public class DesafioFacilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 startActivity(getIntent());
+                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
             }
         });
 
@@ -287,6 +290,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
             case android.R.id.home:
                 sairThread = true;
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
 
@@ -299,7 +303,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // ativar finalizar thread.
         sairThread = true;
         finish();
-        //nem este, continua saindo de todoo o app e não para a tela anterior.
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
 

@@ -22,21 +22,25 @@ public class PrincipalActivity extends AppCompatActivity {
     public void treinamento (View view) {
         i = new Intent(this, MenuNivelTreinamentoActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void desafio (View view) {
         i = new Intent(this, NivelDesafioActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void tabuada (View view) {
         i = new Intent(this, TabuadaActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void recordes (View view) {
         i = new Intent(this, RecordesActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 }

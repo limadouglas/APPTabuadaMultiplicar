@@ -30,18 +30,21 @@ public class NivelDesafioActivity extends AppCompatActivity {
     public  void facil(View view) {
         i = new Intent(this, DesafioFacilActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
     public  void medio(View view) {
         i = new Intent(this, DesafioMedioActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
     public  void dificil(View view) {
         i = new Intent(this, DesafioDificilActivity.class);
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
@@ -51,9 +54,18 @@ public class NivelDesafioActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+        super.onBackPressed();
     }
 
 }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -171,6 +172,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             case android.R.id.home:
                 sairThread = true;
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
 
@@ -229,14 +231,13 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
                     }
                 }
 
-                if (!sairThread) {
+                if (!sairThread)
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             mensFimTreinamento();
                         }
                     });
-                }
 
             }
         };
@@ -269,13 +270,15 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
-                startActivity(getIntent());
+                startActivity( getIntent() );
+                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Sair", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
             }
         });
 
@@ -294,8 +297,9 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
     public void onBackPressed() {
         // finalizando activity e cancelando thread.
-        finish();
         sairThread = true;
+        finish();
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
 

@@ -28,16 +28,19 @@ public class MenuNivelTreinamentoActivity extends AppCompatActivity {
     public void iniciante(View view) {
         i.putExtra("tipo", "iniciante");
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void intermediario(View view) {
         i.putExtra("tipo", "intermediario");
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void experiente(View view) {
         i.putExtra("tipo", "experiente");
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
 
@@ -47,9 +50,16 @@ public class MenuNivelTreinamentoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+        super.onBackPressed();
     }
 
 

@@ -35,6 +35,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
             startActivity(i);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
         if(tipo.equals("intermediario")) {
@@ -42,6 +43,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
             startActivity(i);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
 
@@ -50,6 +52,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
             startActivity(i);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
@@ -59,9 +62,16 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+        super.onBackPressed();
     }
 }
