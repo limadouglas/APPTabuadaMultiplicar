@@ -26,7 +26,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, resMultiplicacao, contador;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, resMultiplicacao, contador;
     boolean verificarRepetidos = true, ativarContador = true;
     AlertDialog dialogTabela;
     ImageView imvTabela;
@@ -37,6 +37,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
     Handler handler = new Handler();
+    int multInicial;
 
 
     @Override
@@ -68,12 +69,12 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         iAtualizar = new Intent(this, TelaTreinamentoExperienteActivity.class);
         iVoltar = new Intent(this, MenuTreinamentoActivity.class);
 
-        // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
-        int multInicial = -1;
-        while (multInicial < 0)
-            multInicial = random.nextInt() % 11;
 
-        antigoNumero[0] = novoNumero;
+        // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
+        do {
+            multInicial = random.nextInt(10) + 1;
+        } while (multInicial < 0);
+        antigoNumero[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
     }
@@ -121,9 +122,9 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         // verificando se o valor digitado é igual a resposta.
 
         if (resMultiplicacao == Integer.valueOf(txtResposta.getText().toString())) {
-            while (verificarRepetidos || novoNumero < 0) {
+            while (verificarRepetidos) {
                 // gerando novo numero
-                novoNumero = random.nextInt(11);// gera numeros de 0 a 10
+                novoNumero = random.nextInt(10) + 1;// gera numeros de 0 a 10
                 // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
                 // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
                 if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
@@ -131,12 +132,14 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
                         if (novoNumero != antigoNumero[2]) {
                             if (novoNumero != antigoNumero[3]) {
                                 if (novoNumero != antigoNumero[4]) {
-                                    for (int j = 4; j != 0; j--) { // deslocando os valores para esquerda do vetor.
-                                        antigoNumero[j] = antigoNumero[j - 1];
+                                    if (novoNumero != antigoNumero[5]) {
+                                        for (int j = 5; j != 0; j--) { // deslocando os valores para esquerda do vetor.
+                                            antigoNumero[j] = antigoNumero[j - 1];
+                                        }
+                                        antigoNumero[0] = novoNumero;
+                                        // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
+                                        verificarRepetidos = false;
                                     }
-                                    antigoNumero[0] = novoNumero;
-                                    // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
-                                    verificarRepetidos = false;
                                 }
                             }
                         }

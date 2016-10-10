@@ -30,7 +30,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtPlacar;
     TextView txtAlternar;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador;
@@ -82,9 +82,9 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
-            multInicial = random.nextInt(11);
+            multInicial = random.nextInt(10) + 1;
         } while (multInicial < 0);
-        antigoNumero2[0] = multInicial;
+        antigoNumero[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
 
         gerarTagsBotao();
@@ -142,21 +142,26 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         verificarRepetidos = true;
 
         // gerando um novo valor.
-        while (verificarRepetidos || novoNumero < 1) {
+        while (verificarRepetidos) {
             // gerando novo numero
-            novoNumero = random.nextInt(5) + 1;
+            novoNumero = random.nextInt(10) + 1;
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
             // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
-            if (novoNumero != antigoNumero[0] && novoNumero >= 0) {
+            if (novoNumero != antigoNumero[0]) {
                 if (novoNumero != antigoNumero[1]) {
                     if (novoNumero != antigoNumero[2]) {
                         if (novoNumero != antigoNumero[3]) {
-                            for (int j = 3; j != 0; j--) { // deslocando os valores para esquerda do vetor.
-                                antigoNumero[j] = antigoNumero[j - 1];
+                            if (novoNumero != antigoNumero[4]) {
+                                if (novoNumero != antigoNumero[5]) {
+
+                                    for (int j = 5; j != 0; j--) { // deslocando os valores para esquerda do vetor.
+                                        antigoNumero[j] = antigoNumero[j - 1];
+                                    }
+                                    antigoNumero[0] = novoNumero;
+                                    // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
+                                    verificarRepetidos = false;
+                                }
                             }
-                            antigoNumero[0] = novoNumero;
-                            // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
-                            verificarRepetidos = false;
                         }
                     }
                 }

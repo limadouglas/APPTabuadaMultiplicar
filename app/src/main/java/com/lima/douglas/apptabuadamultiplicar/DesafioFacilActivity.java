@@ -28,7 +28,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0}, placar = 0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador = 59;
@@ -68,14 +68,14 @@ public class DesafioFacilActivity extends AppCompatActivity {
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
-            multInicial = random.nextInt(6);
+            multInicial = random.nextInt(5) + 1;
         } while (multInicial < 0);
         antigoNumero[0] = multInicial;
         txtPadrao.setText(String.valueOf(multInicial));
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
         do {
-            multInicial = random.nextInt(11);
+            multInicial = random.nextInt(10) + 1;
         } while (multInicial < 0);
         antigoNumero2[0] = multInicial;
         txtAlternar.setText(String.valueOf(multInicial));
@@ -130,7 +130,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         verificarRepetidos = true;
 
         // gerando um novo valor.
-        while (verificarRepetidos || novoNumero < 1) {
+        while (verificarRepetidos) {
             // gerando novo numero
             novoNumero = random.nextInt(5) + 1;
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
@@ -160,9 +160,9 @@ public class DesafioFacilActivity extends AppCompatActivity {
         verificarRepetidos = true;
         // gerando um novo valor.
 
-        while (verificarRepetidos || novoNumero < 0) {
+        while (verificarRepetidos) {
             // gerando novo numero
-            novoNumero = random.nextInt(11);
+            novoNumero = random.nextInt(10) + 1;
             // verificando se o novo numero não é igual aos ultimos  cindo numeros gerados.
             // necessario novoNumero ser maior que zero, senão vai encher o vetor de numeros negativos.
             if (novoNumero != antigoNumero2[0] && novoNumero >= 0) {
@@ -170,12 +170,14 @@ public class DesafioFacilActivity extends AppCompatActivity {
                     if (novoNumero != antigoNumero2[2]) {
                         if (novoNumero != antigoNumero2[3]) {
                             if (novoNumero != antigoNumero2[4]) {
-                                for (int j = 4; j != 0; j--) { // deslocando os valores para esquerda do vetor.
-                                    antigoNumero2[j] = antigoNumero2[j - 1];
+                                if (novoNumero != antigoNumero2[5]) {
+                                    for (int j = 5; j != 0; j--) { // deslocando os valores para esquerda do vetor.
+                                        antigoNumero2[j] = antigoNumero2[j - 1];
+                                    }
+                                    antigoNumero2[0] = novoNumero;
+                                    // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
+                                    verificarRepetidos = false;
                                 }
-                                antigoNumero2[0] = novoNumero;
-                                // caso chegue ate aqui, então não tem numeros repetidos, já pode sair do loop.
-                                verificarRepetidos = false;
                             }
                         }
                     }
