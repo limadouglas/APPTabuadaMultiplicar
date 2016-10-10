@@ -118,18 +118,22 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     // verificando a tag do botão que o usuario criou.
     public void respostaUsuario(View view) {
 
+        // iniciando contador.
         if (ativarContador) {
             contagem();
             ativarContador = false;
         }
 
-        if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
-            calcular();
-            gerarTagsBotao();
-        } else if (Integer.valueOf(txtPlacar.getText().toString()) > 0) {
-            txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) - 1));
-            if (contador < 120)
-                contador += 10;
+        // bloqueio sem isto, se o usuario for muito rapido ele consegue fazer 17/16, na pontuação.
+        if (!txtPlacar.getText().toString().equals("16")) {
+            if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
+                calcular();
+                gerarTagsBotao();
+            } else if (Integer.valueOf(txtPlacar.getText().toString()) > 0) {
+                txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) - 1));
+                if (contador < 120)
+                    contador += 10;
+            }
         }
     }
 

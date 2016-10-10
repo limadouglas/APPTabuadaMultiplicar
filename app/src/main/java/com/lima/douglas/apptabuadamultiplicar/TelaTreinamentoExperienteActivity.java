@@ -81,6 +81,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
     public void addValor(View view) {
 
+        // iniciando contador.
         if (ativarContador) {
             contagem();
             ativarContador = false;
@@ -95,10 +96,14 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         else if (edtString.length() > 0 && "-1".equals(valTag)) // se for um numero maior ou igual a zero, insira este numero no edittext.
             txtResposta.setText(edtString.substring(0, edtString.length() - 1));
 
-        // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
-        // calcular.
-        if (txtResposta.getText().toString().length() > 0)
-            calcular();
+
+        // bloqueio sem isto, se o usuario for muito rapido ele consegue fazer 17/16, na pontuação.
+        if (!txtPlacar.getText().toString().equals("16")) {
+            // necessario verificar pois o usuario pode estar clicando em apagar, então não é necessario chamar o metodo
+            // calcular.
+            if (txtResposta.getText().toString().length() > 0)
+                calcular();
+        }
     }
 
 
