@@ -5,16 +5,19 @@
     android:orientation="vertical"
     android:padding="30dp">
 
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/screen_border"
+        android:drawableLeft="@drawable/btn_treinamento_normal"
         android:onClick="treinamento"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp"
         android:text="@string/treinamento"
-        android:theme="@style/BotaoActivity" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -22,8 +25,12 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="desafio"
+        android:drawableLeft="@drawable/btn_desafio_normal"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp"
         android:text="@string/desafio"
-        android:theme="@style/BotaoActivity" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -31,8 +38,12 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="tabuada"
+        android:drawableLeft="@drawable/btn_tabuada_normal"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp"
         android:text="@string/tabuada"
-        android:theme="@style/BotaoActivity" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -40,7 +51,11 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="recordes"
+        android:drawableLeft="@drawable/btn_recordes_normal"
+        android:paddingLeft="20dp"
+        android:paddingRight="40dp"
         android:text="@string/recordes"
-        android:theme="@style/BotaoActivity" />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
 
 </LinearLayout>
