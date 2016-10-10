@@ -5,15 +5,18 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="80dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/screen_border"
+        android:drawableLeft="@drawable/btn_treinamento_normal"
         android:onClick="treinamento"
+        android:paddingLeft="50dp"
+        android:paddingRight="70dp"
         android:text="@string/treinamento"
+
         android:theme="@style/BotaoActivity" />
 
     <Button
@@ -21,7 +24,10 @@
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
+        android:drawableLeft="@drawable/btn_desafio_normal"
         android:onClick="desafio"
+        android:paddingLeft="50dp"
+        android:paddingRight="70dp"
         android:text="@string/desafio"
         android:theme="@style/BotaoActivity" />
 
@@ -31,7 +37,10 @@
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
+        android:drawableLeft="@drawable/btn_tabuada_normal"
         android:onClick="tabuada"
+        android:paddingLeft="50dp"
+        android:paddingRight="70dp"
         android:text="@string/tabuada"
         android:theme="@style/BotaoActivity" />
 
@@ -40,7 +49,10 @@
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
+        android:drawableLeft="@drawable/btn_recordes_normal"
         android:onClick="recordes"
+        android:paddingLeft="50dp"
+        android:paddingRight="70dp"
         android:text="@string/recordes"
         android:theme="@style/BotaoActivity" />
 
