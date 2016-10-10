@@ -128,8 +128,8 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             gerarTagsBotao();
         } else if (Integer.valueOf(txtPlacar.getText().toString()) > 0) {
             txtPlacar.setText(String.valueOf(Integer.valueOf(txtPlacar.getText().toString()) - 1));
-            if(contador < 120)
-                contador+=10;
+            if (contador < 120)
+                contador += 10;
         }
     }
 
@@ -180,51 +180,46 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                sairThread = true;
-                finish();
-                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            sairThread = true;
+            finish();
+            overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+        } else {
+            switch (valor) {
+                case "1":
+                    imvTabela.setBackgroundResource(R.drawable.um);
+                    break;
+                case "2":
+                    imvTabela.setBackgroundResource(R.drawable.dois);
+                    break;
+                case "3":
+                    imvTabela.setBackgroundResource(R.drawable.tres);
+                    break;
+                case "4":
+                    imvTabela.setBackgroundResource(R.drawable.quatro);
+                    break;
+                case "5":
+                    imvTabela.setBackgroundResource(R.drawable.cinco);
+                    break;
+                case "6":
+                    imvTabela.setBackgroundResource(R.drawable.seis);
+                    break;
+                case "7":
+                    imvTabela.setBackgroundResource(R.drawable.sete);
+                    break;
+                case "8":
+                    imvTabela.setBackgroundResource(R.drawable.oito);
+                    break;
+                case "9":
+                    imvTabela.setBackgroundResource(R.drawable.nove);
+                    break;
+                case "10":
+                    imvTabela.setBackgroundResource(R.drawable.dez);
+                    break;
+            }
+            dialogTabela.setView(imvTabela);
+            dialogTabela.show();
         }
-
-        switch (valor) {
-            case "1":
-                imvTabela.setBackgroundResource(R.drawable.um);
-                break;
-            case "2":
-                imvTabela.setBackgroundResource(R.drawable.dois);
-                break;
-            case "3":
-                imvTabela.setBackgroundResource(R.drawable.tres);
-                break;
-            case "4":
-                imvTabela.setBackgroundResource(R.drawable.quatro);
-                break;
-            case "5":
-                imvTabela.setBackgroundResource(R.drawable.cinco);
-                break;
-            case "6":
-                imvTabela.setBackgroundResource(R.drawable.seis);
-                break;
-            case "7":
-                imvTabela.setBackgroundResource(R.drawable.sete);
-                break;
-            case "8":
-                imvTabela.setBackgroundResource(R.drawable.oito);
-                break;
-            case "9":
-                imvTabela.setBackgroundResource(R.drawable.nove);
-                break;
-            case "10":
-                imvTabela.setBackgroundResource(R.drawable.dez);
-                break;
-
-        }
-
-        dialogTabela.setView(imvTabela);
-        dialogTabela.show();
 
         return true;
     }

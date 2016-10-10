@@ -384,7 +384,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.time_dificil, menu);
         menuItem = menu.findItem(R.id.itmTime);
-
+        menu.setGroupEnabled(0,false);
         return super.onCreateOptionsMenu(menu);
     }
 }

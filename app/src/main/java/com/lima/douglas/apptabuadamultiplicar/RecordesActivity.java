@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,7 +20,10 @@ import java.util.List;
 
 
 public class RecordesActivity extends AppCompatActivity {
+
+    // instanciando banco de dados.
     RecordesRepository repository;
+
     TextView txtPontuacaoFacil1;
     TextView txtPontuacaoFacil2;
     TextView txtPontuacaoFacil3;
@@ -33,16 +37,12 @@ public class RecordesActivity extends AppCompatActivity {
     TextView txtPontuacaoDificil3;
 
 
-
-    int i=0;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recordes_activity);
         // renomeando action bar.
-        ActionBar actionBar =  getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.recordes);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -59,64 +59,45 @@ public class RecordesActivity extends AppCompatActivity {
         txtPontuacaoDificil2 = (TextView) findViewById(R.id.txtPontuacaoDificil2);
         txtPontuacaoDificil3 = (TextView) findViewById(R.id.txtPontuacaoDificil3);
 
+        // instanciando classe que ira retornar os valores do banco de dados.
+        repository = new RecordesRepository(this);
 
 ////////////////////////////////////////////////////////
 
-        // instanciando banco de dados.
-        repository = new RecordesRepository(this);
-
-        List<RecordesEstrutura> recordes = new ArrayList<RecordesEstrutura>();
-        // recebendo valores do banco de dados..
-        recordes = repository.getRecordes("FACIL");
-
-        // criando arraylist.
-        ArrayList<Integer> arrayPontuacaoFacil = new ArrayList<Integer>();
-
-        // inserindo valores da list<integer> no arraylist.
-        for(RecordesEstrutura recordesEstrutura: recordes) {
-            arrayPontuacaoFacil.add(recordesEstrutura.getPontucacao());
-        }
-
-        txtPontuacaoFacil1.setText(String.valueOf(arrayPontuacaoFacil.get(0)));
-        txtPontuacaoFacil2.setText(String.valueOf(arrayPontuacaoFacil.get(1)));
-        txtPontuacaoFacil3.setText(String.valueOf(arrayPontuacaoFacil.get(2)));
-
-//////////////////////////////////////////////////////////////////
-
-        // recebendo valores do banco de dados..
-        recordes = repository.getRecordes("MEDIO");
-
-        // criando arraylist.
-        ArrayList<Integer> arrayPontuacaoMedio = new ArrayList<Integer>();
-
-        // inserindo valores da list<integer> no arraylist.
-        for(RecordesEstrutura recordesEstrutura: recordes) {
-            arrayPontuacaoMedio.add(recordesEstrutura.getPontucacao());
-        }
-
-        txtPontuacaoMedio1.setText(String.valueOf(arrayPontuacaoMedio.get(0)));
-        txtPontuacaoMedio2.setText(String.valueOf(arrayPontuacaoMedio.get(1)));
-        txtPontuacaoMedio3.setText(String.valueOf(arrayPontuacaoMedio.get(2)));
-
-
-/////////////////////////////////////////////////////////
-
-        // recebendo valores do banco de dados..
-        recordes = repository.getRecordes("DIFICIL");
-
-        // criando arraylist.
-        ArrayList<Integer> arrayPontuacaoDificil = new ArrayList<Integer>();
-
-        // inserindo valores da list<integer> no arraylist.
-        for(RecordesEstrutura recordesEstrutura: recordes) {
-            arrayPontuacaoDificil.add(recordesEstrutura.getPontucacao());
-        }
-
-        txtPontuacaoDificil1.setText(String.valueOf(arrayPontuacaoDificil.get(0)));
-        txtPontuacaoDificil2.setText(String.valueOf(arrayPontuacaoDificil.get(1)));
-        txtPontuacaoDificil3.setText(String.valueOf(arrayPontuacaoDificil.get(2)));
+        getRecordes("FACIL", txtPontuacaoFacil1, txtPontuacaoFacil2, txtPontuacaoFacil3);
+        getRecordes("MEDIO", txtPontuacaoMedio1, txtPontuacaoMedio2, txtPontuacaoMedio3);
+        getRecordes("DIFICIL", txtPontuacaoDificil1, txtPontuacaoDificil2, txtPontuacaoDificil3);
 
     }
+
+
+    public void getRecordes(String nivel, TextView um, TextView dois, TextView tres) {
+
+        // contador que ira armazenar a quantidade de resultados do banco.
+        int i = 0;
+
+        // buscando recordes do banco.
+        List<RecordesEstrutura> recordes = repository.getRecordes(nivel);
+
+        // criando array de inteiros para armazenar os valores retornados do banco de dados.
+        ArrayList<Integer> arrayPontuacao = new ArrayList<Integer>();
+
+        // inserindo valores da list<integer> no arraylist.
+        for (RecordesEstrutura recordesEstrutura : recordes) {
+            arrayPontuacao.add(recordesEstrutura.getPontucacao());
+            i++;
+        }
+
+        // Atulizado valores dos TextView.
+        if (i >= 1)
+            um.setText(String.valueOf(arrayPontuacao.get(0)));
+        if (i >= 2)
+            dois.setText(String.valueOf(arrayPontuacao.get(1)));
+        if (i >= 3)
+            tres.setText(String.valueOf(arrayPontuacao.get(2)));
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,10 +111,11 @@ public class RecordesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
+
+
 }

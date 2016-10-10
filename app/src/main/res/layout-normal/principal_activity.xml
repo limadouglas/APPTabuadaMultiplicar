@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="60dp">
+    android:padding="20dp">
+
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:layout_marginTop="80dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="70dp"
         android:background="@drawable/screen_border"
-        android:onClick="iniciante"
-        android:text="Iniciante"
+        android:onClick="treinamento"
+        android:text="@string/treinamento"
         android:theme="@style/BotaoActivity" />
 
     <Button
@@ -20,8 +21,18 @@
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
-        android:onClick="intermediario"
-        android:text="Intermediário"
+        android:onClick="desafio"
+        android:text="@string/desafio"
+        android:theme="@style/BotaoActivity" />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/screen_border"
+        android:onClick="tabuada"
+        android:text="@string/tabuada"
         android:theme="@style/BotaoActivity" />
 
     <Button
@@ -29,8 +40,8 @@
         android:layout_height="70dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
-        android:onClick="experiente"
-        android:text="Experiente"
+        android:onClick="recordes"
+        android:text="@string/recordes"
         android:theme="@style/BotaoActivity" />
 
 </LinearLayout>

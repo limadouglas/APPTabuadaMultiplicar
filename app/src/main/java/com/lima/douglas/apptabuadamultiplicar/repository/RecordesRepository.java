@@ -27,7 +27,6 @@ public class RecordesRepository extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL(sql);
-
     }
 
     @Override
