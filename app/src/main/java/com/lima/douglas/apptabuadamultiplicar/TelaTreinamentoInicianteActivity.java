@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,8 +40,6 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     AlertDialog dialogTabela;
     AlertDialog alertDialog;
     Intent i;
-    RecordesRepository repository;
-    SQLiteDatabase bd;
     ContentValues values;
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
@@ -51,6 +51,8 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     Random random;
     ImageView imvTabela;
     String valor;
+    SQLiteDatabase bd;
+    RecordesRepository repository;
 
 
     @Override
@@ -265,18 +267,42 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
     public void mensFimTreinamento() {
 
-        alertDialog = new AlertDialog.Builder(this).create();
+        repository = new RecordesRepository(this);
+        String star = repository.getTreinamento(valor);
+        ContentValues values = new ContentValues();
+
+        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
         if (contador < 25) {
             alertDialog.setTitle("Excelente");
+            alertDialog.setIcon(R.drawable.trophy);
+            if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
+                values.put("STARTIPO", "OURO");
+                values.put("NUMTABUADA", valor);
+                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor}); // todo erro esta aqui !!!!!!!!
+            }
         } else if (contador < 35) {
             alertDialog.setTitle("Ótimo");
+            alertDialog.setIcon(R.drawable.star_prata);
+            if (star.equals("NAO") || star.equals("BRONZE")) {
+                values.put("STARTIPO", "PRATA");
+                values.put("NUMTABUADA", valor);
+                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+            }
         } else if (contador < 70) {
             alertDialog.setTitle("Bom");
+            alertDialog.setIcon(R.drawable.star_bronze);
+            if (star.equals("NAO")) {
+                values.put("STARTIPO", "BRONZE");
+                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+            }
         } else if (contador < 90) {
-            alertDialog.setTitle("Nada Mal");
-        } else if (contador < 121) {
-            alertDialog.setTitle("Continue Treinando!");
+            alertDialog.setTitle("Nada Mal!");
+            alertDialog.setIcon(R.drawable.star_bronze);
+            if (star.equals("NAO")) {
+                values.put("STARTIPO", "BRONZE");
+                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+            }
         }
 
         alertDialog.setCancelable(false);
@@ -289,7 +315,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Sair", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();

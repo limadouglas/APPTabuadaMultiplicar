@@ -246,7 +246,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
     public void mensFimTreinamento() {
 
-        alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
         if (contador < 25) {
             alertDialog.setTitle("Excelente");
@@ -270,7 +270,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Sair", new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();

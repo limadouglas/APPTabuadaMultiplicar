@@ -242,6 +242,11 @@ public class DesafioDificilActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
+
+        // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
+        if (contador < 0)
+            contador = 0;
+
         pontuacao = (placar * 4) + (contador * 4);
 
         bd = repository.getWritableDatabase();
@@ -251,7 +256,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         values.put("TIPORECORDE", "DIFICIL");
         bd.insert("RECORDES", null, values);
 
-        dialog = new AlertDialog.Builder(this).create();
+        dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // necessario para que o usuario não clique fora do alert para sair.
         dialog.setCancelable(false);
         dialog.setTitle("Pontuação");
@@ -265,7 +270,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancelar", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();

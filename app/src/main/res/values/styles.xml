@@ -78,4 +78,11 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">40sp</item>
     </style>
+
+    <style name="alertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">#fff</item>
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
 </resources>

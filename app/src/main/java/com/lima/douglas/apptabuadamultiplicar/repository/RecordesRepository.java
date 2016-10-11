@@ -5,9 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
+import com.lima.douglas.apptabuadamultiplicar.util.RecordesTreinamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +18,15 @@ import java.util.List;
 public class RecordesRepository extends SQLiteOpenHelper {
 
     public String sql = "CREATE TABLE IF NOT EXISTS RECORDES (" +
-                        "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        "PONTUACAO INTEGER NOT NULL," +
-                        "TIPORECORDE TEXT NOT NULL);";
+            "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "PONTUACAO INTEGER NOT NULL," +
+            "TIPORECORDE TEXT NOT NULL);";
+
+    public String sql2 = "CREATE TABLE IF NOT EXISTS TREINAMENTO (" +
+            "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "STARTIPO TEXT NOT NULL, " +
+            "NUMTABUADA TEXT);";
+
 
     public RecordesRepository(Context context) {
         super(context, Constantes.BD_NOME, null, Constantes.BD_VERSION);
@@ -27,11 +35,22 @@ public class RecordesRepository extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL(sql);
+        bd.execSQL(sql2);
+
+        ContentValues values = new ContentValues();
+        // iniciando todos os valores da tabela treinamento com  nao como padrao;
+        for (int i = 1; i <= 10; i++) {
+            values.put("STARTIPO", "NAO");
+            values.put("NUMTABUADA", String.valueOf(i));
+            bd.insert("TREINAMENTO", null, values);
+        }
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase bd, int i, int i1) {
     }
+
 
     public List<RecordesEstrutura> getRecordes(String tipo) {
         RecordesEstrutura estrutura;
@@ -40,7 +59,7 @@ public class RecordesRepository extends SQLiteOpenHelper {
 
         Cursor cursor = bd.query("RECORDES", null, "PONTUACAO > ? and TIPORECORDE = ?", new String[]{"0", tipo}, "PONTUACAO", null, "PONTUACAO DESC", "3");
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
             estrutura = new RecordesEstrutura();
             estrutura.setId(cursor.getInt(cursor.getColumnIndex("_ID")));
             estrutura.setPontucacao(cursor.getInt(cursor.getColumnIndex("PONTUACAO")));
@@ -48,5 +67,14 @@ public class RecordesRepository extends SQLiteOpenHelper {
         }
 
         return listRecordes;
+    }
+
+    public String getTreinamento(String tipo) {
+        SQLiteDatabase bd = getReadableDatabase();
+        Log.d("saiu", "aqui");
+        Cursor cursor = bd.query("TREINAMENTO", null, "NUMTABUADA = ?", new String[]{tipo}, null, null, null, null);
+        cursor.moveToFirst();
+        Log.d("saiu", cursor.getString(cursor.getColumnIndex("STARTIPO")));
+        return (cursor.getString(cursor.getColumnIndex("STARTIPO")));
     }
 }
