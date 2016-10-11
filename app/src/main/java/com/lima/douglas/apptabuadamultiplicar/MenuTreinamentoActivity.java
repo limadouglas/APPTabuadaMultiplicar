@@ -12,6 +12,7 @@ import android.view.View;
 public class MenuTreinamentoActivity extends AppCompatActivity {
     Intent i;
     String tipo;
+    //todo fazer aparecer os trofeus em todos os botões;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
