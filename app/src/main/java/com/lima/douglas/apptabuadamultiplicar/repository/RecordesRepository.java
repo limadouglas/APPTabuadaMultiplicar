@@ -85,6 +85,6 @@ public class RecordesRepository extends SQLiteOpenHelper {
         SQLiteDatabase bd = getReadableDatabase();
         Cursor cursor = bd.query("TREINAMENTO", null, "_ID = ? and NIVEL = ?", new String[]{numero, nivel}, null, null, null, null);
         cursor.moveToFirst();
-        return String.valueOf( cursor.getString(cursor.getColumnIndex("STARTIPO")) );
+        return cursor.getString( cursor.getColumnIndex("STARTIPO") );
     }
 }

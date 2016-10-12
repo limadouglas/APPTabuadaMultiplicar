@@ -254,7 +254,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
-        String star = repository.getTreinamento("experiente", valor);
+        String star = repository.getTreinamento("EXPERIENTE", String.valueOf( (Integer.valueOf(valor)+ 20) ));
         ContentValues values = new ContentValues();
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();

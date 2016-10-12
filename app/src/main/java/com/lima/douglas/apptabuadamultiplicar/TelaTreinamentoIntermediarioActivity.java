@@ -341,7 +341,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
-        String star = repository.getTreinamento("INTERMEDIARIO", valor);
+        String star = repository.getTreinamento("INTERMEDIARIO", String.valueOf( (Integer.valueOf(valor)+ 10)));
         ContentValues values = new ContentValues();
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();

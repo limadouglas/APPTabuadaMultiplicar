@@ -62,7 +62,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         i = getIntent();
         tipo = i.getStringExtra("tipo");
         setIcon();
-
     }
 
     public void abrirTreino(View view) {
@@ -70,7 +69,9 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             i = new Intent(this, TelaTreinamentoInicianteActivity.class);
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
-            startActivity(i);
+
+            startActivityForResult(i, 0);
+
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
@@ -78,7 +79,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             i = new Intent(this, TelaTreinamentoIntermediarioActivity.class);
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
-            startActivity(i);
+            startActivityForResult(i, 0); // chamando activity, e depois recebendo o resultado dela.
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
 
@@ -87,10 +88,19 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             i = new Intent(this, TelaTreinamentoExperienteActivity.class);
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
-            startActivity(i);
+            startActivityForResult(i, 0);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
+
+
+    // este metodo nativo do android será chamado quando voltar de uma activity chamada pelo metodo startActivityForResult().
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        setIcon();
+    }
+
 
 
     public void setIcon() {
@@ -106,7 +116,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
             case "intermediario": // erro no intermediario.
                 for (int i = 1; i <= 10; i++) {
-                    medalha = repository.getTreinamento("INTERMEDIARIO", String.valueOf(i));
+                    medalha = repository.getTreinamento("INTERMEDIARIO", String.valueOf(i+10));
                     alterarBotao(medalha, i);
                 }
                 break;
@@ -114,7 +124,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
             case "experiente":
                 for (int i = 1; i <= 10; i++) {
-                    medalha = repository.getTreinamento("EXPERIENTE", String.valueOf(i));
+                    medalha = repository.getTreinamento("EXPERIENTE", String.valueOf(i+20));
                     alterarBotao(medalha, i);
                 }
                 break;
@@ -122,6 +132,8 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -135,6 +147,8 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     public void alterarBotao(String medalha, int i) {
 
@@ -231,6 +245,8 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         }
 
     }
+
+
 
     public void onBackPressed() {
         finish();
