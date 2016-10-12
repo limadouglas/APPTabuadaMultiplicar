@@ -254,7 +254,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
-        String star = repository.getTreinamento(valor);
+        String star = repository.getTreinamento("experiente", valor);
         ContentValues values = new ContentValues();
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
@@ -266,31 +266,24 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             alertDialog.setIcon(R.drawable.trofeu_ouro);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
-                values.put("NUMTABUADA", valor);
-                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
             }
         } else if (contador < 35) {
             alertDialog.setTitle("Ótimo");
             alertDialog.setIcon(R.drawable.trofeu_prata);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
-                values.put("NUMTABUADA", valor);
-                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
             }
         } else if (contador < 70) {
             alertDialog.setTitle("Bom");
             alertDialog.setIcon(R.drawable.trofeu_bronze);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
-                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
             }
-        } else if (contador < 90) {
-            alertDialog.setTitle("Nada Mal!");
-            alertDialog.setIcon(R.drawable.trofeu_bronze);
-            if (star.equals("NAO")) {
-                values.put("STARTIPO", "BRONZE");
-                bd.update("TREINAMENTO", values, "NUMTABUADA = ?", new String[]{valor});
-            }
+        } else if (contador >= 70) {
+            alertDialog.setTitle("Continue Treinando!");
         }
 
         alertDialog.setCancelable(false);

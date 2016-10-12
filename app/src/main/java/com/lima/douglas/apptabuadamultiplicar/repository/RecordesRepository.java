@@ -25,7 +25,7 @@ public class RecordesRepository extends SQLiteOpenHelper {
     public String sql2 = "CREATE TABLE IF NOT EXISTS TREINAMENTO (" +
             "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "STARTIPO TEXT NOT NULL, " +
-            "NUMTABUADA TEXT);";
+            "NIVEL TEXT);";
 
 
     public RecordesRepository(Context context) {
@@ -41,7 +41,19 @@ public class RecordesRepository extends SQLiteOpenHelper {
         // iniciando todos os valores da tabela treinamento com  nao como padrao;
         for (int i = 1; i <= 10; i++) {
             values.put("STARTIPO", "NAO");
-            values.put("NUMTABUADA", String.valueOf(i));
+            values.put("NIVEL", "INICIANTE");
+            bd.insert("TREINAMENTO", null, values);
+        }
+        // iniciando todos os valores da tabela treinamento com  nao como padrao;
+        for (int i = 1; i <= 10; i++) {
+            values.put("STARTIPO", "NAO");
+            values.put("NIVEL", "INTERMEDIARIO");
+            bd.insert("TREINAMENTO", null, values);
+        }
+        // iniciando todos os valores da tabela treinamento com  nao como padrao;
+        for (int i = 1; i <= 10; i++) {
+            values.put("STARTIPO", "NAO");
+            values.put("NIVEL", "EXPERIENTE");
             bd.insert("TREINAMENTO", null, values);
         }
 
@@ -69,12 +81,10 @@ public class RecordesRepository extends SQLiteOpenHelper {
         return listRecordes;
     }
 
-    public String getTreinamento(String tipo) {
+    public String getTreinamento(String nivel, String numero) {
         SQLiteDatabase bd = getReadableDatabase();
-        Log.d("saiu", "aqui");
-        Cursor cursor = bd.query("TREINAMENTO", null, "NUMTABUADA = ?", new String[]{tipo}, null, null, null, null);
+        Cursor cursor = bd.query("TREINAMENTO", null, "_ID = ? and NIVEL = ?", new String[]{numero, nivel}, null, null, null, null);
         cursor.moveToFirst();
-        Log.d("saiu", cursor.getString(cursor.getColumnIndex("STARTIPO")));
-        return (cursor.getString(cursor.getColumnIndex("STARTIPO")));
+        return String.valueOf( cursor.getString(cursor.getColumnIndex("STARTIPO")) );
     }
 }
