@@ -5,4 +5,5 @@
     <color name="colorAccent">#00796B</color>
     <color name="corFundo">#e1eceb</color>
     <color name="corBackground">#009688</color>
+    <color name="corFonte">#fff</color>
 </resources>

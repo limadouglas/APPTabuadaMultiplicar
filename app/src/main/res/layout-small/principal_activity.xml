@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30dp">
+    android:padding="30dp"
+    android:background="@color/corBackground">
 
     <Button
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
         android:onClick="treinamento"
         android:paddingLeft="20dp"
         android:paddingRight="40dp"
-        android:text="@string/treinamento"
+        android:text="@string/principal_treinamento"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 
@@ -28,7 +29,7 @@
         android:drawableLeft="@drawable/btn_desafio_normal"
         android:paddingLeft="20dp"
         android:paddingRight="40dp"
-        android:text="@string/desafio"
+        android:text="@string/principal_desafio"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 
@@ -41,7 +42,7 @@
         android:drawableLeft="@drawable/btn_tabuada_normal"
         android:paddingLeft="20dp"
         android:paddingRight="40dp"
-        android:text="@string/tabuada"
+        android:text="@string/principal_tabuada"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 
@@ -54,7 +55,7 @@
         android:drawableLeft="@drawable/btn_recordes_normal"
         android:paddingLeft="20dp"
         android:paddingRight="40dp"
-        android:text="@string/recordes"
+        android:text="@string/principal_recordes"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 

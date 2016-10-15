@@ -19,7 +19,7 @@ public class NivelDesafioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Nivel do Desafio");
+        actionBar.setTitle(R.string.titulo_nivel_desafio);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.nivel_desafio_activity);

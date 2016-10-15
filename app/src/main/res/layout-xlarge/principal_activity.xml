@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:background="@color/corBackground">
 
 
     <Button
@@ -13,7 +14,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="treinamento"
-        android:text="@string/treinamento"
+        android:text="@string/principal_treinamento"
         android:theme="@style/BotaoActivity" />
 
     <Button
@@ -22,7 +23,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="desafio"
-        android:text="@string/desafio"
+        android:text="@string/principal_desafio"
         android:theme="@style/BotaoActivity" />
 
 
@@ -32,7 +33,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="tabuada"
-        android:text="@string/tabuada"
+        android:text="@string/principal_tabuada"
         android:theme="@style/BotaoActivity" />
 
     <Button
@@ -41,7 +42,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/screen_border"
         android:onClick="recordes"
-        android:text="@string/recordes"
+        android:text="@string/principal_recordes"
         android:theme="@style/BotaoActivity" />
 
 </LinearLayout>

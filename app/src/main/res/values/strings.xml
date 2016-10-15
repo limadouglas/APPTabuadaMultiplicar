@@ -1,7 +1,46 @@
 <resources>
     <string name="app_name">Tabuada de Multiplicação</string>
-    <string name="treinamento">Treinamento</string>
-    <string name="desafio">Desafio</string>
-    <string name="tabuada">Tabuada</string>
-    <string name="recordes">Recordes</string>
+
+    <string name="titulo_desafio_dificil">Difícil</string>
+    <string name="titulo_desafio_medio">Médio</string>
+    <string name="titulo_desafio_facil">Fácil</string>
+
+    <string name="titulo_nivel_treinamento">Nível Treinamento</string>
+    <string name="titulo_menu_treinamento">Menu Treinamento</string>
+    <string name="titulo_nivel_desafio">Nível do Desafio</string>
+    <string name="titulo_recordes">Recordes</string>
+
+    <string name="titulo_treinamento_experiente">Experiente</string>
+    <string name="titulo_treinamento_iniciante">Iniciante</string>
+    <string name="titulo_treinamento_intermediario">Intermediário</string>
+
+    <string name="titulo_tabuada">Tabuada</string>
+
+
+    <string name="principal_treinamento">Treinamento</string>
+    <string name="principal_desafio">Desafio</string>
+    <string name="principal_tabuada">Tabuada</string>
+    <string name="principal_recordes">Recordes</string>
+
+    <string name="recordes_dificil">Desafio Difícil</string>
+    <string name="recordes_medio">Desafio Médio</string>
+    <string name="recordes_facil">Desafio Fácil</string>
+
+    <string name="nivel_desafio_facil">Fácil</string>
+    <string name="nivel_desafio_medio">Médio</string>
+    <string name="nivel_desafio_dificil">Difícil</string>
+
+    <string name="nivel_treinamento_iniciante">Iniciante</string>
+    <string name="nivel_treinamento_intermediario">Intermediário</string>
+    <string name="nivel_treinamento_experiente">Experiente</string>
+
+
+    <string name="msg_titulo_pontuacao">Pontuacão</string>
+    <string name="msg_pontuacao_excelente">Excelente</string>
+    <string name="msg_pontuacao_otimo">Ótimo</string>
+    <string name="msg_pontuacao_bom">Bom</string>
+    <string name="msg_pontuacao_cont_treinando">Continue Treinando!</string>
+    <string name="msg_botao_novamente">Novamente</string>
+    <string name="msg_botao_retornar">Retornar</string>
+
 </resources>

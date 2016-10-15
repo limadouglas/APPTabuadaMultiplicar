@@ -62,7 +62,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Desafio Difícil");
+        actionBar.setTitle(R.string.titulo_desafio_dificil);
 
         // instanciando view.
         txtResposta = (TextView) findViewById(R.id.txtResposta);
@@ -259,10 +259,10 @@ public class DesafioDificilActivity extends AppCompatActivity {
         dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // necessario para que o usuario não clique fora do alert para sair.
         dialog.setCancelable(false);
-        dialog.setTitle("Pontuação");
+        dialog.setTitle(R.string.msg_titulo_pontuacao);
         dialog.setMessage(String.valueOf(pontuacao));
 
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE,  String.valueOf(R.string.msg_botao_novamente), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -270,7 +270,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE,  String.valueOf(R.string.msg_botao_retornar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();

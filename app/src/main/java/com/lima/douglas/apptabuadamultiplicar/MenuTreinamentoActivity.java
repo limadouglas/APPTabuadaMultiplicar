@@ -55,7 +55,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.treinamento);
+        actionBar.setTitle(R.string.titulo_menu_treinamento);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // pegando argumento passado pela intent.

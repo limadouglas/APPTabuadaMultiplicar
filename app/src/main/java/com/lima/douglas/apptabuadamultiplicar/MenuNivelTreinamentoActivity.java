@@ -19,7 +19,7 @@ public class MenuNivelTreinamentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu_nivel_treinamento_activity);
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Nivel Treinamento");
+        actionBar.setTitle(R.string.titulo_nivel_treinamento);
         actionBar.setDisplayHomeAsUpEnabled(true);
         i = new Intent(this, MenuTreinamentoActivity.class);
     }
