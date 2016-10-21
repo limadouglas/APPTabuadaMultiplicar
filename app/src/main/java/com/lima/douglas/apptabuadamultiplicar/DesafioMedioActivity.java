@@ -19,7 +19,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -305,6 +308,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
+        int i=  0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
         if (contador < 0)
@@ -312,12 +316,42 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
         pontuacao = (placar * 4) + (contador * 4);
 
+        // instanciando banco
         bd = repository.getWritableDatabase();
 
-        values = new ContentValues();
-        values.put("PONTUACAO", pontuacao);
-        values.put("TIPORECORDE", "MEDIO");
-        bd.insert("RECORDES", null, values);
+        // buscar do banco de dados.
+        List<RecordesEstrutura> recordes = repository.getRecordes("MEDIO");
+        ArrayList<Integer> array = new ArrayList<Integer>();
+
+        for (RecordesEstrutura re : recordes) {
+            array.add(re.getPontuacao());
+            i++;
+        }
+
+        if (i >= 3) {
+            for (int j = 0; j < i; j++) {
+                if (pontuacao > array.get(j)) {
+                    // removerndo último valor do banco.
+                    bd.delete("RECORDES", "PONTUACAO = ? and TIPORECORDE = ?", new String[] {String.valueOf(array.get(2)), "MEDIO"});
+
+                    // gravando valores no banco.
+                    values = new ContentValues();
+                    values.put("PONTUACAO", pontuacao);
+                    values.put("TIPORECORDE", "MEDIO");
+                    bd.insert("RECORDES", null, values);
+
+                    // saindo o loop.
+                    break;
+                }
+            }
+        } else {
+            // gravando valores no banco.
+            values = new ContentValues();
+            values.put("PONTUACAO", pontuacao);
+            values.put("TIPORECORDE", "MEDIO");
+            bd.insert("RECORDES", null, values);
+        }
+
 
         dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // necessario para que o usuario não clique fora do alert para sair.
@@ -325,7 +359,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         dialog.setTitle(R.string.msg_titulo_pontuacao);
         dialog.setMessage(String.valueOf(pontuacao));
 
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, String.valueOf(R.string.msg_botao_novamente), new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -333,7 +367,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, String.valueOf(R.string.msg_botao_retornar), new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();

@@ -4,18 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="30dp"
-    android:background="@color/corBackground">
-
+    android:background="@color/corBackground"
+    android:gravity="center">
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/screen_border"
         android:drawableLeft="@drawable/btn_treinamento_large"
-        android:paddingLeft="70dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:text="@string/principal_treinamento"
         android:onClick="treinamento"
         android:textColor="@color/colorPrimaryDark"
@@ -23,11 +22,11 @@
 
     <Button
         android:drawableLeft="@drawable/btn_desafio_large"
-        android:paddingLeft="70dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/screen_border"
         android:onClick="desafio"
         android:text="@string/principal_desafio"
@@ -37,11 +36,11 @@
 
     <Button
         android:drawableLeft="@drawable/btn_tabuada_large"
-        android:paddingLeft="70dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="5dp"
         android:background="@drawable/screen_border"
         android:onClick="tabuada"
         android:text="@string/principal_tabuada"
@@ -49,9 +48,10 @@
         android:textSize="30dp" />
 
     <Button
+        android:layout_margin="5dp"
         android:drawableLeft="@drawable/btn_recordes_large"
-        android:paddingLeft="70dp"
-        android:paddingRight="120dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/screen_border"

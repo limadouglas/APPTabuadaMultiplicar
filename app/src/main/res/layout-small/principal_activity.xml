@@ -14,8 +14,8 @@
         android:background="@drawable/screen_border"
         android:drawableLeft="@drawable/btn_treinamento_normal"
         android:onClick="treinamento"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:text="@string/principal_treinamento"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
@@ -27,8 +27,8 @@
         android:background="@drawable/screen_border"
         android:onClick="desafio"
         android:drawableLeft="@drawable/btn_desafio_normal"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:text="@string/principal_desafio"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
@@ -40,8 +40,8 @@
         android:background="@drawable/screen_border"
         android:onClick="tabuada"
         android:drawableLeft="@drawable/btn_tabuada_normal"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:text="@string/principal_tabuada"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
@@ -53,8 +53,8 @@
         android:background="@drawable/screen_border"
         android:onClick="recordes"
         android:drawableLeft="@drawable/btn_recordes_normal"
-        android:paddingLeft="20dp"
-        android:paddingRight="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="50dp"
         android:text="@string/principal_recordes"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />

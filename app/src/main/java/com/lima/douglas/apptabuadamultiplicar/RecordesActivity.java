@@ -84,11 +84,11 @@ public class RecordesActivity extends AppCompatActivity {
 
         // inserindo valores da list<integer> no arraylist.
         for (RecordesEstrutura recordesEstrutura : recordes) {
-            arrayPontuacao.add(recordesEstrutura.getPontucacao());
+            arrayPontuacao.add(recordesEstrutura.getPontuacao());
             i++;
         }
 
-        // Atulizado valores dos TextView.
+        // Atualizado valores dos TextView.
         if (i >= 1)
             um.setText(String.valueOf(arrayPontuacao.get(0)));
         if (i >= 2)

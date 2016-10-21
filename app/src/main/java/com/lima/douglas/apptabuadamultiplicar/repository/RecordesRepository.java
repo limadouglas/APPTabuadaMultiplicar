@@ -60,9 +60,7 @@ public class RecordesRepository extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase bd, int i, int i1) {
-    }
-
+    public void onUpgrade(SQLiteDatabase bd, int i, int i1) {}
 
     public List<RecordesEstrutura> getRecordes(String tipo) {
         RecordesEstrutura estrutura;
@@ -74,7 +72,7 @@ public class RecordesRepository extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             estrutura = new RecordesEstrutura();
             estrutura.setId(cursor.getInt(cursor.getColumnIndex("_ID")));
-            estrutura.setPontucacao(cursor.getInt(cursor.getColumnIndex("PONTUACAO")));
+            estrutura.setPontuacao(cursor.getInt(cursor.getColumnIndex("PONTUACAO")));
             listRecordes.add(estrutura);
         }
 

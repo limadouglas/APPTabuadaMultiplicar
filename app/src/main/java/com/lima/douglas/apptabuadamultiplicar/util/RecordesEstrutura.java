@@ -6,7 +6,7 @@ package com.lima.douglas.apptabuadamultiplicar.util;
 
 public class RecordesEstrutura {
     private Integer id;
-    private Integer pontucacao;
+    private Integer pontuacao;
 
     public Integer getId() {
         return id;
@@ -16,11 +16,11 @@ public class RecordesEstrutura {
         this.id = id;
     }
 
-    public Integer getPontucacao() {
-        return pontucacao;
+    public Integer getPontuacao() {
+        return pontuacao;
     }
 
-    public void setPontucacao(int pontucacao) {
-        this.pontucacao = pontucacao;
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
     }
 }

@@ -129,8 +129,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 }
                 break;
         }
-
-
     }
 
 
@@ -154,7 +152,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
         if (i == 1) {
             if (!medalha.equals("NAO"))
-                btn1.setPadding(25, 0, 50, 0);
+                btn1.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -163,7 +161,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 2) {
             if (!medalha.equals("NAO"))
-                btn2.setPadding(25, 0, 50, 0);
+                btn2.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -172,7 +170,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 3) {
             if (!medalha.equals("NAO"))
-                btn3.setPadding(25, 0, 50, 0);
+                btn3.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -181,7 +179,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 4) {
             if (!medalha.equals("NAO"))
-                btn4.setPadding(25, 0, 50, 0);
+                btn4.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -190,7 +188,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 5) {
             if (!medalha.equals("NAO"))
-                btn5.setPadding(25, 0, 50, 0);
+                btn5.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -199,7 +197,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 6) {
             if (!medalha.equals("NAO"))
-                btn6.setPadding(25, 0, 50, 0);
+                btn6.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -208,7 +206,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 7) {
             if (!medalha.equals("NAO"))
-                btn7.setPadding(25, 0, 50, 0);
+                btn7.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -217,7 +215,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 8) {
             if (!medalha.equals("NAO"))
-                btn8.setPadding(25, 0, 50, 0);
+                btn8.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -226,7 +224,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 9) {
             if (!medalha.equals("NAO"))
-                btn9.setPadding(25, 0, 50, 0);
+                btn9.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))
@@ -235,7 +233,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
                 btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
         } else if (i == 10) {
             if (!medalha.equals("NAO"))
-                btn10.setPadding(25, 0, 50, 0);
+                btn10.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft()*2, 0);
             if (medalha.equals("OURO"))
                 btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
             else if (medalha.equals("PRATA"))

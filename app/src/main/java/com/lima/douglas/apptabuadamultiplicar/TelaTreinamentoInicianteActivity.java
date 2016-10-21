@@ -303,7 +303,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
         alertDialog.setCancelable(false);
 
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, String.valueOf(R.string.msg_botao_novamente), new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -311,7 +311,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, String.valueOf(R.string.msg_botao_retornar), new DialogInterface.OnClickListener() {
+        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
