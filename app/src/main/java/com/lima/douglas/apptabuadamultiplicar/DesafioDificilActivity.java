@@ -15,13 +15,16 @@ import android.support.v7.view.menu.MenuView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
@@ -55,6 +58,20 @@ public class DesafioDificilActivity extends AppCompatActivity {
     Handler handler;
     MenuInflater menuInflater;
     MenuItem MenuItem;
+
+
+    // declarando botões.
+    Button btn0;
+    Button btn1;
+    Button btn2;
+    Button btn3;
+    Button btn4;
+    Button btn5;
+    Button btn6;
+    Button btn7;
+    Button btn8;
+    Button btn9;
+    Button btnApagar;
 
 
     @Override
@@ -91,7 +108,59 @@ public class DesafioDificilActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(multInicial));
 
 
+        // solucionando problema da tela de 3.2 (normal).
+        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+            alterarTamBotao();
+        }
     }
+
+
+    // retornando tamanho da tela.
+    public int getTamanhoHeight(int i) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+        if(i == 1)
+            return height;
+        else
+            return width;
+    }
+
+    public void alterarTamBotao() {
+
+        // instanciando botões.
+        btn0 = (Button) findViewById(R.id.btn0);
+        btn1 = (Button) findViewById(R.id.btn1);
+        btn2 = (Button) findViewById(R.id.btn2);
+        btn3 = (Button) findViewById(R.id.btn3);
+        btn4 = (Button) findViewById(R.id.btn4);
+        btn5 = (Button) findViewById(R.id.btn5);
+        btn6 = (Button) findViewById(R.id.btn6);
+        btn7 = (Button) findViewById(R.id.btn7);
+        btn8 = (Button) findViewById(R.id.btn8);
+        btn9 = (Button) findViewById(R.id.btn9);
+        btnApagar = (Button) findViewById(R.id.btnApagar);
+
+        // obtendo densidade da tela.
+        float density  = getResources().getDisplayMetrics().density;
+
+        int tam = (int)( density * 45 );
+        //alterando tamanho(height).
+        btn0.getLayoutParams().height = tam;
+        btn1.getLayoutParams().height = tam;
+        btn2.getLayoutParams().height = tam;
+        btn3.getLayoutParams().height = tam;
+        btn4.getLayoutParams().height = tam;
+        btn5.getLayoutParams().height = tam;
+        btn6.getLayoutParams().height = tam;
+        btn7.getLayoutParams().height = tam;
+        btn8.getLayoutParams().height = tam;
+        btn9.getLayoutParams().height = tam;
+        btnApagar.getLayoutParams().height = tam;
+
+    }
+
 
     // inserindo valor no textview.
     public void addValor(View view) {

@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -84,6 +85,34 @@ public class DesafioFacilActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(multInicial));
 
         gerarTagsBotao();
+
+        // solucionando problema da tela de 3.2 (normal).
+        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+            alterarTamBotao();
+        }
+    }
+
+    // retornando tamanho da tela.
+    public int getTamanhoHeight(int i) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+        if(i == 1)
+            return height;
+        else
+            return width;
+    }
+
+    public void alterarTamBotao() {
+
+        // obtendo densidade da tela.
+        float density  = getResources().getDisplayMetrics().density;
+
+        int tam = (int)( density * 180 );
+        //alterando tamanho(height).
+        um.getLayoutParams().height = tam;
+        dois.getLayoutParams().height = tam;
     }
 
 
