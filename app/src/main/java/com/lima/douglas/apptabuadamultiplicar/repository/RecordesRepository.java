@@ -19,8 +19,8 @@ public class RecordesRepository extends SQLiteOpenHelper {
 
     public String sql = "CREATE TABLE IF NOT EXISTS RECORDES (" +
             "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "PONTUACAO INTEGER NOT NULL," +
-            "TIPORECORDE TEXT NOT NULL);";
+            "PONTUACAO INTEGER," +
+            "TIPORECORDE TEXT);";
 
     public String sql2 = "CREATE TABLE IF NOT EXISTS TREINAMENTO (" +
             "_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -75,14 +75,43 @@ public class RecordesRepository extends SQLiteOpenHelper {
             estrutura.setPontuacao(cursor.getInt(cursor.getColumnIndex("PONTUACAO")));
             listRecordes.add(estrutura);
         }
+        // fechando banco;
+        cursor.close();
+        bd.close();
 
         return listRecordes;
     }
 
     public String getTreinamento(String nivel, String numero) {
+        String resultado;
         SQLiteDatabase bd = getReadableDatabase();
         Cursor cursor = bd.query("TREINAMENTO", null, "_ID = ? and NIVEL = ?", new String[]{numero, nivel}, null, null, null, null);
         cursor.moveToFirst();
-        return cursor.getString( cursor.getColumnIndex("STARTIPO") );
+
+        resultado = cursor.getString( cursor.getColumnIndex("STARTIPO") );
+
+        // fechando banco;
+        cursor.close();
+        bd.close();
+
+        return resultado;
     }
+
+    public void setRecorde(String nivel, int pontuacao) {
+        SQLiteDatabase bd = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("TIPORECORDE", nivel);
+        values.put("PONTUACAO", pontuacao);
+
+        // inserindo novo recorde no banco.
+        bd.insert("RECORDES", null, values);
+    }
+
+    public void removerRecorde(String nivel, int pontuacao) {
+        SQLiteDatabase bd = getWritableDatabase();
+        // removendo valor do banco.
+        bd.delete("RECORDES", "PONTUACAO = ? and TIPORECORDE = ?", new String[] {String.valueOf(pontuacao), nivel});
+    }
+
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -87,7 +88,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         gerarTagsBotao();
 
         // solucionando problema da tela de 3.2 (normal).
-        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+        if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
     }
@@ -98,7 +99,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
-        if(i == 1)
+        if (i == 1)
             return height;
         else
             return width;
@@ -107,9 +108,9 @@ public class DesafioFacilActivity extends AppCompatActivity {
     public void alterarTamBotao() {
 
         // obtendo densidade da tela.
-        float density  = getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
 
-        int tam = (int)( density * 180 );
+        int tam = (int) (density * 180);
         //alterando tamanho(height).
         um.getLayoutParams().height = tam;
         dois.getLayoutParams().height = tam;
@@ -260,18 +261,15 @@ public class DesafioFacilActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
-        int i = 0;
 
+        int i = 0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
         if (contador < 0)
             contador = 0;
 
+        // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
-
-
-        // instanciando banco
-        bd = repository.getWritableDatabase();
 
         // buscar do banco de dados.
         List<RecordesEstrutura> recordes = repository.getRecordes("FACIL");
@@ -283,27 +281,23 @@ public class DesafioFacilActivity extends AppCompatActivity {
         }
 
         if (i >= 3) {
-            for (int j = 0; j < i; j++) {
-                if (pontuacao > array.get(j)) {
-                    // removerndo último valor do banco.
-                    bd.delete("RECORDES", "PONTUACAO = ? and TIPORECORDE = ?", new String[] {String.valueOf(array.get(2)), "FACIL"});
+            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
+                for (int j = 0; j < i; j++) {
+                    if (pontuacao > array.get(j)) {
+                        // removerndo último valor do banco.
+                        repository.removerRecorde("FACIL", array.get(2));
 
-                    // gravando valores no banco.
-                    values = new ContentValues();
-                    values.put("PONTUACAO", pontuacao);
-                    values.put("TIPORECORDE", "FACIL");
-                    bd.insert("RECORDES", null, values);
+                        // gravando valores no banco.
+                        repository.setRecorde("FACIL", pontuacao);
 
-                    // saindo o loop.
-                    break;
+                        // saindo o loop.
+                        break;
+                    }
                 }
             }
         } else {
             // gravando valores no banco.
-            values = new ContentValues();
-            values.put("PONTUACAO", pontuacao);
-            values.put("TIPORECORDE", "FACIL");
-            bd.insert("RECORDES", null, values);
+            repository.setRecorde("FACIL", pontuacao);
         }
 
         dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
@@ -377,6 +371,5 @@ public class DesafioFacilActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
-
 
 }

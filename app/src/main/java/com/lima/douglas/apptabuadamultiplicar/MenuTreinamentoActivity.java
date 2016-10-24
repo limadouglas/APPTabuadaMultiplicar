@@ -32,7 +32,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
     Button btn8;
     Button btn9;
     Button btn10;
-    //todo fazer aparecer os trofeus em todos os botões;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -289,4 +288,5 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
+
 }

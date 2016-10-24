@@ -36,7 +36,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 59;
+    int contador = 10;
     int pontuacao = 0;
     AlertDialog dialog;
     Intent i;
@@ -91,7 +91,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         gerarTagsBotao();
 
         // solucionando problema da tela de 3.2 (normal).
-        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+        if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
     }
@@ -103,7 +103,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
-        if(i == 1)
+        if (i == 1)
             return height;
         else
             return width;
@@ -112,16 +112,15 @@ public class DesafioMedioActivity extends AppCompatActivity {
     public void alterarTamBotao() {
 
         // obtendo densidade da tela.
-        float density  = getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
 
-        int tam = (int)( density * 90 );
+        int tam = (int) (density * 90);
         //alterando tamanho(height).
         um.getLayoutParams().height = tam;
         dois.getLayoutParams().height = tam;
         tres.getLayoutParams().height = tam;
         quatro.getLayoutParams().height = tam;
     }
-
 
 
     // verificando a tag do botão que o usuario criou.
@@ -341,16 +340,14 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
 
     public void finalizarDesafio() {
-        int i=  0;
+        int i = 0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
         if (contador < 0)
             contador = 0;
 
+        // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
-
-        // instanciando banco
-        bd = repository.getWritableDatabase();
 
         // buscar do banco de dados.
         List<RecordesEstrutura> recordes = repository.getRecordes("MEDIO");
@@ -362,29 +359,24 @@ public class DesafioMedioActivity extends AppCompatActivity {
         }
 
         if (i >= 3) {
-            for (int j = 0; j < i; j++) {
-                if (pontuacao > array.get(j)) {
-                    // removerndo último valor do banco.
-                    bd.delete("RECORDES", "PONTUACAO = ? and TIPORECORDE = ?", new String[] {String.valueOf(array.get(2)), "MEDIO"});
+            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
+                for (int j = 0; j < i; j++) {
+                    if (pontuacao > array.get(j)) {
+                        // removerndo último valor do banco.
+                        repository.removerRecorde("MEDIO", array.get(2));
 
-                    // gravando valores no banco.
-                    values = new ContentValues();
-                    values.put("PONTUACAO", pontuacao);
-                    values.put("TIPORECORDE", "MEDIO");
-                    bd.insert("RECORDES", null, values);
+                        // gravando valores no banco.
+                        repository.setRecorde("MEDIO", pontuacao);
 
-                    // saindo o loop.
-                    break;
+                        // saindo o loop.
+                        break;
+                    }
                 }
             }
         } else {
             // gravando valores no banco.
-            values = new ContentValues();
-            values.put("PONTUACAO", pontuacao);
-            values.put("TIPORECORDE", "MEDIO");
-            bd.insert("RECORDES", null, values);
+            repository.setRecorde("MEDIO", pontuacao);
         }
-
 
         dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // necessario para que o usuario não clique fora do alert para sair.
@@ -454,4 +446,5 @@ public class DesafioMedioActivity extends AppCompatActivity {
         menu.setGroupEnabled(0, false);
         return super.onCreateOptionsMenu(menu);
     }
+
 }
