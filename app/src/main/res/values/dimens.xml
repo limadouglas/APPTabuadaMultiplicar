@@ -2,4 +2,5 @@
 <resources>
     <dimen name="texto_botao">25sp</dimen>
     <dimen name="texto_botao_small">45sp</dimen>
+    <dimen name="texto_botao_large">45sp</dimen>
 </resources>
