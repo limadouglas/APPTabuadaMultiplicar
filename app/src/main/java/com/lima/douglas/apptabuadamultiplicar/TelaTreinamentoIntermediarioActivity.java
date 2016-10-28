@@ -29,19 +29,16 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
 
     ActionBar actionBar;
     TextView txtPadrao;
-    TextView txtPlacar;
     TextView txtAlternar;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador;
-    int pontuacao = 0, resMultiplicacao;
     AlertDialog dialogTabela;
     AlertDialog alertDialog;
     Intent i;
     RecordesRepository repository;
     SQLiteDatabase bd;
-    ContentValues values;
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
     Handler handler;
@@ -50,10 +47,12 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
     Button tres;
     Button quatro;
     int arrayTag, resultado, resultadoErrado;
-    MenuItem menuItem;
     Random random;
     ImageView imvTabela;
     String valor;
+    TextView txtPlacar;
+    TextView txtTitulo;
+    ImageView imvTabuada;
 
 
     @Override
@@ -62,9 +61,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         setContentView(R.layout.tela_treinamento_intermediario_activity);
 
         valor = getIntent().getStringExtra("valor");
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.titulo_treinamento_intermediario);
+        getSupportActionBar().hide();
 
         // instanciando view.
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
@@ -80,7 +77,17 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         imvTabela = new ImageView(this);
         alertDialog = new AlertDialog.Builder(this).create();
         dialogTabela = new AlertDialog.Builder(this).create();
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
 
+
+        // alterando pontos da toolbar.
+        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
+
+        // alterando titulo da toolbar.
+        txtTitulo.setText("Intermediario");
+
+        // instanciando a tabuada.
+        imvTabuada = (ImageView) findViewById(R.id.imvTabuada);
 
         //inserindo um valor no txtPadrao para ele começar com o numero escolhido pelo usuario.
         txtPadrao.setText(valor);
@@ -136,6 +143,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -156,6 +170,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         } else if (arrayTag == 1) {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -177,6 +198,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         } else if (arrayTag == 2) {
             tres.setText(String.valueOf(resultado));
             tres.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -197,6 +225,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         } else if (arrayTag == 3) {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -282,61 +317,42 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            sairThread = true;
-            finish();
-            overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-        } else {
-            switch (valor) {
-                case "1":
-                    imvTabela.setBackgroundResource(R.drawable.um);
-                    break;
-                case "2":
-                    imvTabela.setBackgroundResource(R.drawable.dois);
-                    break;
-                case "3":
-                    imvTabela.setBackgroundResource(R.drawable.tres);
-                    break;
-                case "4":
-                    imvTabela.setBackgroundResource(R.drawable.quatro);
-                    break;
-                case "5":
-                    imvTabela.setBackgroundResource(R.drawable.cinco);
-                    break;
-                case "6":
-                    imvTabela.setBackgroundResource(R.drawable.seis);
-                    break;
-                case "7":
-                    imvTabela.setBackgroundResource(R.drawable.sete);
-                    break;
-                case "8":
-                    imvTabela.setBackgroundResource(R.drawable.oito);
-                    break;
-                case "9":
-                    imvTabela.setBackgroundResource(R.drawable.nove);
-                    break;
-                case "10":
-                    imvTabela.setBackgroundResource(R.drawable.dez);
-                    break;
-            }
-            dialogTabela.setView(imvTabela);
-            dialogTabela.show();
+    public void mostrarTabuada(View v){
+        switch (valor) {
+            case "1":
+                imvTabela.setBackgroundResource(R.drawable.um);
+                break;
+            case "2":
+                imvTabela.setBackgroundResource(R.drawable.dois);
+                break;
+            case "3":
+                imvTabela.setBackgroundResource(R.drawable.tres);
+                break;
+            case "4":
+                imvTabela.setBackgroundResource(R.drawable.quatro);
+                break;
+            case "5":
+                imvTabela.setBackgroundResource(R.drawable.cinco);
+                break;
+            case "6":
+                imvTabela.setBackgroundResource(R.drawable.seis);
+                break;
+            case "7":
+                imvTabela.setBackgroundResource(R.drawable.sete);
+                break;
+            case "8":
+                imvTabela.setBackgroundResource(R.drawable.oito);
+                break;
+            case "9":
+                imvTabela.setBackgroundResource(R.drawable.nove);
+                break;
+            case "10":
+                imvTabela.setBackgroundResource(R.drawable.dez);
+                break;
         }
-
-        return true;
+        dialogTabela.setView(imvTabela);
+        dialogTabela.show();
     }
-
 
     public void contagem() {
 

@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ import java.util.Random;
 public class DesafioDificilActivity extends AppCompatActivity {
 
 
-    TextView txtResposta;
+    TextView txtResposta, txtTitulo, txtTempo;
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
@@ -71,7 +72,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
     Button btn7;
     Button btn8;
     Button btn9;
-    Button btnApagar;
+    ImageButton btnApagar;
 
 
     @Override
@@ -80,9 +81,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         setContentView(R.layout.desafio_dificil_activity);
 
         // renomeando action bar.
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.titulo_desafio_dificil);
+        getSupportActionBar().hide();
 
         // instanciando view.
         txtResposta = (TextView) findViewById(R.id.txtResposta);
@@ -91,6 +90,10 @@ public class DesafioDificilActivity extends AppCompatActivity {
         random = new Random();
         repository = new RecordesRepository(this);
         handler = new Handler();
+
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        txtTempo = (TextView) findViewById(R.id.txtTempo);
+        txtTitulo.setText("Difícil");
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -140,7 +143,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
         btn7 = (Button) findViewById(R.id.btn7);
         btn8 = (Button) findViewById(R.id.btn8);
         btn9 = (Button) findViewById(R.id.btn9);
-        btnApagar = (Button) findViewById(R.id.btnApagar);
+        btnApagar = (ImageButton) findViewById(R.id.btnApagar);
 
         // obtendo densidade da tela.
         float density = getResources().getDisplayMetrics().density;
@@ -287,7 +290,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            MenuItem.setTitle(String.valueOf(contador));
+                            txtTempo.setText(String.valueOf(contador));
                         }
                     });
                     try {
@@ -393,19 +396,6 @@ public class DesafioDificilActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Id correspondente ao botão Up/Home da actionbar
-            case android.R.id.home:
-                sairThread = true;
-                finish();
-                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void onBackPressed() {
         // ativar finalizar thread.
         sairThread = true;
@@ -414,17 +404,5 @@ public class DesafioDificilActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.time_dificil, menu);
-        // desabilitando o click.
-        menu.setGroupEnabled(0, false);
-        // pegando instancia do menu para poder alterar.
-        MenuItem = menu.findItem(R.id.itmTime);
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
 }

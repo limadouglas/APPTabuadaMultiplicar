@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ import java.util.Random;
 public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
 
-    TextView txtResposta;
+    TextView txtResposta,txtTitulo;
     TextView txtPlacar;
     TextView txtPadrao;
     TextView txtAlternar;
@@ -37,7 +38,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, resMultiplicacao, contador;
     boolean verificarRepetidos = true, ativarContador = true;
     AlertDialog dialogTabela;
-    ImageView imvTabela;
+    ImageView imvTabuada, imvTabela;
     String valor;
     AlertDialog alertDialog;
     Intent iAtualizar;
@@ -60,7 +61,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     Button btn7;
     Button btn8;
     Button btn9;
-    Button btnApagar;
+    ImageButton btnApagar;
     TextView txtX;
 
 
@@ -69,10 +70,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tela_treinamento_experiente_activity);
 
-        // renomeando action bar.
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_treinamento_experiente);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
 
         // recebendo intent com valor da multiplicação a ser feita.
         Intent i = getIntent();
@@ -84,7 +82,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         txtResposta = (TextView) findViewById(R.id.txtResposta);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
-        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
         imvTabela = new ImageView(this);
         dialogTabela = new AlertDialog.Builder(this).create();
         txtPadrao.setText(valor);
@@ -92,6 +89,18 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         alertDialog = new AlertDialog.Builder(this).create();
         iAtualizar = new Intent(this, TelaTreinamentoExperienteActivity.class);
         iVoltar = new Intent(this, MenuTreinamentoActivity.class);
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+
+
+        // alterando pontos da toolbar.
+        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
+
+        // alterando titulo da toolbar.
+        txtTitulo.setText("Experiente");
+
+        // instanciando a tabuada.
+        imvTabuada = (ImageView) findViewById(R.id.imvTabuada);
+
 
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -133,7 +142,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         btn7 = (Button) findViewById(R.id.btn7);
         btn8 = (Button) findViewById(R.id.btn8);
         btn9 = (Button) findViewById(R.id.btn9);
-        btnApagar = (Button) findViewById(R.id.btnApagar);
+        btnApagar = (ImageButton) findViewById(R.id.btnApagar);
         txtX = (TextView) findViewById(R.id.txtX);
 
         // obtendo densidade da tela.
@@ -244,59 +253,41 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            sairThread = true;
-            finish();
-            overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-        } else {
-            switch (valor) {
-                case "1":
-                    imvTabela.setBackgroundResource(R.drawable.um);
-                    break;
-                case "2":
-                    imvTabela.setBackgroundResource(R.drawable.dois);
-                    break;
-                case "3":
-                    imvTabela.setBackgroundResource(R.drawable.tres);
-                    break;
-                case "4":
-                    imvTabela.setBackgroundResource(R.drawable.quatro);
-                    break;
-                case "5":
-                    imvTabela.setBackgroundResource(R.drawable.cinco);
-                    break;
-                case "6":
-                    imvTabela.setBackgroundResource(R.drawable.seis);
-                    break;
-                case "7":
-                    imvTabela.setBackgroundResource(R.drawable.sete);
-                    break;
-                case "8":
-                    imvTabela.setBackgroundResource(R.drawable.oito);
-                    break;
-                case "9":
-                    imvTabela.setBackgroundResource(R.drawable.nove);
-                    break;
-                case "10":
-                    imvTabela.setBackgroundResource(R.drawable.dez);
-                    break;
-            }
-            dialogTabela.setView(imvTabela);
-            dialogTabela.show();
+    public void mostrarTabuada(View v){
+        switch (valor) {
+            case "1":
+                imvTabela.setBackgroundResource(R.drawable.um);
+                break;
+            case "2":
+                imvTabela.setBackgroundResource(R.drawable.dois);
+                break;
+            case "3":
+                imvTabela.setBackgroundResource(R.drawable.tres);
+                break;
+            case "4":
+                imvTabela.setBackgroundResource(R.drawable.quatro);
+                break;
+            case "5":
+                imvTabela.setBackgroundResource(R.drawable.cinco);
+                break;
+            case "6":
+                imvTabela.setBackgroundResource(R.drawable.seis);
+                break;
+            case "7":
+                imvTabela.setBackgroundResource(R.drawable.sete);
+                break;
+            case "8":
+                imvTabela.setBackgroundResource(R.drawable.oito);
+                break;
+            case "9":
+                imvTabela.setBackgroundResource(R.drawable.nove);
+                break;
+            case "10":
+                imvTabela.setBackgroundResource(R.drawable.dez);
+                break;
         }
-
-        return true;
+        dialogTabela.setView(imvTabela);
+        dialogTabela.show();
     }
 
 
@@ -327,6 +318,8 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         thread = new Thread(runnable);
         thread.start();
     }
+
+
 
 
     public void mensFimTreinamento() {

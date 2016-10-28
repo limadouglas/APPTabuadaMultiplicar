@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -29,9 +30,7 @@ import java.util.Random;
 
 public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
-    ActionBar actionBar;
     TextView txtPadrao;
-    TextView txtPlacar;
     TextView txtAlternar;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
@@ -54,7 +53,9 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     String valor;
     SQLiteDatabase bd;
     RecordesRepository repository;
-
+    TextView txtPlacar;
+    TextView txtTitulo;
+    ImageView imvTabuada;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,12 +63,10 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         setContentView(R.layout.tela_treinamento_iniciante_activity);
 
         valor = getIntent().getStringExtra("valor");
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(R.string.titulo_treinamento_iniciante);
+
+        getSupportActionBar().hide();
 
         // instanciando view.
-        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
         repository = new RecordesRepository(this);
@@ -78,6 +77,18 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         imvTabela = new ImageView(this);
         alertDialog = new AlertDialog.Builder(this).create();
         dialogTabela = new AlertDialog.Builder(this).create();
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+
+
+        // alterando pontos da toolbar.
+        txtPlacar = (TextView) findViewById(R.id.txtPlacar);
+
+        // alterando titulo da toolbar.
+        txtTitulo.setText("Iniciante");
+
+        // instanciando a tabuada.
+        imvTabuada = (ImageView) findViewById(R.id.imvTabuada);
+
 
 
         //inserindo um valor no txtPadrao para ele começar com o numero escolhido pelo usuario.
@@ -93,7 +104,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         gerarTagsBotao();
 
         // solucionando problema da tela de 3.2 (normal).
-        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+        if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
     }
@@ -104,7 +115,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
-        if(i == 1)
+        if (i == 1)
             return height;
         else
             return width;
@@ -113,10 +124,10 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     public void alterarTamBotao() {
 
         // obtendo densidade da tela.
-        float density  = getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
 
         // tamanho do botao.
-        int tam = (int)( density * 180 );
+        int tam = (int) (density * 180);
 
 
         // alterando tamanho(height).
@@ -136,13 +147,17 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
             dois.setText(String.valueOf(resultadoErrado));
             dois.setTag(String.valueOf(resultadoErrado));
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
         } else {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
             um.setText(String.valueOf(resultadoErrado));
             um.setTag(String.valueOf(resultadoErrado));
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
         }
     }
 
@@ -210,59 +225,41 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_tela_treinamento, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == android.R.id.home) {
-            sairThread = true;
-            finish();
-            overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-        } else {
-            switch (valor) {
-                case "1":
-                    imvTabela.setBackgroundResource(R.drawable.um);
-                    break;
-                case "2":
-                    imvTabela.setBackgroundResource(R.drawable.dois);
-                    break;
-                case "3":
-                    imvTabela.setBackgroundResource(R.drawable.tres);
-                    break;
-                case "4":
-                    imvTabela.setBackgroundResource(R.drawable.quatro);
-                    break;
-                case "5":
-                    imvTabela.setBackgroundResource(R.drawable.cinco);
-                    break;
-                case "6":
-                    imvTabela.setBackgroundResource(R.drawable.seis);
-                    break;
-                case "7":
-                    imvTabela.setBackgroundResource(R.drawable.sete);
-                    break;
-                case "8":
-                    imvTabela.setBackgroundResource(R.drawable.oito);
-                    break;
-                case "9":
-                    imvTabela.setBackgroundResource(R.drawable.nove);
-                    break;
-                case "10":
-                    imvTabela.setBackgroundResource(R.drawable.dez);
-                    break;
-            }
-            dialogTabela.setView(imvTabela);
-            dialogTabela.show();
+    public void mostrarTabuada(View v){
+        switch (valor) {
+            case "1":
+                imvTabela.setBackgroundResource(R.drawable.um);
+                break;
+            case "2":
+                imvTabela.setBackgroundResource(R.drawable.dois);
+                break;
+            case "3":
+                imvTabela.setBackgroundResource(R.drawable.tres);
+                break;
+            case "4":
+                imvTabela.setBackgroundResource(R.drawable.quatro);
+                break;
+            case "5":
+                imvTabela.setBackgroundResource(R.drawable.cinco);
+                break;
+            case "6":
+                imvTabela.setBackgroundResource(R.drawable.seis);
+                break;
+            case "7":
+                imvTabela.setBackgroundResource(R.drawable.sete);
+                break;
+            case "8":
+                imvTabela.setBackgroundResource(R.drawable.oito);
+                break;
+            case "9":
+                imvTabela.setBackgroundResource(R.drawable.nove);
+                break;
+            case "10":
+                imvTabela.setBackgroundResource(R.drawable.dez);
+                break;
         }
-
-        return true;
+        dialogTabela.setView(imvTabela);
+        dialogTabela.show();
     }
 
 
@@ -371,5 +368,4 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
-
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -11,11 +12,16 @@ import android.support.annotation.StringDef;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.method.MovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.InputDevice;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -26,10 +32,11 @@ import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.zip.Inflater;
 
 
 public class DesafioFacilActivity extends AppCompatActivity {
-    ActionBar actionBar;
+
     TextView txtPadrao;
     TextView txtAlternar;
     Random random;
@@ -41,25 +48,23 @@ public class DesafioFacilActivity extends AppCompatActivity {
     AlertDialog dialog;
     Intent i;
     RecordesRepository repository;
-    SQLiteDatabase bd;
-    ContentValues values;
     Thread thread;
     boolean sairThread = false;
     Handler handler;
     Button um;
     Button dois;
     int arrayTag, resultado, resultadoErrado;
-    MenuItem menuItem;
-
+    TextView txtTitulo;
+    TextView txtTempo;
+    Drawable drawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desafio_facil_activity);
 
-        actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_desafio_facil);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // escondendo actionbar padrão.
+        getSupportActionBar().hide();
 
         // instanciando view.
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
@@ -69,6 +74,10 @@ public class DesafioFacilActivity extends AppCompatActivity {
         handler = new Handler();
         um = (Button) findViewById(R.id.btnUm);
         dois = (Button) findViewById(R.id.btnDois);
+
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        txtTempo = (TextView) findViewById(R.id.txtTempo);
+        txtTitulo.setText("Fácil");
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -129,15 +138,20 @@ public class DesafioFacilActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
             dois.setText(String.valueOf(resultadoErrado));
             dois.setTag(String.valueOf(resultadoErrado));
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
         } else {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
             um.setText(String.valueOf(resultadoErrado));
             um.setTag(String.valueOf(resultadoErrado));
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
         }
     }
+
 
 
     // verificando a tag do botão que o usuario criou.
@@ -149,11 +163,15 @@ public class DesafioFacilActivity extends AppCompatActivity {
         }
 
         if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
+
+            // view.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+
             calcularPadrao();
             calcularAlterar();
             gerarTagsBotao();
         } else {
             contador -= 5;
+            //view.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
         }
     }
 
@@ -225,6 +243,8 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
+
+    // contador em uma thread separada.
     public void contagem() {
 
         Runnable runnable = new Runnable() {
@@ -236,7 +256,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            menuItem.setTitle(String.valueOf(contador));
+                            txtTempo.setText(String.valueOf(contador));
                         }
                     });
                     try {
@@ -260,6 +280,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
+    /// finanlizando desafio de mostrand resultado.
     public void finalizarDesafio() {
 
         int i = 0;
@@ -333,34 +354,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         dialog.show();
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.time_dificil, menu);
-        // desabilitando o click.
-        menu.setGroupEnabled(0, false);
-        // pegando instancia do menu para poder alterar.
-        menuItem = menu.findItem(R.id.itmTime);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    // verificando qual item foi selecionado na actionBar.
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                sairThread = true;
-                finish();
-                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     // metodo sobrescreve o nativo do android.

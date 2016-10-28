@@ -30,7 +30,7 @@ import java.util.Random;
 public class DesafioMedioActivity extends AppCompatActivity {
 
     ActionBar actionBar;
-    TextView txtPadrao;
+    TextView txtPadrao, txtTitulo, txtTempo;
     TextView txtAlternar;
     Random random;
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0, 0}, placar = 0;
@@ -41,8 +41,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
     AlertDialog dialog;
     Intent i;
     RecordesRepository repository;
-    SQLiteDatabase bd;
-    ContentValues values;
     Thread thread;
     boolean sairThread = false, ativarContador = true;
     Handler handler;
@@ -51,7 +49,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
     Button tres;
     Button quatro;
     int arrayTag, resultado, resultadoErrado;
-    MenuItem menuItem;
 
 
     @Override
@@ -59,9 +56,8 @@ public class DesafioMedioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.desafio_medio_activity);
 
-        actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_desafio_medio);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
+
         // instanciando view.
         txtAlternar = (TextView) findViewById(R.id.txtAlternar);
         txtPadrao = (TextView) findViewById(R.id.txtPadrao);
@@ -72,6 +68,10 @@ public class DesafioMedioActivity extends AppCompatActivity {
         dois = (Button) findViewById(R.id.btnDois);
         tres = (Button) findViewById(R.id.btnTres);
         quatro = (Button) findViewById(R.id.btnQuatro);
+
+        txtTitulo = (TextView) findViewById(R.id.txtTitulo);
+        txtTempo = (TextView) findViewById(R.id.txtTempo);
+        txtTitulo.setText("Fácil");
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -151,6 +151,13 @@ public class DesafioMedioActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -171,6 +178,14 @@ public class DesafioMedioActivity extends AppCompatActivity {
         } else if (arrayTag == 1) {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
+
+
+            // definindo efeito ao clicar no botão.
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -192,6 +207,14 @@ public class DesafioMedioActivity extends AppCompatActivity {
         } else if (arrayTag == 2) {
             tres.setText(String.valueOf(resultado));
             tres.setTag(String.valueOf(resultado));
+
+
+            // definindo efeito ao clicar no botão.
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -212,6 +235,13 @@ public class DesafioMedioActivity extends AppCompatActivity {
         } else if (arrayTag == 3) {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
+
+            // definindo efeito ao clicar no botão.
+            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -314,7 +344,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            menuItem.setTitle(String.valueOf(contador));
+                            txtTempo.setText(String.valueOf(contador));
                         }
                     });
                     try {
@@ -412,21 +442,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
     }
 
 
-    // verificando qual item foi selecionado na actionBar.
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                sairThread = true;
-                finish();
-                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     // metodo sobrescreve o nativo do android.
     public void onBackPressed() {
@@ -435,16 +450,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.time_dificil, menu);
-        menuItem = menu.findItem(R.id.itmTime);
-        menu.setGroupEnabled(0, false);
-        return super.onCreateOptionsMenu(menu);
     }
 
 }
