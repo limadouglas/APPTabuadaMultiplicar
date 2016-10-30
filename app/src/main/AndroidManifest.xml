@@ -61,6 +61,8 @@
             android:name=".MenuNivelTreinamentoActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity android:name=".util.GeradorDeTabuada"></activity>
+
     </application>
 
 </manifest>

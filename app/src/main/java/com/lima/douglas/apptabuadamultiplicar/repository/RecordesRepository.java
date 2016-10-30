@@ -106,12 +106,17 @@ public class RecordesRepository extends SQLiteOpenHelper {
 
         // inserindo novo recorde no banco.
         bd.insert("RECORDES", null, values);
+
+        // fechando banco;
+        bd.close();
     }
 
     public void removerRecorde(String nivel, int pontuacao) {
         SQLiteDatabase bd = getWritableDatabase();
         // removendo valor do banco.
         bd.delete("RECORDES", "PONTUACAO = ? and TIPORECORDE = ?", new String[] {String.valueOf(pontuacao), nivel});
+        // fechando banco;
+        bd.close();
     }
 
 }

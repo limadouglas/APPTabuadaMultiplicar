@@ -1,6 +1,7 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -36,6 +37,13 @@ public class RecordesActivity extends AppCompatActivity {
     TextView txtPontuacaoDificil2;
     TextView txtPontuacaoDificil3;
 
+    TextView txtLinhaPontuacaoFacil1;
+    TextView txtLinhaPontuacaoFacil2;
+    TextView txtLinhaPontuacaoMedio1;
+    TextView txtLinhaPontuacaoMedio2;
+    TextView txtLinhaPontuacaoDificil1;
+    TextView txtLinhaPontuacaoDificil2;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,19 +67,29 @@ public class RecordesActivity extends AppCompatActivity {
         txtPontuacaoDificil2 = (TextView) findViewById(R.id.txtPontuacaoDificil2);
         txtPontuacaoDificil3 = (TextView) findViewById(R.id.txtPontuacaoDificil3);
 
+        // instanciando linhas.
+        txtLinhaPontuacaoFacil1 = (TextView) findViewById(R.id.txtLinhaPontuacaoFacil1);
+        txtLinhaPontuacaoFacil2 = (TextView) findViewById(R.id.txtLinhaPontuacaoFacil2);
+
+        txtLinhaPontuacaoMedio1 = (TextView) findViewById(R.id.txtLinhaPontuacaoMedio1);
+        txtLinhaPontuacaoMedio2 = (TextView) findViewById(R.id.txtLinhaPontuacaoMedio2);
+
+        txtLinhaPontuacaoDificil1 = (TextView) findViewById(R.id.txtLinhaPontuacaoDificil1);
+        txtLinhaPontuacaoDificil2 = (TextView) findViewById(R.id.txtLinhaPontuacaoDificil2);
+
+
         // instanciando classe que ira retornar os valores do banco de dados.
         repository = new RecordesRepository(this);
 
 ////////////////////////////////////////////////////////
-
-        getRecordes("FACIL", txtPontuacaoFacil1, txtPontuacaoFacil2, txtPontuacaoFacil3);
-        getRecordes("MEDIO", txtPontuacaoMedio1, txtPontuacaoMedio2, txtPontuacaoMedio3);
-        getRecordes("DIFICIL", txtPontuacaoDificil1, txtPontuacaoDificil2, txtPontuacaoDificil3);
+        getRecordes("FACIL", txtPontuacaoFacil1, txtPontuacaoFacil2, txtPontuacaoFacil3, txtLinhaPontuacaoFacil1, txtLinhaPontuacaoFacil2);
+        getRecordes("MEDIO", txtPontuacaoMedio1, txtPontuacaoMedio2, txtPontuacaoMedio3, txtLinhaPontuacaoMedio1, txtLinhaPontuacaoMedio2);
+        getRecordes("DIFICIL", txtPontuacaoDificil1, txtPontuacaoDificil2, txtPontuacaoDificil3, txtLinhaPontuacaoDificil1, txtLinhaPontuacaoDificil2);
 
     }
 
 
-    public void getRecordes(String nivel, TextView um, TextView dois, TextView tres) {
+    public void getRecordes(String nivel, TextView um, TextView dois, TextView tres, TextView lUm, TextView lDois) {
 
         // contador que ira armazenar a quantidade de resultados do banco.
         int i = 0;
@@ -91,10 +109,27 @@ public class RecordesActivity extends AppCompatActivity {
         // Atualizado valores dos TextView.
         if (i >= 1)
             um.setText(String.valueOf(arrayPontuacao.get(0)));
+        else {
+            um.setHeight(0);
+            lUm.setVisibility(View.GONE);
+            lDois.setHeight(View.GONE);
+        }
+
         if (i >= 2)
             dois.setText(String.valueOf(arrayPontuacao.get(1)));
+        else {
+            dois.setHeight(0);
+            lUm.setVisibility(View.GONE);
+        }
+
         if (i >= 3)
             tres.setText(String.valueOf(arrayPontuacao.get(2)));
+        else{
+            tres.setHeight(0);
+            lDois.setVisibility(View.GONE);
+
+        }
+
 
     }
 

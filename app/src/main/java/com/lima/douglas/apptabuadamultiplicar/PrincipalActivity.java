@@ -32,7 +32,8 @@ public class PrincipalActivity extends AppCompatActivity {
     }
 
     public void tabuada (View view) {
-        i = new Intent(this, TabuadaActivity.class);
+        i = new Intent(this, MenuTreinamentoActivity.class);
+        i.putExtra("tipo", "tabuada");
         startActivity(i);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

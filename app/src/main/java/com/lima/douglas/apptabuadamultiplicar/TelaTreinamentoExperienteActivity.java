@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import org.w3c.dom.Text;
 
@@ -254,41 +255,15 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
 
     public void mostrarTabuada(View v){
-        switch (valor) {
-            case "1":
-                imvTabela.setBackgroundResource(R.drawable.um);
-                break;
-            case "2":
-                imvTabela.setBackgroundResource(R.drawable.dois);
-                break;
-            case "3":
-                imvTabela.setBackgroundResource(R.drawable.tres);
-                break;
-            case "4":
-                imvTabela.setBackgroundResource(R.drawable.quatro);
-                break;
-            case "5":
-                imvTabela.setBackgroundResource(R.drawable.cinco);
-                break;
-            case "6":
-                imvTabela.setBackgroundResource(R.drawable.seis);
-                break;
-            case "7":
-                imvTabela.setBackgroundResource(R.drawable.sete);
-                break;
-            case "8":
-                imvTabela.setBackgroundResource(R.drawable.oito);
-                break;
-            case "9":
-                imvTabela.setBackgroundResource(R.drawable.nove);
-                break;
-            case "10":
-                imvTabela.setBackgroundResource(R.drawable.dez);
-                break;
-        }
-        dialogTabela.setView(imvTabela);
+        GeradorDeTabuada geradorDeTabuada = new GeradorDeTabuada();
+        AlertDialog.Builder builder;
+
+        builder = geradorDeTabuada.mostrarTabuada(this, valor);
+
+        dialogTabela = builder.create();
         dialogTabela.show();
     }
+
 
 
     public void contagem() {
@@ -318,7 +293,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         thread = new Thread(runnable);
         thread.start();
     }
-
 
 
 

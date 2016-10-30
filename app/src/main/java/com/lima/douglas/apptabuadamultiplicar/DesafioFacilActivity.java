@@ -153,7 +153,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
     }
 
 
-
     // verificando a tag do botão que o usuario criou.
     public void respostaUsuario(View view) {
 
@@ -163,16 +162,11 @@ public class DesafioFacilActivity extends AppCompatActivity {
         }
 
         if (Integer.valueOf(view.getTag().toString()) == (Integer.valueOf(txtPadrao.getText().toString())) * (Integer.valueOf(txtAlternar.getText().toString()))) {
-
-            // view.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
-
             calcularPadrao();
             calcularAlterar();
             gerarTagsBotao();
-        } else {
+        } else
             contador -= 5;
-            //view.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-        }
     }
 
 
@@ -241,7 +235,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // somando um ponto no placar.
         placar++;
     }
-
 
 
     // contador em uma thread separada.
@@ -353,7 +346,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
 
 
     // metodo sobrescreve o nativo do android.

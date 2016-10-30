@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import java.util.Random;
 
@@ -102,7 +103,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         gerarTagsBotao();
 
         // solucionando problema da tela de 3.2 (normal).
-        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+        if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
     }
@@ -114,7 +115,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
-        if(i == 1)
+        if (i == 1)
             return height;
         else
             return width;
@@ -123,9 +124,9 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
     public void alterarTamBotao() {
 
         // obtendo densidade da tela.
-        float density  = getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
 
-        int tam = (int)( density * 90 );
+        int tam = (int) (density * 90);
         //alterando tamanho(height).
         um.getLayoutParams().height = tam;
         dois.getLayoutParams().height = tam;
@@ -317,40 +318,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
     }
 
 
-    public void mostrarTabuada(View v){
-        switch (valor) {
-            case "1":
-                imvTabela.setBackgroundResource(R.drawable.um);
-                break;
-            case "2":
-                imvTabela.setBackgroundResource(R.drawable.dois);
-                break;
-            case "3":
-                imvTabela.setBackgroundResource(R.drawable.tres);
-                break;
-            case "4":
-                imvTabela.setBackgroundResource(R.drawable.quatro);
-                break;
-            case "5":
-                imvTabela.setBackgroundResource(R.drawable.cinco);
-                break;
-            case "6":
-                imvTabela.setBackgroundResource(R.drawable.seis);
-                break;
-            case "7":
-                imvTabela.setBackgroundResource(R.drawable.sete);
-                break;
-            case "8":
-                imvTabela.setBackgroundResource(R.drawable.oito);
-                break;
-            case "9":
-                imvTabela.setBackgroundResource(R.drawable.nove);
-                break;
-            case "10":
-                imvTabela.setBackgroundResource(R.drawable.dez);
-                break;
-        }
-        dialogTabela.setView(imvTabela);
+    public void mostrarTabuada(View v) {
+        GeradorDeTabuada geradorDeTabuada = new GeradorDeTabuada();
+        AlertDialog.Builder builder;
+
+        builder = geradorDeTabuada.mostrarTabuada(this, valor);
+
+        dialogTabela = builder.create();
         dialogTabela.show();
     }
 
@@ -387,7 +361,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
-        String star = repository.getTreinamento("INTERMEDIARIO", String.valueOf( (Integer.valueOf(valor)+ 10)));
+        String star = repository.getTreinamento("INTERMEDIARIO", String.valueOf((Integer.valueOf(valor) + 10)));
         ContentValues values = new ContentValues();
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
@@ -399,21 +373,21 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             alertDialog.setIcon(R.drawable.trofeu_ouro);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 10) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador < 35) {
             alertDialog.setTitle(R.string.msg_pontuacao_otimo);
             alertDialog.setIcon(R.drawable.trofeu_prata);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 10) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador < 70) {
             alertDialog.setTitle(R.string.msg_pontuacao_bom);
             alertDialog.setIcon(R.drawable.trofeu_bronze);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 10) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador >= 70) {
             alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);
