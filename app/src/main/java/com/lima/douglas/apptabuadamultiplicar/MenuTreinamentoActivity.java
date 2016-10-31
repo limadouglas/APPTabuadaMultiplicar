@@ -72,7 +72,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
 
         // inicializando botões 1 e 2 com imagens, para não desalinhar caso apenas um deles tenha trofeu.
-        // verificando se é smartphone ou tablet.
+        // verificando se é smartphone ou tablet...
         if (tipoAparelho.getText().equals("tablet")) {
             btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
             btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
@@ -109,7 +109,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
-
 
     }
 
