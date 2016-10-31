@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_treinamento" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txtPadrao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="2"
+                android:textColor="#fff"
+                android:textSize="120sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="  X  "
+                android:textColor="#fff"
+                android:textSize="120sp" />
+
+            <TextView
+                android:id="@+id/txtAlternar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="10"
+                android:textColor="#fff"
+                android:textSize="120sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtResposta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="100sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:stretchColumns="0,1,2">
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="7"
+                    android:text="7"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="8"
+                    android:text="8"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="9"
+                    android:text="9"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="4"
+                    android:text="4"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="5"
+                    android:text="5"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="6"
+                    android:text="6"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="1"
+                    android:text="1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="2"
+                    android:text="2"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="3"
+                    android:text="3"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+            </TableRow>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1">
+
+                <Button
+                    android:id="@+id/btn0"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_evento_dificil"
+                    android:onClick="addValor"
+                    android:tag="0"
+                    android:text="0"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+
+                <ImageButton
+                    android:id="@+id/btnApagar"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_margin="1dp"
+                    android:layout_weight="2"
+                    android:background="#d2cbdad9"
+                    android:onClick="addValor"
+                    android:src="@drawable/btn_apagar_large"
+                    android:tag="-1"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/texto_botao_large" />
+            </LinearLayout>
+        </TableLayout>
+
+    </LinearLayout>
+</LinearLayout>

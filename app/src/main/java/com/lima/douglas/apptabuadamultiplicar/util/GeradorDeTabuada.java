@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -50,7 +52,45 @@ public class GeradorDeTabuada extends AppCompatActivity {
         nove.setText(valor + " * 9   = " + String.valueOf(Integer.valueOf(valor) * 9));
         dez.setText(valor + " * 10 = " + String.valueOf(Integer.valueOf(valor) * 10));
 
+
+        // solucionando problema da tela de 3.2 (normal).
+        if (getTamanhoHeight(1, activity) == 480 && getTamanhoHeight(0, activity) == 320) {
+
+            // obtendo densidade da tela.
+            float density = activity.getResources().getDisplayMetrics().density;
+
+            // escolhendo tamanho dos TextView.
+            int tam = (int)  (density * 20);
+
+            //alterando tamanho dos TextView.
+            um.setTextSize(tam);
+            dois.setTextSize(tam);
+            tres.setTextSize(tam);
+            quatro.setTextSize(tam);
+            cinco.setTextSize(tam);
+            seis.setTextSize(tam);
+            sete.setTextSize(tam);
+            oito.setTextSize(tam);
+            nove.setTextSize(tam);
+            dez.setTextSize(tam);
+        }
+
         builder.setView(viewAlertDialog);
         return builder;
     }
+
+
+
+    // retornando tamanho da tela.
+    public int getTamanhoHeight(int i, Activity activity) {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int height = displaymetrics.heightPixels;
+        int width = displaymetrics.widthPixels;
+        if (i == 1)
+            return height;
+        else
+            return width;
+    }
+
 }

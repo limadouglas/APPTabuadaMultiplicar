@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/corBackground"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="60dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_evento_padrao"
+        android:onClick="facil"
+        android:text="@string/nivel_desafio_facil"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_evento_padrao"
+        android:onClick="medio"
+        android:text="@string/nivel_desafio_medio"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/btn_evento_padrao"
+        android:onClick="dificil"
+        android:text="@string/nivel_desafio_dificil"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+</LinearLayout>

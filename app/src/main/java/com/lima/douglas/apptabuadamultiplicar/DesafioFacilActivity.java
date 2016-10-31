@@ -1,27 +1,14 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
-import android.content.ContentValues;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.method.MovementMethod;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.InputDevice;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +19,6 @@ import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.zip.Inflater;
 
 
 public class DesafioFacilActivity extends AppCompatActivity {
@@ -56,7 +42,6 @@ public class DesafioFacilActivity extends AppCompatActivity {
     int arrayTag, resultado, resultadoErrado;
     TextView txtTitulo;
     TextView txtTempo;
-    Drawable drawable;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,17 +1,22 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
@@ -21,6 +26,8 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
     Intent i;
 
     String medalha = new String();
+
+    boolean smartphone = false; // verificador de smartphone ou tablet.
 
     RecordesRepository repository;
 
@@ -61,6 +68,36 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         actionBar.setTitle(R.string.titulo_menu_treinamento);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        TextView tipoAparelho = (TextView) findViewById(R.id.tipo); // verificador de tablet ou smartphone.
+
+
+        // inicializando botões 1 e 2 com imagens, para não desalinhar caso apenas um deles tenha trofeu.
+        // verificando se é smartphone ou tablet.
+        if (tipoAparelho.getText().equals("tablet")) {
+            btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+            btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente_large, 0, R.drawable.trofeu_transparente_large, 0);
+        } else {
+            btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_transparente, 0, R.drawable.trofeu_transparente, 0);
+            smartphone = true;
+        }
+
         // pegando argumento passado pela intent.
         i = getIntent();
         tipo = i.getStringExtra("tipo");
@@ -72,6 +109,8 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
+
+
     }
 
 
@@ -195,92 +234,182 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             if (!medalha.equals("NAO"))
                 btn1.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn1.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 2) {
             if (!medalha.equals("NAO"))
                 btn2.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn2.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 3) {
             if (!medalha.equals("NAO"))
                 btn3.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn3.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 4) {
             if (!medalha.equals("NAO"))
                 btn4.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn4.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 5) {
             if (!medalha.equals("NAO"))
                 btn5.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn5.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 6) {
             if (!medalha.equals("NAO"))
                 btn6.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn6.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 7) {
             if (!medalha.equals("NAO"))
                 btn7.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn7.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 8) {
             if (!medalha.equals("NAO"))
                 btn8.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn8.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 9) {
             if (!medalha.equals("NAO"))
                 btn9.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn9.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         } else if (i == 10) {
             if (!medalha.equals("NAO"))
                 btn10.setPadding(btn1.getPaddingLeft(), 0, btn1.getPaddingLeft() * 2, 0);
             if (medalha.equals("OURO"))
-                btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                if (smartphone)
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro, 0, 0, 0);
+                else
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_ouro_large, 0, 0, 0);
             else if (medalha.equals("PRATA"))
-                btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                if (smartphone)
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata, 0, 0, 0);
+                else
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_prata_large, 0, 0, 0);
             else if (medalha.equals("BRONZE"))
-                btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                if (smartphone)
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze, 0, 0, 0);
+                else
+                    btn10.setCompoundDrawablesWithIntrinsicBounds(R.drawable.trofeu_bronze_large, 0, 0, 0);
         }
 
     }
