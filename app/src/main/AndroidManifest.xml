@@ -4,11 +4,12 @@
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
-        android:smallScreens="true"></supports-screens>
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <uses-sdk
         android:minSdkVersion="13"
-        android:targetSdkVersion="22" />
+        android:targetSdkVersion="24" />
 
     <application
         android:allowBackup="true"
@@ -23,45 +24,45 @@
             android:name=".PrincipalActivity"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MenuTreinamentoActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaTreinamentoInicianteActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaTreinamentoIntermediarioActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TelaTreinamentoExperienteActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DesafioDificilActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DesafioMedioActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DesafioFacilActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TabuadaActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RecordesActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NivelDesafioActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MenuNivelTreinamentoActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".util.GeradorDeTabuada"></activity>
+        <activity android:name=".util.GeradorDeTabuada" />
 
     </application>
 
