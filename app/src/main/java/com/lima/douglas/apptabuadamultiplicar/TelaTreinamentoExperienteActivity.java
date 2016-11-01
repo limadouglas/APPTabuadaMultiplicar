@@ -31,7 +31,7 @@ import java.util.Random;
 public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
 
 
-    TextView txtResposta,txtTitulo;
+    TextView txtResposta, txtTitulo;
     TextView txtPlacar;
     TextView txtPadrao;
     TextView txtAlternar;
@@ -97,11 +97,10 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
 
         // alterando titulo da toolbar.
-        txtTitulo.setText("Experiente");
+        txtTitulo.setText(R.string.titulo_treinamento_experiente);
 
         // instanciando a tabuada.
         imvTabuada = (ImageView) findViewById(R.id.imvTabuada);
-
 
 
         // inserindo um valor no txtAlternar para ele começar com numeros diferentes.
@@ -112,7 +111,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         txtAlternar.setText(String.valueOf(multInicial));
 
         // solucionando problema da tela de 3.2 (normal).
-        if(getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
+        if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
     }
@@ -124,7 +123,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height = displaymetrics.heightPixels;
         int width = displaymetrics.widthPixels;
-        if(i == 1)
+        if (i == 1)
             return height;
         else
             return width;
@@ -147,10 +146,10 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         txtX = (TextView) findViewById(R.id.txtX);
 
         // obtendo densidade da tela.
-        float density  = getResources().getDisplayMetrics().density;
+        float density = getResources().getDisplayMetrics().density;
 
         // tamanho do botao.
-        int tam = (int)( density * 45 );
+        int tam = (int) (density * 45);
 
         // tamanho da letra.
         float tamLetra = (density * 45);
@@ -254,7 +253,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     }
 
 
-    public void mostrarTabuada(View v){
+    public void mostrarTabuada(View v) {
         GeradorDeTabuada geradorDeTabuada = new GeradorDeTabuada();
         AlertDialog.Builder builder;
 
@@ -263,7 +262,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         dialogTabela = builder.create();
         dialogTabela.show();
     }
-
 
 
     public void contagem() {
@@ -295,12 +293,11 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
     }
 
 
-
     public void mensFimTreinamento() {
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
-        String star = repository.getTreinamento("EXPERIENTE", String.valueOf( (Integer.valueOf(valor)+ 20) ));
+        String star = repository.getTreinamento("EXPERIENTE", String.valueOf((Integer.valueOf(valor) + 20)));
         ContentValues values = new ContentValues();
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
@@ -312,21 +309,21 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             alertDialog.setIcon(R.drawable.trofeu_ouro);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 20))});
             }
         } else if (contador < 35) {
             alertDialog.setTitle(R.string.msg_pontuacao_otimo);
             alertDialog.setIcon(R.drawable.trofeu_prata);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 20))});
             }
         } else if (contador < 70) {
             alertDialog.setTitle(R.string.msg_pontuacao_bom);
             alertDialog.setIcon(R.drawable.trofeu_bronze);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
-                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf( (Integer.valueOf(valor)+ 20) )});
+                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 20))});
             }
         } else if (contador >= 70) {
             alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);

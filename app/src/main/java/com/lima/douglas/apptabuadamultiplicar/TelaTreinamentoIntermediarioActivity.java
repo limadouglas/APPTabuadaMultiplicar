@@ -85,7 +85,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
 
         // alterando titulo da toolbar.
-        txtTitulo.setText("Intermediário");
+        txtTitulo.setText(R.string.titulo_treinamento_intermediario);
 
         // instanciando a tabuada.
         imvTabuada = (ImageView) findViewById(R.id.imvTabuada);

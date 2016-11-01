@@ -65,7 +65,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
 
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_menu_treinamento);
+        actionBar.setTitle(R.string.titulo_escolha_tabuada);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         TextView tipoAparelho = (TextView) findViewById(R.id.tipo); // verificador de tablet ou smartphone.

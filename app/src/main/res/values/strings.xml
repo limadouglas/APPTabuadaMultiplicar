@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Tabuada de Multiplicação</string>
 
     <string name="titulo_desafio_dificil">Difícil</string>
@@ -6,7 +7,7 @@
     <string name="titulo_desafio_facil">Fácil</string>
 
     <string name="titulo_nivel_treinamento">Nível Treinamento</string>
-    <string name="titulo_menu_treinamento">Menu Treinamento</string>
+    <string name="titulo_escolha_tabuada">Escolha Uma Tabuada</string>
     <string name="titulo_nivel_desafio">Nível do Desafio</string>
     <string name="titulo_recordes">Recordes</string>
 

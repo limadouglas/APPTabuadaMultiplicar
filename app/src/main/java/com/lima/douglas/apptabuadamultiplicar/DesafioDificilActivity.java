@@ -93,7 +93,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
 
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
         txtTempo = (TextView) findViewById(R.id.txtTempo);
-        txtTitulo.setText("Difícil");
+        txtTitulo.setText(R.string.titulo_desafio_dificil);
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.
