@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">Multiplication Table</ string>
+
+        
+    <string name="titulo_desafio_dificil">Hard</ string>
+        
+    <string name="titulo_desafio_medio">Medium</ string>
+        
+    <string name="titulo_desafio_facil">Easy</ string>
+
+        
+    <string name="titulo_nivel_treinamento">Training Level</ string>
+        
+    <string name="titulo_escolha_tabuada">Choose a Mult. Tables</ string>
+        
+    <string name="titulo_nivel_desafio">Challenge Level</ string>
+        
+    <string name="titulo_recordes">Records</ string>
+
+        
+    <string name="titulo_treinamento_experiente">Expert</ string>
+        
+    <string name="titulo_treinamento_iniciante">Beginner</ string>
+        
+    <string name="titulo_treinamento_intermediario">Intermediate</ string>
+
+        
+    <string name="titulo_tabuada">Mult. Tables</ string>
+
+
+        
+    <string name="principal_treinamento">Training</ string>
+        
+    <string name="principal_desafio">Challenge</ string>
+        
+    <string name="principal_tabuada">Mult. Tables</ string>
+        
+    <string name="principal_recordes">Records</ string>
+
+        
+    <string name="recordes_dificil">Difficult Challenge</ string>
+        
+    <string name="recordes_medio">Middle Challenge</ string>
+        
+    <string name="recordes_facil">Easy Challenge</ string>
+
+        
+    <string name="nivel_desafio_facil">Easy</ string>
+        
+    <string name="nivel_desafio_medio">Medium</ string>
+        
+    <string name="nivel_desafio_dificil">Hard</ string>
+
+        
+    <string name="nivel_treinamento_iniciante">Beginner</ string>
+        
+    <string name="nivel_treinamento_intermediario">Intermediate</ string>
+        
+    <string name="nivel_treinamento_experiente">Expert</ string>
+
+
+    <string name="msg_titulo_pontuacao">Rating</ string>
+        
+    <string name="msg_pontuacao_excelente">execelente</ string>
+        
+    <string name="msg_pontuacao_otimo">great</ string>
+        
+    <string name="msg_pontuacao_bom">Good</ string>
+        
+    <string name="msg_pontuacao_cont_treinando">Continue Training!</ String>
+        
+    <string name="msg_botao_novamente">Again</ string>
+        
+    <string name="msg_botao_retornar">Back</ string>
+
+</ resources>
