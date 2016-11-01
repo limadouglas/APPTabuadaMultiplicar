@@ -14,7 +14,7 @@ public class TabuadaActivity extends AppCompatActivity {
         setContentView(R.layout.tabuada_activity);
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_tabuada);
+        actionBar.setTitle(R.string.tabuada);
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 

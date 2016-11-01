@@ -97,7 +97,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
 
         // alterando titulo da toolbar.
-        txtTitulo.setText(R.string.titulo_treinamento_experiente);
+        txtTitulo.setText(R.string.treinamento_experiente);
 
         // instanciando a tabuada.
         imvTabuada = (ImageView) findViewById(R.id.imvTabuada);

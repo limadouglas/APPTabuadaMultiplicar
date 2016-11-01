@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+        <string name = "nombre_apl"> Tabla de multiplicación</string>
+
+        <string name = "desafio_dificil"> Duro </string>
+        <string name = "desafio_medio"> Promedio </string>
+        <string name = "desafio_facil"> Fácil </string>
+
+        <string name = "titulo_nivel_treinamento"> Formación de Nivel </string>
+        <string name = "titulo_escolha_tabuada"> Elige una Tablas de Multiplicar </string>
+        <string name = "titulo_nivel_desafio"> Desafío Nivel </string>
+        <string name = "recordes">Archivos</string>
+
+        <string name = "treinamento_experiente"> Experto </string>
+        <string name = "treinamento_iniciante"> Principiante </string>
+        <string name = "treinamento_intermediario"> Intermedio </string>
+
+        <string name = "tabuada"> tablas de multiplicar </string>
+
+        <string name = "principal_treinamento"> Formación </string>
+        <string name = "principal_desafio"> Desafío </string>
+
+        <string name = "recordes_dificil"> Desafío Duro </string>
+        <string name = "recordes_medio"> Desafío Promedio </string>
+        <string name = "recordes_facil"> Desafío Fácil </string>
+
+        <string name = "msg_titulo_pontuacao"> Clasificación </string>
+        <string name = "msg_pontuacao_excelente"> Excelente </string>
+        <string name = "msg_pontuacao_otimo"> Gran </string>
+        <string name = "msg_pontuacao_bom"> Bueno </string>
+        <string name = "msg_pontuacao_cont_treinando"> Seguir Entrenando! </string>
+        
+        <string name = "msg_botao_novamente"> De Nuevo </string>
+        <string name = "msg_botao_retornar"> retorno </string>
+
+</resources>

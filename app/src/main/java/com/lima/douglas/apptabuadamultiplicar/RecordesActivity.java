@@ -51,7 +51,7 @@ public class RecordesActivity extends AppCompatActivity {
         setContentView(R.layout.recordes_activity);
         // renomeando action bar.
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle(R.string.titulo_recordes);
+        actionBar.setTitle(R.string.recordes);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // instanciando listview

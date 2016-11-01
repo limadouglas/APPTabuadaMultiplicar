@@ -13,7 +13,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="facil"
-        android:text="@string/nivel_desafio_facil"
+        android:text="@string/desafio_facil"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 
@@ -23,7 +23,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="medio"
-        android:text="@string/nivel_desafio_medio"
+        android:text="@string/desafio_medio"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 
@@ -33,7 +33,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="dificil"
-        android:text="@string/nivel_desafio_dificil"
+        android:text="@string/desafio_dificil"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 </LinearLayout>

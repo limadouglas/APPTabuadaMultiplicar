@@ -42,7 +42,7 @@
         android:drawableLeft="@drawable/btn_tabuada_normal"
         android:paddingLeft="30dp"
         android:paddingRight="50dp"
-        android:text="@string/principal_tabuada"
+        android:text="@string/tabuada"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 
@@ -55,7 +55,7 @@
         android:drawableLeft="@drawable/btn_recordes_normal"
         android:paddingLeft="30dp"
         android:paddingRight="50dp"
-        android:text="@string/principal_recordes"
+        android:text="@string/recordes"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
 

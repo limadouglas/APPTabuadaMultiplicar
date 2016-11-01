@@ -71,7 +71,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
 
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
         txtTempo = (TextView) findViewById(R.id.txtTempo);
-        txtTitulo.setText(R.string.nivel_desafio_medio);
+        txtTitulo.setText(R.string.desafio_medio);
 
 
         //inserindo um valor no txtAlternar para ele começar com numeros diferentes.

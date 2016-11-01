@@ -13,7 +13,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="iniciante"
-        android:text="@string/nivel_treinamento_iniciante"
+        android:text="@string/treinamento_iniciante"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 
@@ -23,7 +23,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="intermediario"
-        android:text="@string/nivel_treinamento_intermediario"
+        android:text="@string/treinamento_intermediario"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 
@@ -33,7 +33,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"
         android:onClick="experiente"
-        android:text="@string/nivel_treinamento_experiente"
+        android:text="@string/treinamento_experiente"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="40dp" />
 

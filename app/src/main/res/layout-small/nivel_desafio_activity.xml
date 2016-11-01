@@ -7,7 +7,7 @@
     android:gravity="center">
 
     <Button
-        android:text="@string/nivel_desafio_facil"
+        android:text="@string/desafio_facil"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:onClick="facil"
@@ -16,7 +16,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"/>
     <Button
-        android:text="@string/nivel_desafio_medio"
+        android:text="@string/desafio_medio"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:onClick="medio"
@@ -25,7 +25,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/btn_evento_padrao"/>
     <Button
-        android:text="@string/nivel_desafio_dificil"
+        android:text="@string/desafio_dificil"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:onClick="dificil"
