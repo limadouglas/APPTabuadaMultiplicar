@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -268,6 +269,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
     public void mensFimTreinamento() {
 
+
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
         String star = repository.getTreinamento("INICIANTE", valor);
@@ -275,39 +277,47 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
 
-        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.alert_treinamento, null);
+        ImageView imvTrofeu = (ImageView) dialogView.findViewById(R.id.imvTrofeu);
+        TextView txtPontuacaoAlert = (TextView) dialogView.findViewById(R.id.txtPontuacaoAlert);
+        TextView txtTempo = (TextView) dialogView.findViewById(R.id.txtTempo);
+
+
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
         if (contador < 25) {
-            alertDialog.setTitle(R.string.msg_pontuacao_excelente);
-            alertDialog.setIcon(R.drawable.trofeu_ouro);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_excelente);
+            imvTrofeu.setImageResource(R.drawable.trofeu_ouro);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador < 35) {
-            alertDialog.setTitle(R.string.msg_pontuacao_otimo);
-            alertDialog.setIcon(R.drawable.trofeu_prata);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_otimo);
+            imvTrofeu.setImageResource(R.drawable.trofeu_prata);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador < 70) {
-            alertDialog.setTitle(R.string.msg_pontuacao_bom);
-            alertDialog.setIcon(R.drawable.trofeu_bronze);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_bom);
+            imvTrofeu.setImageResource(R.drawable.trofeu_bronze);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador >= 70) {
-            alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_cont_treinando);
         }
 
         // fechando banco de dados.
         bd.close();
 
-        alertDialog.setCancelable(false);
+        //builder.setCancelable(false);
 
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Novamente", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -315,7 +325,8 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
+
+        builder.setNegativeButton("Retornar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -323,14 +334,17 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             }
         });
 
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                dialog.dismiss();
+//            }
+//        });
 
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                dialog.dismiss();
-            }
-        });
-
+        txtTempo.setText(String.valueOf(contador) + " segundos");
+        builder.setView(dialogView);
+        alertDialog = builder.create();
         alertDialog.show();
     }
 
@@ -342,4 +356,92 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
+
+
+
+
+
+
+
+
+
+
+
+//    public void mensFimTreinamento() {
+//        ImageView imvTrofeu = (ImageView) findViewById(R.id.imvTrofeu);
+//        TextView txtPontuacao = (TextView) findViewById(R.id.txtPontuacao);
+//        TextView txtTempo = (TextView) findViewById(R.id.txtTempo);
+//
+//
+//        // instancindo meu repositorio
+//        repository = new RecordesRepository(this);
+//        String star = repository.getTreinamento("INICIANTE", valor);
+//        ContentValues values = new ContentValues();
+//        // instanciando banco de dados.
+//        bd = repository.getWritableDatabase();
+//
+//        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
+//        // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
+//        if (contador < 25) {
+//            alertDialog.setTitle(R.string.msg_pontuacao_excelente);
+//            alertDialog.setIcon(R.drawable.trofeu_ouro);
+//            if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
+//                values.put("STARTIPO", "OURO");
+//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
+//            }
+//        } else if (contador < 35) {
+//            alertDialog.setTitle(R.string.msg_pontuacao_otimo);
+//            alertDialog.setIcon(R.drawable.trofeu_prata);
+//            if (star.equals("NAO") || star.equals("BRONZE")) {
+//                values.put("STARTIPO", "PRATA");
+//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
+//            }
+//        } else if (contador < 70) {
+//            alertDialog.setTitle(R.string.msg_pontuacao_bom);
+//            alertDialog.setIcon(R.drawable.trofeu_bronze);
+//            if (star.equals("NAO")) {
+//                values.put("STARTIPO", "BRONZE");
+//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
+//            }
+//        } else if (contador >= 70) {
+//            alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);
+//        }
+//
+//        // fechando banco de dados.
+//        bd.close();
+//
+//        alertDialog.setCancelable(false);
+//
+//        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                finish();
+//                startActivity(getIntent());
+//                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
+//            }
+//        });
+//        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                finish();
+//                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+//            }
+//        });
+//
+//        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//
+//            @Override
+//            public void onCancel(DialogInterface dialog) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        alertDialog.show();
+//    }
+
+
+
+
+
+
 }

@@ -26,9 +26,9 @@
     <string name="recordes_medio">Middle Challenge</string>        
     <string name="recordes_facil">Easy Challenge</string>
 
-    <string name="msg_titulo_pontuacao">Rating</string>        
-    <string name="msg_pontuacao_excelente">execelente</string>        
-    <string name="msg_pontuacao_otimo">great</string>        
+    <string name="msg_titulo_pontuacao">Punctuation</string>        
+    <string name="msg_pontuacao_excelente">Execelente</string>        
+    <string name="msg_pontuacao_otimo">Great</string>        
     <string name="msg_pontuacao_bom">Good</string>        
     <string name="msg_pontuacao_cont_treinando">Continue Training!</string>
         
