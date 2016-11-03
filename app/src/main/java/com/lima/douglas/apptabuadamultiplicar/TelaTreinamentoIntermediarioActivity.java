@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,6 +56,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
     TextView txtPlacar;
     TextView txtTitulo;
     ImageView imvTabuada;
+    boolean efeitoBotao = true;
 
 
     @Override
@@ -80,6 +83,10 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         dialogTabela = new AlertDialog.Builder(this).create();
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
 
+        // verificando versão do android, versões menores que 10 tem problemas sobre efeito clique nos botões.
+        if(Build.VERSION.SDK_INT <= 13) {
+            efeitoBotao = false;
+        }
 
         // alterando pontos da toolbar.
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
@@ -106,6 +113,8 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
+
+
     }
 
 
@@ -145,12 +154,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
 
-            // definindo efeito ao clicar no botão.
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-
+            if(efeitoBotao) { // controlando pois versões menoes ou iguais a 10 não suportam a troca de efeito no botao.
+                // definindo efeito ao clicar no botão.
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -172,12 +182,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
 
-            // definindo efeito ao clicar no botão.
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-
+            if(efeitoBotao) { // controlando pois versões menoes ou iguais a 10 não suportam a troca de efeito no botao.
+                // definindo efeito ao clicar no botão.
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -200,12 +211,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             tres.setText(String.valueOf(resultado));
             tres.setTag(String.valueOf(resultado));
 
-            // definindo efeito ao clicar no botão.
-            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-
+            if(efeitoBotao) { // controlando pois versões menoes ou iguais a 10 não suportam a troca de efeito no botao.
+                // definindo efeito ao clicar no botão.
+                tres.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -227,12 +239,13 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
 
-            // definindo efeito ao clicar no botão.
-            quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-            tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
-
+            if(efeitoBotao) { // controlando pois versões menoes ou iguais a 10 não suportam a troca de efeito no botao.
+                // definindo efeito ao clicar no botão.
+                quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+                tres.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             do {
                 resultadoErrado = random.nextInt(((resultado + 5) - (resultado - 5)) + 1) + (resultado - 5);
             } while (resultadoErrado < 0 || resultadoErrado == resultado);
@@ -276,6 +289,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             }
         }
     }
+
 
     public void calcular() {
 
@@ -359,6 +373,15 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
 
     public void mensFimTreinamento() {
 
+        // variaveis para alertDialog Personalizado.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.alertDialog);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.alert_treinamento, null);
+        ImageView imvTrofeu = (ImageView) dialogView.findViewById(R.id.imvTrofeu);
+        TextView txtPontuacaoAlert = (TextView) dialogView.findViewById(R.id.txtPontuacaoAlert);
+        TextView txtTempo = (TextView) dialogView.findViewById(R.id.txtTempo);
+
+
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
         String star = repository.getTreinamento("INTERMEDIARIO", String.valueOf((Integer.valueOf(valor) + 10)));
@@ -366,39 +389,39 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
 
-        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
         if (contador < 25) {
-            alertDialog.setTitle(R.string.msg_pontuacao_excelente);
-            alertDialog.setIcon(R.drawable.trofeu_ouro);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_excelente);
+            imvTrofeu.setImageResource(R.drawable.excelente_dialog);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador < 35) {
-            alertDialog.setTitle(R.string.msg_pontuacao_otimo);
-            alertDialog.setIcon(R.drawable.trofeu_prata);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_otimo);
+            imvTrofeu.setImageResource(R.drawable.otimo_dialog);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador < 70) {
-            alertDialog.setTitle(R.string.msg_pontuacao_bom);
-            alertDialog.setIcon(R.drawable.trofeu_bronze);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_bom);
+            imvTrofeu.setImageResource(R.drawable.bom_dialog);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{String.valueOf((Integer.valueOf(valor) + 10))});
             }
         } else if (contador >= 70) {
-            alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);
+            imvTrofeu.setImageResource(R.drawable.continue_dialog);
+            txtPontuacaoAlert.setText(R.string.msg_pontuacao_cont_treinando);
         }
 
         // fechando banco de dados.
         bd.close();
 
-        alertDialog.setCancelable(false);
+        builder.setCancelable(false);
 
-        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.msg_botao_novamente, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -406,7 +429,8 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
+
+        builder.setNegativeButton(R.string.msg_botao_retornar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -414,7 +438,7 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             }
         });
 
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
             public void onCancel(DialogInterface dialog) {
@@ -422,6 +446,9 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             }
         });
 
+        txtTempo.setText(String.valueOf(contador));
+        builder.setView(dialogView);
+        alertDialog = builder.create();
         alertDialog.show();
     }
 

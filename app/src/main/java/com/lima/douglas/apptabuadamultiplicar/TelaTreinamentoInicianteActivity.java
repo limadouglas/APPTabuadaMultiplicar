@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -58,6 +59,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
     TextView txtPlacar;
     TextView txtTitulo;
     ImageView imvTabuada;
+    boolean efeitoBotao = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +83,10 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         dialogTabela = new AlertDialog.Builder(this).create();
         txtTitulo = (TextView) findViewById(R.id.txtTitulo);
 
+        // verificando versão do android, versões menores que 10 tem problemas sobre efeito clique nos botões.
+        if(Build.VERSION.SDK_INT <= 13) {
+            efeitoBotao = false;
+        }
 
         // alterando pontos da toolbar.
         txtPlacar = (TextView) findViewById(R.id.txtPlacar);
@@ -149,17 +155,23 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            if(efeitoBotao) {
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             dois.setText(String.valueOf(resultadoErrado));
             dois.setTag(String.valueOf(resultadoErrado));
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
         } else {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
-            dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+            if(efeitoBotao) {
+                dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
+                um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+            }
             um.setText(String.valueOf(resultadoErrado));
             um.setTag(String.valueOf(resultadoErrado));
-            um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
+
         }
     }
 
@@ -269,6 +281,14 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
     public void mensFimTreinamento() {
 
+        // variaveis para alertDialog Personalizado.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.alertDialog);
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.alert_treinamento, null);
+        ImageView imvTrofeu = (ImageView) dialogView.findViewById(R.id.imvTrofeu);
+        TextView txtPontuacaoAlert = (TextView) dialogView.findViewById(R.id.txtPontuacaoAlert);
+        TextView txtTempo = (TextView) dialogView.findViewById(R.id.txtTempo);
+
 
         // instancindo meu repositorio
         repository = new RecordesRepository(this);
@@ -277,47 +297,40 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         // instanciando banco de dados.
         bd = repository.getWritableDatabase();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View dialogView = inflater.inflate(R.layout.alert_treinamento, null);
-        ImageView imvTrofeu = (ImageView) dialogView.findViewById(R.id.imvTrofeu);
-        TextView txtPontuacaoAlert = (TextView) dialogView.findViewById(R.id.txtPontuacaoAlert);
-        TextView txtTempo = (TextView) dialogView.findViewById(R.id.txtTempo);
-
 
         // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
         if (contador < 25) {
             txtPontuacaoAlert.setText(R.string.msg_pontuacao_excelente);
-            imvTrofeu.setImageResource(R.drawable.trofeu_ouro);
+            imvTrofeu.setImageResource(R.drawable.excelente_dialog);
             if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
                 values.put("STARTIPO", "OURO");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador < 35) {
             txtPontuacaoAlert.setText(R.string.msg_pontuacao_otimo);
-            imvTrofeu.setImageResource(R.drawable.trofeu_prata);
+            imvTrofeu.setImageResource(R.drawable.otimo_dialog);
             if (star.equals("NAO") || star.equals("BRONZE")) {
                 values.put("STARTIPO", "PRATA");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador < 70) {
             txtPontuacaoAlert.setText(R.string.msg_pontuacao_bom);
-            imvTrofeu.setImageResource(R.drawable.trofeu_bronze);
+            imvTrofeu.setImageResource(R.drawable.bom_dialog);
             if (star.equals("NAO")) {
                 values.put("STARTIPO", "BRONZE");
                 bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
             }
         } else if (contador >= 70) {
+            imvTrofeu.setImageResource(R.drawable.continue_dialog);
             txtPontuacaoAlert.setText(R.string.msg_pontuacao_cont_treinando);
         }
 
         // fechando banco de dados.
         bd.close();
 
-        //builder.setCancelable(false);
+        builder.setCancelable(false);
 
-        builder.setPositiveButton("Novamente", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.msg_botao_novamente, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -326,7 +339,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("Retornar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.msg_botao_retornar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -334,15 +347,15 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             }
         });
 
-//        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                dialog.dismiss();
-//            }
-//        });
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
-        txtTempo.setText(String.valueOf(contador) + " segundos");
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                dialog.dismiss();
+            }
+        });
+
+        txtTempo.setText(String.valueOf(contador));
         builder.setView(dialogView);
         alertDialog = builder.create();
         alertDialog.show();
@@ -356,92 +369,6 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
-
-
-
-
-
-
-
-
-
-
-
-//    public void mensFimTreinamento() {
-//        ImageView imvTrofeu = (ImageView) findViewById(R.id.imvTrofeu);
-//        TextView txtPontuacao = (TextView) findViewById(R.id.txtPontuacao);
-//        TextView txtTempo = (TextView) findViewById(R.id.txtTempo);
-//
-//
-//        // instancindo meu repositorio
-//        repository = new RecordesRepository(this);
-//        String star = repository.getTreinamento("INICIANTE", valor);
-//        ContentValues values = new ContentValues();
-//        // instanciando banco de dados.
-//        bd = repository.getWritableDatabase();
-//
-//        alertDialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
-//        // verificando em quanto tempo o usuario respondeu as questões e dando nota a ele.
-//        if (contador < 25) {
-//            alertDialog.setTitle(R.string.msg_pontuacao_excelente);
-//            alertDialog.setIcon(R.drawable.trofeu_ouro);
-//            if (star.equals("NAO") || star.equals("BRONZE") || star.equals("PRATA")) {
-//                values.put("STARTIPO", "OURO");
-//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
-//            }
-//        } else if (contador < 35) {
-//            alertDialog.setTitle(R.string.msg_pontuacao_otimo);
-//            alertDialog.setIcon(R.drawable.trofeu_prata);
-//            if (star.equals("NAO") || star.equals("BRONZE")) {
-//                values.put("STARTIPO", "PRATA");
-//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
-//            }
-//        } else if (contador < 70) {
-//            alertDialog.setTitle(R.string.msg_pontuacao_bom);
-//            alertDialog.setIcon(R.drawable.trofeu_bronze);
-//            if (star.equals("NAO")) {
-//                values.put("STARTIPO", "BRONZE");
-//                bd.update("TREINAMENTO", values, "_ID = ?", new String[]{valor});
-//            }
-//        } else if (contador >= 70) {
-//            alertDialog.setTitle(R.string.msg_pontuacao_cont_treinando);
-//        }
-//
-//        // fechando banco de dados.
-//        bd.close();
-//
-//        alertDialog.setCancelable(false);
-//
-//        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                finish();
-//                startActivity(getIntent());
-//                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
-//            }
-//        });
-//        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                finish();
-//                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-//            }
-//        });
-//
-//        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        alertDialog.show();
-//    }
-
-
-
-
 
 
 }

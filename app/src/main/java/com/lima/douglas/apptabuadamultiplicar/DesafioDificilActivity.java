@@ -17,6 +17,7 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -318,6 +320,13 @@ public class DesafioDificilActivity extends AppCompatActivity {
 
     public void finalizarDesafio() {
 
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.alert_desafio, null);
+        ImageView imvFim = (ImageView) view.findViewById(R.id.imvFim);
+        TextView txtTempoDialog = (TextView) view.findViewById(R.id.txtTempoDialog);
+        TextView txtNovoRecorde = (TextView) view.findViewById(R.id.txtNovoRecorde);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.alertDialog);
+
         int i = 0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
@@ -326,6 +335,9 @@ public class DesafioDificilActivity extends AppCompatActivity {
 
         // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
+
+        // inserindo pontuacao no alertdialog
+        txtTempoDialog.setText(String.valueOf(pontuacao));
 
         // buscar do banco de dados.
         List<RecordesEstrutura> recordes = repository.getRecordes("DIFICIL");
@@ -351,18 +363,32 @@ public class DesafioDificilActivity extends AppCompatActivity {
                     }
                 }
             }
+
+            if (pontuacao > array.get(0)) {
+                imvFim.setImageResource(R.drawable.excelente_dialog);
+                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+            }
+
         } else {
             // gravando valores no banco.
             repository.setRecorde("DIFICIL", pontuacao);
+
+            if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
+                if (pontuacao > array.get(0)) {
+                    imvFim.setImageResource(R.drawable.excelente_dialog);
+                    txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                }
+            } else {
+                imvFim.setImageResource(R.drawable.excelente_dialog);
+                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+            }
         }
 
-        dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
-        // necessario para que o usuario não clique fora do alert para sair.
-        dialog.setCancelable(false);
-        dialog.setTitle(R.string.msg_titulo_pontuacao);
-        dialog.setMessage(String.valueOf(pontuacao));
 
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
+        // necessario para que o usuario não clique fora do alert para sair.
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(R.string.msg_botao_novamente, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -370,7 +396,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.msg_botao_retornar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
@@ -379,13 +405,16 @@ public class DesafioDificilActivity extends AppCompatActivity {
         });
 
         // necessario para que o usuario não clique fora do alert para sair.
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
             public void onCancel(DialogInterface dialog) {
                 dialog.dismiss();
             }
         });
+
+        builder.setView(view);
+        dialog = builder.create();
         dialog.show();
     }
 

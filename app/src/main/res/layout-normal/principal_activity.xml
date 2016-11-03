@@ -62,4 +62,5 @@
         android:text="@string/recordes"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="20dp" />
+
 </LinearLayout>
