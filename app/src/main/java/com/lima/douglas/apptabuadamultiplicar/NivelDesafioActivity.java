@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.appodeal.ads.Appodeal;
 
 
 public class NivelDesafioActivity extends AppCompatActivity {

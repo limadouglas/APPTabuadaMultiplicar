@@ -22,7 +22,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import org.w3c.dom.Text;
@@ -115,6 +117,10 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
+
+        // inicializando appodeal para monetização.
+        Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
+        Appodeal.setTesting(Constantes.TESTEAPPODEAL);
     }
 
 
@@ -357,6 +363,7 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+                Appodeal.show(TelaTreinamentoExperienteActivity.this, Appodeal.INTERSTITIAL);
             }
         });
 
@@ -381,6 +388,12 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Appodeal.onResume(this, Appodeal.BANNER);
     }
 
 

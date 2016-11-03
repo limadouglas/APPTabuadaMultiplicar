@@ -33,7 +33,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0, 0}, placar = 0;
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
-    int contador = 10;
+    int contador = 59;
     int pontuacao = 0;
     AlertDialog dialog;
     Intent i;

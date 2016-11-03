@@ -4,28 +4,23 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import java.util.Random;
@@ -115,6 +110,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
+
     }
 
     // retornando tamanho da tela.

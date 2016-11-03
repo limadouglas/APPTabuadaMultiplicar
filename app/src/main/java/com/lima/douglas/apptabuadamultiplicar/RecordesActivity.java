@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 

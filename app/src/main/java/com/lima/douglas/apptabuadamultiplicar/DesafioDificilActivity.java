@@ -29,7 +29,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
     int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, antigoNumero2[] = {0, 0, 0, 0, 0, 0}, resMultiplicacao, placar = 0;
     boolean verificarRepetidos = true;
     int multInicial;
-    int contador = 10;
+    int contador = 59;
     int pontuacao = 0;
     String padrao;
     String alternar;
@@ -117,6 +119,10 @@ public class DesafioDificilActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
+
+        // inicializando appodeal para monetização.
+        Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
+        Appodeal.setTesting(Constantes.TESTEAPPODEAL);
     }
 
 
@@ -401,6 +407,7 @@ public class DesafioDificilActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+                Appodeal.show(DesafioDificilActivity.this, Appodeal.INTERSTITIAL);
             }
         });
 
@@ -431,6 +438,12 @@ public class DesafioDificilActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Appodeal.onResume(this, Appodeal.BANNER);
     }
 
 
