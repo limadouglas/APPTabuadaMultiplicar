@@ -56,12 +56,9 @@ public class DesafioDificilActivity extends AppCompatActivity {
     AlertDialog dialog;
     Intent i;
     RecordesRepository repository;
-    SQLiteDatabase bd;
-    ContentValues values;
     Thread thread;
     boolean sairThread = false, ativarContador = true;
     Handler handler;
-    MenuInflater menuInflater;
     MenuItem MenuItem;
 
 

@@ -1,22 +1,16 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
-import android.content.ContentValues;
+
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,7 +28,6 @@ import java.util.Random;
 
 public class DesafioMedioActivity extends AppCompatActivity {
 
-    ActionBar actionBar;
     TextView txtPadrao, txtTitulo, txtTempo;
     TextView txtAlternar;
     Random random;

@@ -8,15 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,10 +27,10 @@ import java.util.Random;
 
 public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
 
-    ActionBar actionBar;
+
     TextView txtPadrao;
     TextView txtAlternar;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, placar = 0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0};
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador;

@@ -1,7 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lima.douglas.apptabuadamultiplicar">
 
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -9,17 +8,11 @@
     <!-- Optional -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
-
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
         android:xlargeScreens="true" />
-
-    <uses-sdk
-        android:minSdkVersion="13"
-        android:targetSdkVersion="24" />
-
 
     <application
         android:allowBackup="true"
@@ -28,8 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- O modo portrait esta ativado, para desabilitalo basta apagar todos os 'android:screenOrientation="portrait' do codigo.-->
 
+        <!-- O modo portrait esta ativado, para desabilitalo basta apagar todos os 'android:screenOrientation="portrait' do codigo.-->
         <activity
             android:name=".PrincipalActivity"
             android:screenOrientation="portrait">

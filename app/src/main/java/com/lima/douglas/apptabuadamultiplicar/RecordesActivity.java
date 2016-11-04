@@ -1,19 +1,14 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 

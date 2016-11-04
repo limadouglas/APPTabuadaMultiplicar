@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.lima.douglas.apptabuadamultiplicar"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -32,8 +32,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-location:9.8.0'
     compile 'com.google.android.gms:play-services-maps:9.8.0'
     compile 'com.google.android.gms:play-services-ads:9.8.0'
-
-
-
 
 }

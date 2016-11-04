@@ -12,15 +12,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
-import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import java.util.Random;
@@ -30,22 +27,19 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
 
     TextView txtPadrao;
     TextView txtAlternar;
-    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0}, placar = 0;
+    int novoNumero = 0, antigoNumero[] = {0, 0, 0, 0, 0, 0};
     boolean verificarRepetidos = true, ativarContador = true;
     int multInicial;
     int contador;
-    int pontuacao = 0, resMultiplicacao;
     AlertDialog dialogTabela;
     AlertDialog alertDialog;
     Intent i;
-    ContentValues values;
     Thread thread;
     boolean sairThread = false, sairPlacar = false;
     Handler handler;
     Button um;
     Button dois;
     int arrayTag, resultado, resultadoErrado;
-    MenuItem menuItem;
     Random random;
     ImageView imvTabela;
     String valor;

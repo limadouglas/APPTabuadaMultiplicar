@@ -1,22 +1,17 @@
 package com.lima.douglas.apptabuadamultiplicar;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;

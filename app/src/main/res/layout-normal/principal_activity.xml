@@ -19,7 +19,7 @@
         android:paddingRight="50dp"
         android:text="@string/principal_treinamento"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/button3"
@@ -33,7 +33,7 @@
         android:paddingRight="50dp"
         android:text="@string/principal_desafio"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 
     <Button
@@ -48,7 +48,7 @@
         android:paddingRight="50dp"
         android:text="@string/tabuada"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:layout_width="match_parent"
@@ -61,6 +61,6 @@
         android:paddingRight="50dp"
         android:text="@string/recordes"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
