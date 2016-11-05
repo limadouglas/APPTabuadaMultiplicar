@@ -22,7 +22,7 @@ public class PrincipalActivity extends AppCompatActivity {
         // inicializando appodeal para monetização.
         Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.MREC | Appodeal.NATIVE);
         Appodeal.setTesting(Constantes.TESTEAPPODEAL);
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        //Appodeal.show(this, Appodeal.BANNER_BOTTOM);
     }
 
     // chamando activity.

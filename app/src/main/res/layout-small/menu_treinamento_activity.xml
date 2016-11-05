@@ -5,7 +5,7 @@
     android:background="@color/corBackground">
 
 
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -13,13 +13,17 @@
         android:padding="20dp"
         android:stretchColumns="0,1">
 
-        <TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn1"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -33,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -40,15 +45,19 @@
                 android:text="2"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn3"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -63,6 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -70,15 +80,19 @@
                 android:text="4"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn5"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -92,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -99,15 +114,19 @@
                 android:text="6"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn7"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -121,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -128,15 +148,19 @@
                 android:text="8"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn9"
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -150,6 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:background="@drawable/btn_evento_padrao"
                 android:onClick="abrirTreino"
                 android:padding="20dp"
@@ -157,13 +182,14 @@
                 android:text="10"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20dp" />
-        </TableRow>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tipo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="smartphone"
-            android:visibility="gone"/>
-    </TableLayout>
+            android:visibility="gone" />
+    </LinearLayout>
 
 </ScrollView>
