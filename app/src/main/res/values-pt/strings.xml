@@ -34,4 +34,8 @@
     <string name="msg_botao_novamente">Novamente</string>
     <string name="msg_botao_retornar">Retornar</string>
 
+    <string name="msg_segundos">segundos</string>
+    <string name="msg_novo_recorde">Novo Recorde</string>
+    <string name="msg_ponto">pontos</string>
+
 </resources>

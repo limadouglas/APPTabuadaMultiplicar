@@ -47,7 +47,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
     Button tres;
     Button quatro;
     int arrayTag, resultado, resultadoErrado;
-    boolean efeitoBotao =  true;
+    boolean efeitoBotao = true;
 
 
     @Override
@@ -73,7 +73,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         txtTitulo.setText(R.string.desafio_medio);
 
         // verificando versão do android, versões menores que 10 tem problemas sobre efeito clique nos botões.
-        if(Build.VERSION.SDK_INT <= 13) {
+        if (Build.VERSION.SDK_INT <= 13) {
             efeitoBotao = false;
         }
 
@@ -156,7 +156,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
 
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 // definindo efeito ao clicar no botão.
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
@@ -186,7 +186,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
             dois.setTag(String.valueOf(resultado));
 
 
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 // definindo efeito ao clicar no botão.
                 dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
@@ -216,7 +216,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
             tres.setTag(String.valueOf(resultado));
 
 
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 // definindo efeito ao clicar no botão.
                 tres.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
@@ -244,7 +244,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
         } else if (arrayTag == 3) {
             quatro.setText(String.valueOf(resultado));
             quatro.setTag(String.valueOf(resultado));
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 // definindo efeito ao clicar no botão.
                 quatro.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
@@ -381,7 +381,7 @@ public class DesafioMedioActivity extends AppCompatActivity {
     public void finalizarDesafio() {
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View view =  inflater.inflate(R.layout.alert_desafio, null);
+        View view = inflater.inflate(R.layout.alert_desafio, null);
         ImageView imvFim = (ImageView) view.findViewById(R.id.imvFim);
         TextView txtTempoDialog = (TextView) view.findViewById(R.id.txtTempoDialog);
         TextView txtNovoRecorde = (TextView) view.findViewById(R.id.txtNovoRecorde);
@@ -394,54 +394,60 @@ public class DesafioMedioActivity extends AppCompatActivity {
         if (contador < 0)
             contador = 0;
 
+        //zerando o tempo o tempo.
+        txtTempo.setText("0");
+
         // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
 
         // inserindo pontuacao no alertdialog
         txtTempoDialog.setText(String.valueOf(pontuacao));
 
-        // buscar do banco de dados.
-        List<RecordesEstrutura> recordes = repository.getRecordes("MEDIO");
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        if (pontuacao > 0) {
 
-        for (RecordesEstrutura re : recordes) {
-            array.add(re.getPontuacao());
-            i++;
-        }
+            // buscar do banco de dados.
+            List<RecordesEstrutura> recordes = repository.getRecordes("MEDIO");
+            ArrayList<Integer> array = new ArrayList<Integer>();
 
-        if (i >= 3) {
-            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
-                for (int j = 0; j < i; j++) {
-                    if (pontuacao > array.get(j)) {
-                        // removerndo último valor do banco.
-                        repository.removerRecorde("MEDIO", array.get(2));
+            for (RecordesEstrutura re : recordes) {
+                array.add(re.getPontuacao());
+                i++;
+            }
 
-                        // gravando valores no banco.
-                        repository.setRecorde("MEDIO", pontuacao);
+            if (i >= 3) {
+                if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
+                    for (int j = 0; j < i; j++) {
+                        if (pontuacao > array.get(j)) {
+                            // removerndo último valor do banco.
+                            repository.removerRecorde("MEDIO", array.get(2));
 
-                        // saindo o loop.
-                        break;
+                            // gravando valores no banco.
+                            repository.setRecorde("MEDIO", pontuacao);
+
+                            // saindo o loop.
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (pontuacao > array.get(0)) {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
-            }
-
-        } else {
-            // gravando valores no banco.
-            repository.setRecorde("MEDIO", pontuacao);
-
-            if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
                 if (pontuacao > array.get(0)) {
                     imvFim.setImageResource(R.drawable.excelente_dialog);
                     txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
                 }
+
             } else {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                // gravando valores no banco.
+                repository.setRecorde("MEDIO", pontuacao);
+
+                if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
+                    if (pontuacao > array.get(0)) {
+                        imvFim.setImageResource(R.drawable.excelente_dialog);
+                        txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                    }
+                } else {
+                    imvFim.setImageResource(R.drawable.excelente_dialog);
+                    txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                }
             }
         }
 
@@ -477,7 +483,6 @@ public class DesafioMedioActivity extends AppCompatActivity {
         dialog = builder.create();
         dialog.show();
     }
-
 
 
     // metodo sobrescreve o nativo do android.

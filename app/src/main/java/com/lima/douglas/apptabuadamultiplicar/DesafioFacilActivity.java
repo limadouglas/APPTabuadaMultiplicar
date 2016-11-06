@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -70,7 +71,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         txtTitulo.setText(R.string.desafio_facil);
 
         // verificando versão do android, versões menores que 10 tem problemas sobre efeito clique nos botões.
-        if(Build.VERSION.SDK_INT <= 13) {
+        if (Build.VERSION.SDK_INT <= 13) {
             efeitoBotao = false;
         }
 
@@ -132,7 +133,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         if (arrayTag == 0) {
             um.setText(String.valueOf(resultado));
             um.setTag(String.valueOf(resultado));
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 dois.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
             }
@@ -142,7 +143,7 @@ public class DesafioFacilActivity extends AppCompatActivity {
         } else {
             dois.setText(String.valueOf(resultado));
             dois.setTag(String.valueOf(resultado));
-            if(efeitoBotao) {
+            if (efeitoBotao) {
                 dois.setBackgroundResource(R.drawable.btn_evento_backgroud_correto);
                 um.setBackgroundResource(R.drawable.btn_evento_backgroud_errado);
             }
@@ -284,11 +285,15 @@ public class DesafioFacilActivity extends AppCompatActivity {
         TextView txtNovoRecorde = (TextView) view.findViewById(R.id.txtNovoRecorde);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.alertDialog);
 
+
         int i = 0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
         if (contador < 0)
             contador = 0;
+
+        //zerando o tempo o tempo.
+        txtTempo.setText("0");
 
         // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
@@ -296,51 +301,52 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // inserindo pontuacao no alertdialog
         txtTempoDialog.setText(String.valueOf(pontuacao));
 
-        // buscar do banco de dados.
-        List<RecordesEstrutura> recordes = repository.getRecordes("FACIL");
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        if (pontuacao > 0) {
+            // buscar do banco de dados.
+            List<RecordesEstrutura> recordes = repository.getRecordes("FACIL");
+            ArrayList<Integer> array = new ArrayList<Integer>();
 
-        for (RecordesEstrutura re : recordes) {
-            array.add(re.getPontuacao());
-            i++;
-        }
+            for (RecordesEstrutura re : recordes) {
+                array.add(re.getPontuacao());
+                i++;
+            }
 
-        if (i >= 3) {
-            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
-                for (int j = 0; j < i; j++) {
-                    if (pontuacao > array.get(j)) {
-                        // removerndo último valor do banco.
-                        repository.removerRecorde("FACIL", array.get(2));
+            if (i >= 3) {
+                if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
+                    for (int j = 0; j < i; j++) {
+                        if (pontuacao > array.get(j)) {
+                            // removerndo último valor do banco.
+                            repository.removerRecorde("FACIL", array.get(2));
 
-                        // gravando valores no banco.
-                        repository.setRecorde("FACIL", pontuacao);
+                            // gravando valores no banco.
+                            repository.setRecorde("FACIL", pontuacao);
 
-                        // saindo o loop.
-                        break;
+                            // saindo o loop.
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (pontuacao > array.get(0)) {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
-            }
-
-        } else {
-            // gravando valores no banco.
-            repository.setRecorde("FACIL", pontuacao);
-
-            if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
                 if (pontuacao > array.get(0)) {
                     imvFim.setImageResource(R.drawable.excelente_dialog);
                     txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
                 }
+
             } else {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                // gravando valores no banco.
+                repository.setRecorde("FACIL", pontuacao);
+
+                if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
+                    if (pontuacao > array.get(0)) {
+                        imvFim.setImageResource(R.drawable.excelente_dialog);
+                        txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                    }
+                } else {
+                    imvFim.setImageResource(R.drawable.excelente_dialog);
+                    txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                }
             }
         }
-
 
         // necessario para que o usuario não clique fora do alert para sair.
         builder.setCancelable(false);
@@ -385,94 +391,5 @@ public class DesafioFacilActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
-
-
-//    /// finanlizando desafio de mostrand resultado.
-//    public void finalizarDesafio() {
-//
-//        int i = 0;
-//
-//        // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
-//        if (contador < 0)
-//            contador = 0;
-//
-//        // calculando placar do jogador.
-//        pontuacao = (placar * 4) + (contador * 4);
-//
-//        // buscar do banco de dados.
-//        List<RecordesEstrutura> recordes = repository.getRecordes("FACIL");
-//        ArrayList<Integer> array = new ArrayList<Integer>();
-//
-//        for (RecordesEstrutura re : recordes) {
-//            array.add(re.getPontuacao());
-//            i++;
-//        }
-//
-//        if (i >= 3) {
-//            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
-//                for (int j = 0; j < i; j++) {
-//                    if (pontuacao > array.get(j)) {
-//                        // removerndo último valor do banco.
-//                        repository.removerRecorde("FACIL", array.get(2));
-//
-//                        // gravando valores no banco.
-//                        repository.setRecorde("FACIL", pontuacao);
-//
-//                        // saindo o loop.
-//                        break;
-//                    }
-//                }
-//            }
-//
-//            if(pontuacao > array.get(0)) {
-//                Log.d("Recorde", "Novo recorde");
-//            }
-//
-//        } else {
-//            // gravando valores no banco.
-//            repository.setRecorde("FACIL", pontuacao);
-//            if(i >= 1) {
-//                if(pontuacao > array.get(0)) {
-//                    Log.d("Recorde", "Novo recorde");
-//                }
-//            } else
-//                Log.d("Recorde", "Novo recorde");
-//
-//        }
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(null, R.style.alertDialog);
-//
-//        dialog = new AlertDialog.Builder(this, R.style.alertDialog).create();
-//        // necessario para que o usuario não clique fora do alert para sair.
-//        dialog.setCancelable(false);
-//        dialog.setTitle(R.string.msg_titulo_pontuacao);
-//        dialog.setMessage(String.valueOf(pontuacao));
-//
-//        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Novamente", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                finish();
-//                startActivity(getIntent());
-//                overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
-//            }
-//        });
-//        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Retornar", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                finish();
-//                overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-//            }
-//        });
-//
-//        // necessario para que o usuario não clique fora do alert para sair.
-//        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//
-//            @Override
-//            public void onCancel(DialogInterface dialog) {
-//                dialog.dismiss();
-//            }
-//        });
-//        dialog.show();
-//    }
 
 }

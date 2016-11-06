@@ -327,11 +327,15 @@ public class DesafioDificilActivity extends AppCompatActivity {
         TextView txtNovoRecorde = (TextView) view.findViewById(R.id.txtNovoRecorde);
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.alertDialog);
 
+
         int i = 0;
 
         // o contador pode ser menor que zero por causa da penalização de -5, por clicar no errado.
         if (contador < 0)
             contador = 0;
+
+        //zerando o tempo o tempo.
+        txtTempo.setText("0");
 
         // calculando placar do jogador.
         pontuacao = (placar * 4) + (contador * 4);
@@ -339,48 +343,51 @@ public class DesafioDificilActivity extends AppCompatActivity {
         // inserindo pontuacao no alertdialog
         txtTempoDialog.setText(String.valueOf(pontuacao));
 
-        // buscar do banco de dados.
-        List<RecordesEstrutura> recordes = repository.getRecordes("DIFICIL");
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        if (pontuacao > 0) {
 
-        for (RecordesEstrutura re : recordes) {
-            array.add(re.getPontuacao());
-            i++;
-        }
+            // buscar do banco de dados.
+            List<RecordesEstrutura> recordes = repository.getRecordes("DIFICIL");
+            ArrayList<Integer> array = new ArrayList<Integer>();
 
-        if (i >= 3) {
-            if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
-                for (int j = 0; j < i; j++) {
-                    if (pontuacao > array.get(j)) {
-                        // removerndo último valor do banco.
-                        repository.removerRecorde("DIFICIL", array.get(2));
+            for (RecordesEstrutura re : recordes) {
+                array.add(re.getPontuacao());
+                i++;
+            }
 
-                        // gravando valores no banco.
-                        repository.setRecorde("DIFICIL", pontuacao);
+            if (i >= 3) {
+                if ((pontuacao != array.get(0)) && (pontuacao != array.get(1)) && (pontuacao != array.get(2))) {
+                    for (int j = 0; j < i; j++) {
+                        if (pontuacao > array.get(j)) {
+                            // removerndo último valor do banco.
+                            repository.removerRecorde("DIFICIL", array.get(2));
 
-                        // saindo o loop.
-                        break;
+                            // gravando valores no banco.
+                            repository.setRecorde("DIFICIL", pontuacao);
+
+                            // saindo o loop.
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (pontuacao > array.get(0)) {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
-            }
-
-        } else {
-            // gravando valores no banco.
-            repository.setRecorde("DIFICIL", pontuacao);
-
-            if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
                 if (pontuacao > array.get(0)) {
                     imvFim.setImageResource(R.drawable.excelente_dialog);
                     txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
                 }
+
             } else {
-                imvFim.setImageResource(R.drawable.excelente_dialog);
-                txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                // gravando valores no banco.
+                repository.setRecorde("DIFICIL", pontuacao);
+
+                if (i >= 1) { // mostrando alertdialog personalizado com novo recorde.
+                    if (pontuacao > array.get(0)) {
+                        imvFim.setImageResource(R.drawable.excelente_dialog);
+                        txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                    }
+                } else {
+                    imvFim.setImageResource(R.drawable.excelente_dialog);
+                    txtNovoRecorde.setLayoutParams(txtTempoDialog.getLayoutParams());
+                }
             }
         }
 
