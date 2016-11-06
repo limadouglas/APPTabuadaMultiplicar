@@ -111,9 +111,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             alterarTamBotao();
         }
 
-        // inicializando appodeal para monetização.
-        Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
-        Appodeal.setTesting(Constantes.TESTEAPPODEAL);
     }
 
 
@@ -356,7 +353,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
-                Appodeal.show(TelaTreinamentoExperienteActivity.this, Appodeal.INTERSTITIAL);
             }
         });
 
@@ -381,12 +377,6 @@ public class TelaTreinamentoExperienteActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Appodeal.onResume(this, Appodeal.BANNER);
     }
 
 

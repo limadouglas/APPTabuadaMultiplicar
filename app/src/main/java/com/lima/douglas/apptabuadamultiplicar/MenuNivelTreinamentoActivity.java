@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.appodeal.ads.Appodeal;
+
 
 public class MenuNivelTreinamentoActivity extends AppCompatActivity {
 
@@ -27,19 +29,19 @@ public class MenuNivelTreinamentoActivity extends AppCompatActivity {
 
     public void iniciante(View view) {
         i.putExtra("tipo", "iniciante");
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void intermediario(View view) {
         i.putExtra("tipo", "intermediario");
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void experiente(View view) {
         i.putExtra("tipo", "experiente");
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
@@ -60,6 +62,18 @@ public class MenuNivelTreinamentoActivity extends AppCompatActivity {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM); //necessario pois o MenuTreinamentoActivity da um hide no Appodeal.Banner_BOTTOM.
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Appodeal.onResume(this, Appodeal.BANNER);// iniciando o banner junto com a activity.
     }
 
 

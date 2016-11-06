@@ -22,36 +22,32 @@ public class PrincipalActivity extends AppCompatActivity {
         // inicializando appodeal para monetização.
         Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.MREC | Appodeal.NATIVE);
         Appodeal.setTesting(Constantes.TESTEAPPODEAL);
-        //Appodeal.show(this, Appodeal.BANNER_BOTTOM);
+        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
     }
 
     // chamando activity.
     public void treinamento (View view) {
-        Appodeal.hide(this, Appodeal.BANNER_BOTTOM);
         i = new Intent(this, MenuNivelTreinamentoActivity.class);
-        startActivityForResult(i, 1);
+        startActivity(i);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void desafio (View view) {
-        Appodeal.hide(this, Appodeal.BANNER_BOTTOM);
         i = new Intent(this, NivelDesafioActivity.class);
-        startActivityForResult(i, 1);
+        startActivity(i);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void tabuada (View view) {
-        Appodeal.hide(this, Appodeal.BANNER_BOTTOM);
         i = new Intent(this, MenuTreinamentoActivity.class);
         i.putExtra("tipo", "tabuada");
-        startActivityForResult(i, 1);
+        startActivity(i);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     public void recordes (View view) {
-        Appodeal.hide(this, Appodeal.BANNER_BOTTOM);
         i = new Intent(this, RecordesActivity.class);
-        startActivityForResult(i, 1);
+        startActivity(i);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
@@ -59,11 +55,5 @@ public class PrincipalActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Appodeal.onResume(this, Appodeal.BANNER);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Appodeal.show(this, Appodeal.BANNER_BOTTOM);
     }
 }

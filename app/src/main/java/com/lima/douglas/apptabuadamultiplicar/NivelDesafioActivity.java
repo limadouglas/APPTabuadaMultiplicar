@@ -8,6 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.appodeal.ads.Appodeal;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
+
 
 public class NivelDesafioActivity extends AppCompatActivity {
     ActionBar actionBar;
@@ -28,21 +31,21 @@ public class NivelDesafioActivity extends AppCompatActivity {
 
     public  void facil(View view) {
         i = new Intent(this, DesafioFacilActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
     public  void medio(View view) {
         i = new Intent(this, DesafioMedioActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
     public  void dificil(View view) {
         i = new Intent(this, DesafioDificilActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
@@ -60,11 +63,34 @@ public class NivelDesafioActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // controle para aparecer menos propaganda, dependendo da tela vai aparecer uma propaganda.
+        if(Constantes.PROPAGANDA) {
+
+            // inicializando appodeal para monetização.
+            Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
+            Appodeal.setTesting(Constantes.TESTEAPPODEAL);
+
+            // mostrando a propaganda.
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
+            Constantes.PROPAGANDA = false;
+        }
+
+    }
 
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Appodeal.onResume(this, Appodeal.BANNER);
     }
 
 }

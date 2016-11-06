@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-    <string name="app_name">Tabuada de Multiplicação</string>
+    <string name="app_name">Multiplication Table </string>
 
-    <string name="desafio_dificil">Difícil</string>
-    <string name="desafio_medio">Médio</string>
-    <string name="desafio_facil">Fácil</string>
+    <string name="desafio_dificil">Hard </string> 
+    <string name="desafio_medio">Medium</string>        
+    <string name="desafio_facil">Easy</string>
+        
+    <string name="titulo_nivel_treinamento">Training Level</string>        
+    <string name="titulo_escolha_tabuada">Choose a Mult. Tables</string>        
+    <string name="titulo_nivel_desafio">Challenge Level</string>
 
-    <string name="titulo_nivel_treinamento">Nível Treinamento</string>
-    <string name="titulo_escolha_tabuada">Escolha Uma Tabuada</string>
-    <string name="titulo_nivel_desafio">Nível do Desafio</string>
-    <string name="recordes">Recordes</string>
+    <string name="recordes">Records</string>
 
-    <string name="treinamento_experiente">Experiente</string>
-    <string name="treinamento_iniciante">Iniciante</string>
-    <string name="treinamento_intermediario">Intermediário</string>
+    <string name="treinamento_experiente">Expert</string>        
+    <string name="treinamento_iniciante">Beginner</string>        
+    <string name="treinamento_intermediario">Intermediate</string>
+        
+    <string name="tabuada">Mult. Tables</string>        
+    <string name="principal_treinamento">Training</string>        
+    <string name="principal_desafio">Challenge</string>
+        
+    <string name="recordes_dificil">Difficult Challenge</string>        
+    <string name="recordes_medio">Middle Challenge</string>        
+    <string name="recordes_facil">Easy Challenge</string>
 
-    <string name="tabuada">Tabuada</string>
+    <string name="msg_titulo_pontuacao">Punctuation</string>        
+    <string name="msg_pontuacao_excelente">Excellent</string>        
+    <string name="msg_pontuacao_otimo">Great</string>        
+    <string name="msg_pontuacao_bom">Good</string>        
+    <string name="msg_pontuacao_cont_treinando">Continue Training!</string>
+        
+    <string name="msg_botao_novamente">Again</string>        
+    <string name="msg_botao_retornar">Back</string>
 
-    <string name="principal_treinamento">Treinamento</string>
-    <string name="principal_desafio">Desafio</string>
-
-    <string name="recordes_dificil">Desafio Difícil</string>
-    <string name="recordes_medio">Desafio Médio</string>
-    <string name="recordes_facil">Desafio Fácil</string>
-
-    <string name="msg_titulo_pontuacao">Pontuação</string>
-    <string name="msg_pontuacao_excelente">Excelente</string>
-    <string name="msg_pontuacao_otimo">Ótimo</string>
-    <string name="msg_pontuacao_bom">Bom</string>
-    <string name="msg_pontuacao_cont_treinando">Continue Treinando!</string>
-
-    <string name="msg_botao_novamente">Novamente</string>
-    <string name="msg_botao_retornar">Retornar</string>
-
-    <string name="msg_segundos">segundos</string>
-    <string name="msg_novo_recorde">Novo Recorde</string>
-    <string name="msg_ponto">pontos</string>
+    <string name="msg_segundos">seconds</string>
+    <string name="msg_novo_recorde">New Record</string>
+    <string name="msg_ponto">points</string>
 
 </resources>
