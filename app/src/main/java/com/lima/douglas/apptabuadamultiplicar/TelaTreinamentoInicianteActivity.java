@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 import java.util.Random;
@@ -105,6 +107,13 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             alterarTamBotao();
         }
 
+        if (Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA) {
+            // inicializando appodeal para monetização.
+            Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL);
+            Appodeal.setTesting(Constantes.TESTEAPPODEAL);
+            // definindo cache para armazenar a propaganda.
+            Appodeal.cache(TelaTreinamentoInicianteActivity.this, Appodeal.INTERSTITIAL);
+        }
     }
 
     // retornando tamanho da tela.
@@ -246,7 +255,7 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                for (contador = 0; contador != 120 && !sairPlacar && !sairThread; contador++) {
+                for (contador = 0; contador != 200 && !sairPlacar && !sairThread; contador++) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -349,6 +358,14 @@ public class TelaTreinamentoInicianteActivity extends AppCompatActivity {
         builder.setView(dialogView);
         alertDialog = builder.create();
         alertDialog.show();
+
+        // mostrando propaganda se ele já estiver carregada
+        if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
+            Constantes.PROPAGANDA++;
+        }
+
+
     }
 
 

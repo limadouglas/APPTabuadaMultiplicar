@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.appodeal.ads.Appodeal;
+import com.appodeal.ads.BannerView;
 import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 
 
@@ -18,6 +19,10 @@ public class PrincipalActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.principal_activity);
+
+
+        // desabilitando cache automatico.
+        Appodeal.setAutoCache(Appodeal.INTERSTITIAL, false);
 
         // inicializando appodeal para monetização.
         Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.BANNER | Appodeal.MREC | Appodeal.NATIVE);

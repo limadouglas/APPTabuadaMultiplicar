@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
-import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
 
@@ -107,23 +106,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             alterarTamBotao();
         }
 
-
-        // inicializando appodeal para monetização.
-        Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
-        Appodeal.setTesting(Constantes.TESTEAPPODEAL);
-
-
-        // controle para aparecer menos propaganda, dependendo da tela vai aparecer uma propaganda.
-        if(Constantes.PROPAGANDA && !tipo.equals("tabuada")) {
-
-            // fechando propaganda de banner inferior.
-            Appodeal.hide(this, Appodeal.BANNER_BOTTOM);
-
-            // mostrando a propaganda.
-            Appodeal.show(this, Appodeal.INTERSTITIAL);
-            Constantes.PROPAGANDA = false;
-        }
-
+        Appodeal.hide(this, Appodeal.BANNER);
     }
 
 

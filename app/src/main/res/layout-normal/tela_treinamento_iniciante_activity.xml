@@ -6,7 +6,7 @@
     android:background="@color/corBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_treinamento"></include>
+    <include layout="@layout/toolbar_treinamento" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -82,6 +82,6 @@
 
         </TableLayout>
 
-
     </LinearLayout>
+
 </LinearLayout>

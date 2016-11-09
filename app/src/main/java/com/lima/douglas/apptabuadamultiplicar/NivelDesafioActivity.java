@@ -9,12 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.appodeal.ads.Appodeal;
-import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 
 
 public class NivelDesafioActivity extends AppCompatActivity {
     ActionBar actionBar;
     Intent i;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,28 +27,25 @@ public class NivelDesafioActivity extends AppCompatActivity {
         setContentView(R.layout.nivel_desafio_activity);
     }
 
-
-
-    public  void facil(View view) {
+    public void facil(View view) {
         i = new Intent(this, DesafioFacilActivity.class);
         startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
-    public  void medio(View view) {
+    public void medio(View view) {
         i = new Intent(this, DesafioMedioActivity.class);
         startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
     }
 
-    public  void dificil(View view) {
+    public void dificil(View view) {
         i = new Intent(this, DesafioDificilActivity.class);
         startActivityForResult(i, 0);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
-
 
 
     @Override
@@ -63,24 +60,6 @@ public class NivelDesafioActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // controle para aparecer menos propaganda, dependendo da tela vai aparecer uma propaganda.
-        if(Constantes.PROPAGANDA) {
-
-            // inicializando appodeal para monetização.
-            Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL | Appodeal.MREC);
-            Appodeal.setTesting(Constantes.TESTEAPPODEAL);
-
-            // mostrando a propaganda.
-            Appodeal.show(this, Appodeal.INTERSTITIAL);
-            Constantes.PROPAGANDA = false;
-        }
-
-    }
-
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
@@ -92,5 +71,4 @@ public class NivelDesafioActivity extends AppCompatActivity {
         super.onResume();
         Appodeal.onResume(this, Appodeal.BANNER);
     }
-
 }

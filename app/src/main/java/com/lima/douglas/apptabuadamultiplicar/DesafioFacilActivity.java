@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 import com.lima.douglas.apptabuadamultiplicar.util.RecordesEstrutura;
 
 import java.util.ArrayList;
@@ -94,6 +96,15 @@ public class DesafioFacilActivity extends AppCompatActivity {
         // solucionando problema da tela de 3.2 (normal).
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
+        }
+
+        // propaganda.
+        if (Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA) {
+            // inicializando appodeal para monetização.
+            Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL);
+            Appodeal.setTesting(Constantes.TESTEAPPODEAL);
+            // definindo cache para armazenar a propaganda.
+            Appodeal.cache(DesafioFacilActivity.this, Appodeal.INTERSTITIAL);
         }
     }
 
@@ -380,6 +391,14 @@ public class DesafioFacilActivity extends AppCompatActivity {
         builder.setView(view);
         dialog = builder.create();
         dialog.show();
+
+
+        // mostrando propaganda se ele já estiver carregada
+        if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
+            Constantes.PROPAGANDA++;
+        }
+
     }
 
 

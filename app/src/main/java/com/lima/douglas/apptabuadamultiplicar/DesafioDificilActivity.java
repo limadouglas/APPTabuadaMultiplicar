@@ -117,6 +117,14 @@ public class DesafioDificilActivity extends AppCompatActivity {
             alterarTamBotao();
         }
 
+        if (Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA) {
+            // inicializando appodeal para monetização.
+            Appodeal.initialize(this, Constantes.APP_KEY, Appodeal.INTERSTITIAL);
+            Appodeal.setTesting(Constantes.TESTEAPPODEAL);
+            // definindo cache para armazenar a propaganda.
+            Appodeal.cache(DesafioDificilActivity.this, Appodeal.INTERSTITIAL);
+        }
+
     }
 
 
@@ -423,6 +431,13 @@ public class DesafioDificilActivity extends AppCompatActivity {
         builder.setView(view);
         dialog = builder.create();
         dialog.show();
+
+        // mostrando propaganda se ele já estiver carregada
+        if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
+            Appodeal.show(this, Appodeal.INTERSTITIAL);
+            Constantes.PROPAGANDA++;
+        }
+
     }
 
     public void retornarMenu() {
