@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:padding="30dp"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,15 +29,16 @@
                 android:gravity="right"
                 android:text="2"
                 android:textColor="#fff"
-                android:textSize="90sp" />
+                android:textSize="100sp" />
 
             <TextView
+                android:id="@+id/txtX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="  X  "
                 android:textColor="#fff"
-                android:textSize="90sp" />
+                android:textSize="100sp" />
 
             <TextView
                 android:id="@+id/txtAlternar"
@@ -45,7 +47,7 @@
                 android:gravity="left"
                 android:text="10"
                 android:textColor="#fff"
-                android:textSize="90sp" />
+                android:textSize="100sp" />
         </LinearLayout>
 
         <TextView
@@ -55,11 +57,12 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:textColor="#fff"
-            android:textSize="70sp" />
+            android:textSize="80sp" />
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:stretchColumns="0,1,2">
@@ -69,7 +72,7 @@
                 <Button
                     android:id="@+id/btn7"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -81,7 +84,7 @@
                 <Button
                     android:id="@+id/btn8"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -93,7 +96,7 @@
                 <Button
                     android:id="@+id/btn9"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -108,7 +111,7 @@
                 <Button
                     android:id="@+id/btn4"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -120,7 +123,7 @@
                 <Button
                     android:id="@+id/btn5"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -132,7 +135,7 @@
                 <Button
                     android:id="@+id/btn6"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -147,7 +150,7 @@
                 <Button
                     android:id="@+id/btn1"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -159,7 +162,7 @@
                 <Button
                     android:id="@+id/btn2"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -171,7 +174,7 @@
                 <Button
                     android:id="@+id/btn3"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:background="@drawable/btn_evento_dificil"
                     android:onClick="addValor"
@@ -189,7 +192,7 @@
                 <Button
                     android:id="@+id/btn0"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:layout_weight="1"
                     android:background="@drawable/btn_evento_dificil"
@@ -202,7 +205,7 @@
                 <ImageButton
                     android:id="@+id/btnApagar"
                     android:layout_width="match_parent"
-                    android:layout_height="95dp"
+                    android:layout_height="100dp"
                     android:layout_margin="1dp"
                     android:layout_weight="2"
                     android:background="#d2cbdad9"

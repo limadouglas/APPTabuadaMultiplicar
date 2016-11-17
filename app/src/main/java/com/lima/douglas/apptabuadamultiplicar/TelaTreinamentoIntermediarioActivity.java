@@ -431,6 +431,12 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
                 finish();
                 startActivity(getIntent());
                 overridePendingTransition(R.anim.slide_in_right_y, R.anim.slide_out_left_y);
+
+                // mostrando propaganda se ele já estiver carregada
+                if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
+                    Appodeal.show(TelaTreinamentoIntermediarioActivity.this, Appodeal.INTERSTITIAL);
+                    Constantes.PROPAGANDA++;
+                }
             }
         });
 
@@ -439,6 +445,12 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
+
+                // mostrando propaganda se ele já estiver carregada
+                if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
+                    Appodeal.show(TelaTreinamentoIntermediarioActivity.this, Appodeal.INTERSTITIAL);
+                    Constantes.PROPAGANDA++;
+                }
             }
         });
 
@@ -454,12 +466,6 @@ public class TelaTreinamentoIntermediarioActivity extends AppCompatActivity {
         builder.setView(dialogView);
         alertDialog = builder.create();
         alertDialog.show();
-
-        // mostrando propaganda se ele já estiver carregada
-        if( Appodeal.isLoaded(Appodeal.INTERSTITIAL) && Constantes.PROPAGANDA < Constantes.QTD_PROPAGANDA){
-            Appodeal.show(this, Appodeal.INTERSTITIAL);
-            Constantes.PROPAGANDA++;
-        }
     }
 
 

@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:weightSum="1">
+        android:padding="8dp">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -31,6 +31,7 @@
                 android:textSize="40sp" />
 
             <TextView
+                android:id="@+id/txtX"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  X  "
@@ -65,7 +66,6 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
             android:gravity="bottom"
             android:orientation="horizontal"
             android:stretchColumns="0,1,2">
@@ -181,7 +181,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:stretchColumns="0,1">
+                android:stretchColumns="0, 1">
 
                 <Button
                     android:layout_width="match_parent"
