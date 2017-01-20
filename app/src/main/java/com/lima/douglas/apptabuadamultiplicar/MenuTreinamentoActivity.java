@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.appodeal.ads.Appodeal;
 import com.lima.douglas.apptabuadamultiplicar.repository.RecordesRepository;
 import com.lima.douglas.apptabuadamultiplicar.util.GeradorDeTabuada;
 
@@ -105,8 +104,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         if (getTamanhoHeight(1) == 480 && getTamanhoHeight(0) == 320) {
             alterarTamBotao();
         }
-
-        Appodeal.hide(this, Appodeal.BANNER);
     }
 
 
@@ -148,9 +145,7 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
             i = new Intent(this, TelaTreinamentoInicianteActivity.class);
             String valor = (String) view.getTag();
             i.putExtra("valor", valor);
-
             startActivityForResult(i, 0);
-
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         } else if (tipo.equals("intermediario")) {
             i = new Intent(this, TelaTreinamentoIntermediarioActivity.class);
@@ -176,8 +171,9 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
     // este metodo nativo do android será chamado quando voltar de uma activity chamada pelo metodo startActivityForResult().
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
         setIcon();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -416,5 +412,6 @@ public class MenuTreinamentoActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right2, R.anim.slide_out_left2);
         super.onBackPressed();
     }
+
 
 }

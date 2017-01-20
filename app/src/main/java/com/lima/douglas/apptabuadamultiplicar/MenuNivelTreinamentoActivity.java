@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.appodeal.ads.Appodeal;
+import com.lima.douglas.apptabuadamultiplicar.util.Constantes;
 
 
 public class MenuNivelTreinamentoActivity extends AppCompatActivity {
